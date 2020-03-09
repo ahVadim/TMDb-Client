@@ -7,6 +7,10 @@
         <item name="colorAccent">@color/orange</item>
     </style>
 
+    <style name="AppTheme.Launcher">
+        <item name="android:windowBackground">@color/bg_black</item>
+    </style>
+
     <style name="Text" parent="TextAppearance.AppCompat"/>
 
     <style name="Text.H1">

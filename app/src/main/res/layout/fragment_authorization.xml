@@ -14,7 +14,7 @@
         style="@style/Text.H1"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="92dp"
+        android:layout_marginTop="@dimen/auth_title_top_margin"
         android:text="@string/welcome"
         android:textColor="@color/light"
         app:layout_constraintEnd_toEndOf="parent"
@@ -96,6 +96,8 @@
         android:textColor="@color/auth_button_text"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"/>
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/auth_error_text"
+        app:layout_constraintVertical_bias="1.0"/>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

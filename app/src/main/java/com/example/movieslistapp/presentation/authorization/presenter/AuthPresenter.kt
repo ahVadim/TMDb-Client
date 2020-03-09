@@ -39,6 +39,7 @@ class AuthPresenter @Inject constructor(
             .subscribe({ isSuccess ->
                            if (isSuccess) {
                                viewState.showSuccessAuthorizationMessage()
+                               viewState.hideError()
                            } else {
                                viewState.setLoginButtonEnable(isEnable = false)
                                viewState.showIncorrectDataError()

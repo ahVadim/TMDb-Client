@@ -79,6 +79,11 @@ class AuthFragment : MvpAppCompatFragment(), AuthView {
         binding = null
     }
 
+    override fun onDestroy() {
+        super.onDestroy()
+        ComponentManager.removeAuthComponent()
+    }
+
     override fun setLoginButtonEnable(isEnable: Boolean) {
         binding?.authLoginButton?.isEnabled = isEnable
     }

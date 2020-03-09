@@ -1,6 +1,5 @@
 package com.example.movieslistapp.presentation.authorization.presenter
 
-import android.util.Log
 import com.example.movieslistapp.domain.authorization.AuthInteractor
 import com.example.movieslistapp.presentation.authorization.view.AuthView
 import io.reactivex.android.schedulers.AndroidSchedulers

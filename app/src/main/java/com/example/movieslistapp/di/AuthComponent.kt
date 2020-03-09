@@ -2,7 +2,6 @@ package com.example.movieslistapp.di
 
 import com.example.movieslistapp.data.AuthRepository
 import com.example.movieslistapp.data.AuthRepositoryMockImpl
-import com.example.movieslistapp.presentation.authorization.presenter.AuthPresenter
 import com.example.movieslistapp.presentation.authorization.view.AuthFragment
 import dagger.Binds
 import dagger.Module

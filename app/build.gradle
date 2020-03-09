@@ -11,6 +11,15 @@ android {
         enabled = true
     }
 
+    compileOptions {
+        sourceCompatibility JavaVersion.VERSION_1_8
+        targetCompatibility JavaVersion.VERSION_1_8
+    }
+
+    kotlinOptions {
+        jvmTarget = "1.8"
+    }
+
     defaultConfig {
         applicationId "com.example.movieslistapp"
         minSdkVersion 21
@@ -44,4 +53,9 @@ dependencies {
 
     implementation 'com.google.dagger:dagger:2.26'
     kapt 'com.google.dagger:dagger-compiler:2.26'
+
+    implementation "com.github.moxy-community:moxy:2.1.1"
+    kapt "com.github.moxy-community:moxy-compiler:2.1.1"
+    implementation "com.github.moxy-community:moxy-androidx:2.1.1"
+    implementation "com.github.moxy-community:moxy-ktx:2.1.1"
 }

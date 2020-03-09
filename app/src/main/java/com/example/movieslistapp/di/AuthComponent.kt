@@ -1,7 +1,6 @@
 package com.example.movieslistapp.di
 
 import com.example.movieslistapp.presentation.authorization.presenter.AuthPresenter
-import com.example.movieslistapp.presentation.authorization.presenter.AuthPresenterImpl
 import com.example.movieslistapp.presentation.authorization.view.AuthFragment
 import dagger.Binds
 import dagger.Module
@@ -17,9 +16,6 @@ interface AuthComponent {
 
 @Module
 abstract class AuthModule {
-
-    @Binds
-    abstract fun bindAuthPresenter(presenter: AuthPresenterImpl): AuthPresenter
 }
 
 @Scope

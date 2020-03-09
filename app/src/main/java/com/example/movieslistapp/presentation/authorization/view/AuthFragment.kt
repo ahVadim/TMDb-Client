@@ -4,12 +4,13 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
+import androidx.core.view.isVisible
 import androidx.core.widget.doAfterTextChanged
-import androidx.fragment.app.Fragment
+import com.example.movieslistapp.R
 import com.example.movieslistapp.databinding.FragmentAuthorizationBinding
 import com.example.movieslistapp.di.ComponentManager
 import com.example.movieslistapp.presentation.authorization.presenter.AuthPresenter
-import com.example.movieslistapp.util.showIfNotBlank
 import moxy.MvpAppCompatFragment
 import moxy.ktx.moxyPresenter
 import javax.inject.Inject
@@ -23,10 +24,21 @@ class AuthFragment : MvpAppCompatFragment(), AuthView {
 
     @Inject
     lateinit var presenterProvider: Provider<AuthPresenter>
-
     private val presenter by moxyPresenter { presenterProvider.get() }
 
     private var binding: FragmentAuthorizationBinding? = null
+
+    private val tryLaterText by lazy {
+        requireContext().getString(R.string.error_try_later)
+    }
+
+    private val incorrectDataText by lazy {
+        requireContext().getString(R.string.error_incorrect_auth_data)
+    }
+
+    private val successAuthorizationText by lazy {
+        requireContext().getString(R.string.success_authorization)
+    }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         ComponentManager.getAuthComponent().inject(this)
@@ -56,6 +68,10 @@ class AuthFragment : MvpAppCompatFragment(), AuthView {
                 password = binding?.authPasswordEditText?.text?.toString()
             )
         }
+
+        binding?.authLoginButton?.setOnClickListener {
+            presenter.onLoginButtonClick()
+        }
     }
 
     override fun onDestroyView() {
@@ -67,7 +83,21 @@ class AuthFragment : MvpAppCompatFragment(), AuthView {
         binding?.authLoginButton?.isEnabled = isEnable
     }
 
-    override fun showError(error: String?) {
-        binding?.authErrorText?.showIfNotBlank(error)
+    override fun showTryLaterError() {
+        binding?.authErrorText?.text = tryLaterText
+        binding?.authErrorText?.isVisible = true
+    }
+
+    override fun showIncorrectDataError() {
+        binding?.authErrorText?.text = incorrectDataText
+        binding?.authErrorText?.isVisible = true
+    }
+
+    override fun hideError() {
+        binding?.authErrorText?.isVisible = false
+    }
+
+    override fun showSuccessAuthorizationMessage() {
+        Toast.makeText(context, successAuthorizationText, Toast.LENGTH_LONG).show()
     }
 }

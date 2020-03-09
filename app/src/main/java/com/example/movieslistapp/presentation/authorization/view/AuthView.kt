@@ -2,6 +2,7 @@ package com.example.movieslistapp.presentation.authorization.view
 
 import moxy.MvpView
 import moxy.viewstate.strategy.alias.AddToEndSingle
+import moxy.viewstate.strategy.alias.OneExecution
 
 interface AuthView : MvpView {
 
@@ -9,5 +10,14 @@ interface AuthView : MvpView {
     fun setLoginButtonEnable(isEnable: Boolean)
 
     @AddToEndSingle
-    fun showError(error: String?)
+    fun showTryLaterError()
+
+    @AddToEndSingle
+    fun showIncorrectDataError()
+
+    @AddToEndSingle
+    fun hideError()
+
+    @OneExecution
+    fun showSuccessAuthorizationMessage()
 }

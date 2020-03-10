@@ -11,6 +11,7 @@ import com.example.movieslistapp.R
 import com.example.movieslistapp.databinding.FragmentAuthorizationBinding
 import com.example.movieslistapp.di.ComponentManager
 import com.example.movieslistapp.presentation.authorization.presenter.AuthPresenter
+import com.example.movieslistapp.util.ScreenUtils
 import moxy.MvpAppCompatFragment
 import moxy.ktx.moxyPresenter
 import javax.inject.Inject
@@ -40,6 +41,14 @@ class AuthFragment : MvpAppCompatFragment(), AuthView {
         requireContext().getString(R.string.success_authorization)
     }
 
+    private val bigTopOffset by lazy {
+        requireContext().resources.getDimensionPixelSize(R.dimen.auth_title_top_margin)
+    }
+
+    private val smallTopOffset by lazy {
+        requireContext().resources.getDimensionPixelSize(R.dimen.margin_24)
+    }
+
     override fun onCreate(savedInstanceState: Bundle?) {
         ComponentManager.getAuthComponent().inject(this)
         super.onCreate(savedInstanceState)
@@ -56,6 +65,9 @@ class AuthFragment : MvpAppCompatFragment(), AuthView {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+
+        binding?.root?.let { changeTopMarginDependOnKeyboardShown(it) }
+
         binding?.authLoginEditText?.doAfterTextChanged {
             presenter.onUserDataChange(
                 login = binding?.authLoginEditText?.text?.toString(),
@@ -71,6 +83,20 @@ class AuthFragment : MvpAppCompatFragment(), AuthView {
 
         binding?.authLoginButton?.setOnClickListener {
             presenter.onLoginButtonClick()
+        }
+    }
+
+    private fun changeTopMarginDependOnKeyboardShown(root: View) {
+        root.viewTreeObserver.addOnGlobalLayoutListener {
+            val heightDiff = root.rootView.height - root.height
+            (binding?.authTitle?.layoutParams as? ViewGroup.MarginLayoutParams)?.let { newParams ->
+                newParams.topMargin = if (heightDiff > ScreenUtils.KEYBOARD_MIN_HEIGHT) {
+                    smallTopOffset
+                } else {
+                    bigTopOffset
+                }
+                binding?.authTitle?.layoutParams = newParams
+            }
         }
     }
 

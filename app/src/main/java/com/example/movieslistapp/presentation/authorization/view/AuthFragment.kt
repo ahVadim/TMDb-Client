@@ -32,19 +32,15 @@ class AuthFragment : MvpAppCompatFragment(), AuthView {
     private val tryLaterText by lazy {
         requireContext().getString(R.string.error_try_later)
     }
-
     private val incorrectDataText by lazy {
         requireContext().getString(R.string.error_incorrect_auth_data)
     }
-
     private val successAuthorizationText by lazy {
         requireContext().getString(R.string.success_authorization)
     }
-
     private val bigTopOffset by lazy {
         requireContext().resources.getDimensionPixelSize(R.dimen.auth_title_top_margin)
     }
-
     private val smallTopOffset by lazy {
         requireContext().resources.getDimensionPixelSize(R.dimen.margin_24)
     }

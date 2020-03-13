@@ -2,18 +2,15 @@ package com.example.movieslistapp.presentation.authorization.presenter
 
 import com.example.movieslistapp.domain.authorization.AuthInteractor
 import com.example.movieslistapp.exceptions.AuthException
+import com.example.movieslistapp.presentation.BasePresenter
 import com.example.movieslistapp.presentation.authorization.view.AuthView
 import io.reactivex.android.schedulers.AndroidSchedulers
-import io.reactivex.disposables.CompositeDisposable
 import io.reactivex.schedulers.Schedulers
-import moxy.MvpPresenter
 import javax.inject.Inject
 
 class AuthPresenter @Inject constructor(
     private val authInteractor: AuthInteractor
-) : MvpPresenter<AuthView>() {
-
-    private val compositeDisposable = CompositeDisposable()
+) : BasePresenter<AuthView>() {
 
     private var currentLogin: String = ""
     private var currentPassword: String = ""
@@ -53,9 +50,5 @@ class AuthPresenter @Inject constructor(
                            }
                        })
             .let(compositeDisposable::add)
-    }
-
-    override fun onDestroy() {
-        compositeDisposable.dispose()
     }
 }

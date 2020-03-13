@@ -1,6 +1,7 @@
 package com.example.movieslistapp.presentation.authorization.presenter
 
 import com.example.movieslistapp.domain.authorization.AuthInteractor
+import com.example.movieslistapp.exceptions.AuthException
 import com.example.movieslistapp.presentation.authorization.view.AuthView
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.disposables.CompositeDisposable
@@ -36,16 +37,20 @@ class AuthPresenter @Inject constructor(
         authInteractor.authorize(currentLogin, currentPassword)
             .subscribeOn(Schedulers.io())
             .observeOn(AndroidSchedulers.mainThread())
-            .subscribe({ isSuccess ->
-                           if (isSuccess) {
-                               viewState.showSuccessAuthorizationMessage()
-                               viewState.hideError()
-                           } else {
-                               viewState.setLoginButtonEnable(isEnable = false)
-                               viewState.showIncorrectDataError()
+            .subscribe({
+                           viewState.showSuccessAuthorizationMessage()
+                           viewState.hideError()
+
+                       }, { e ->
+                           when (e) {
+                               is AuthException -> {
+                                   viewState.setLoginButtonEnable(isEnable = false)
+                                   viewState.showIncorrectDataError()
+                               }
+                               else -> {
+                                   viewState.showTryLaterError()
+                               }
                            }
-                       }, {
-                           viewState.showTryLaterError()
                        })
             .let(compositeDisposable::add)
     }

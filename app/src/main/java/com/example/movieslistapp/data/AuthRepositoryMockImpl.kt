@@ -1,18 +1,24 @@
 package com.example.movieslistapp.data
 
 import com.example.movieslistapp.di.AuthScope
-import io.reactivex.Single
-import java.lang.Exception
+import com.example.movieslistapp.exceptions.AuthException
+import io.reactivex.Completable
 import javax.inject.Inject
 import kotlin.random.Random
 
 @AuthScope
 class AuthRepositoryMockImpl @Inject constructor(): AuthRepository{
-    override fun authorize(login: String, password: String): Single<Boolean> {
+
+    override fun authorize(login: String, password: String): Completable {
         return if (Random.nextBoolean()) {
-            Single.error(Exception("Network is Not Available"))
+            val exception = if (Random.nextBoolean()) {
+                AuthException()
+            } else {
+                Exception("Network is Not Available")
+            }
+            Completable.error(exception)
         } else {
-            Single.fromCallable { Random.nextBoolean() }
+            Completable.complete()
         }
     }
 }

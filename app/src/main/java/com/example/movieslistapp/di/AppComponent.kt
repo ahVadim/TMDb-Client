@@ -1,5 +1,6 @@
 package com.example.movieslistapp.di
 
+import com.example.movieslistapp.di.auth.AuthComponent
 import dagger.Component
 
 @Component

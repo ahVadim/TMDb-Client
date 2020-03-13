@@ -1,5 +1,7 @@
 package com.example.movieslistapp.di
 
+import com.example.movieslistapp.di.auth.AuthComponent
+
 object ComponentManager {
 
     private val componentMap = ComponentMap()

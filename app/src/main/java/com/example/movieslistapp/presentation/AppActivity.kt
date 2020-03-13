@@ -5,7 +5,7 @@ import androidx.appcompat.app.AppCompatActivity
 import com.example.movieslistapp.R
 import com.example.movieslistapp.presentation.authorization.view.AuthFragment
 
-class MainSingleActivity : AppCompatActivity() {
+class AppActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         setTheme(R.style.AppTheme)

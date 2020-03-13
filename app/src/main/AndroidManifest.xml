@@ -13,7 +13,7 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
         <activity
-            android:name=".presentation.MainSingleActivity"
+            android:name=".presentation.AppActivity"
             android:screenOrientation="portrait"
             android:theme="@style/AppTheme.Launcher"
             android:windowSoftInputMode="adjustResize"

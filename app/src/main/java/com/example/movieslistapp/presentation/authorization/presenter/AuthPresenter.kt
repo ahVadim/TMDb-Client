@@ -12,26 +12,17 @@ class AuthPresenter @Inject constructor(
     private val authInteractor: AuthInteractor
 ) : BasePresenter<AuthView>() {
 
-    private var currentLogin: String = ""
-    private var currentPassword: String = ""
-
     init {
         viewState.setLoginButtonEnable(isEnable = false)
     }
 
     fun onUserDataChange(login: String?, password: String?) {
-        if (login.isNullOrBlank() || password.isNullOrBlank()) {
-            viewState.setLoginButtonEnable(isEnable = false)
-        } else {
-            currentLogin = login
-            currentPassword = password
-            viewState.setLoginButtonEnable(isEnable = true)
-        }
+        viewState.setLoginButtonEnable(!login.isNullOrBlank() && !password.isNullOrBlank())
         viewState.hideError()
     }
 
-    fun onLoginButtonClick() {
-        authInteractor.authorize(currentLogin, currentPassword)
+    fun onLoginButtonClick(login: String, password: String) {
+        authInteractor.authorize(login, password)
             .subscribeOn(Schedulers.io())
             .observeOn(AndroidSchedulers.mainThread())
             .subscribe({

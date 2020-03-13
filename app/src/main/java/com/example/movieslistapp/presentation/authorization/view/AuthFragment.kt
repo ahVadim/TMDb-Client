@@ -78,7 +78,11 @@ class AuthFragment : MvpAppCompatFragment(), AuthView {
         }
 
         binding?.authLoginButton?.setOnClickListener {
-            presenter.onLoginButtonClick()
+            val login = binding?.authLoginEditText?.text?.toString()
+            val password = binding?.authPasswordEditText?.text?.toString()
+            if (login != null && password != null) {
+                presenter.onLoginButtonClick(login, password)
+            }
         }
     }
 

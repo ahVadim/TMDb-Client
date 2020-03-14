@@ -7,6 +7,6 @@ class MoviesListApp: Application() {
 
     override fun onCreate() {
         super.onCreate()
-        ComponentManager.getOrBuildAppComponent()
+        ComponentManager.initAppComponent()
     }
 }

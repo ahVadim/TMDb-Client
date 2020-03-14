@@ -7,15 +7,8 @@ object ComponentManager {
     private val componentMap = ComponentMap()
     lateinit var appComponent: AppComponent
 
-    fun getOrBuildAppComponent(): AppComponent {
-
-        if (this::appComponent.isInitialized) {
-            return appComponent
-        }
-
-        return DaggerAppComponent.factory().create().also {
-            appComponent = it
-        }
+    fun initAppComponent() {
+        appComponent = DaggerAppComponent.factory().create()
     }
 
     fun getAuthComponent(): AuthComponent {

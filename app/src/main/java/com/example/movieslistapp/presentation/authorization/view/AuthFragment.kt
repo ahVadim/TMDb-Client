@@ -7,11 +7,12 @@ import android.view.ViewGroup
 import android.widget.Toast
 import androidx.core.view.isVisible
 import androidx.core.widget.doAfterTextChanged
+import com.example.core.di.CoreComponentHolder
 import com.example.core.presentation.BaseFragment
 import com.example.core.util.ScreenUtils
 import com.example.movieslistapp.R
 import com.example.movieslistapp.databinding.FragmentAuthorizationBinding
-import com.example.movieslistapp.di.ComponentManager
+import com.example.movieslistapp.di.auth.DaggerAuthComponent
 import com.example.movieslistapp.presentation.authorization.presenter.AuthPresenter
 import moxy.ktx.moxyPresenter
 import javax.inject.Inject
@@ -46,7 +47,9 @@ class AuthFragment : BaseFragment(), AuthView {
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {
-        ComponentManager.getAuthComponent().inject(this)
+        DaggerAuthComponent.factory()
+            .create(CoreComponentHolder.coreComponent)
+            .inject(this)
         super.onCreate(savedInstanceState)
     }
 
@@ -103,11 +106,6 @@ class AuthFragment : BaseFragment(), AuthView {
     override fun onDestroyView() {
         super.onDestroyView()
         binding = null
-    }
-
-    override fun onDestroy() {
-        super.onDestroy()
-        ComponentManager.removeAuthComponent()
     }
 
     override fun setLoginButtonEnable(isEnable: Boolean) {

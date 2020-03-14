@@ -30,15 +30,6 @@ class AuthFragment : BaseFragment(), AuthView {
 
     private var binding: FragmentAuthorizationBinding? = null
 
-    private val tryLaterText by lazy {
-        getString(R.string.error_try_later)
-    }
-    private val incorrectDataText by lazy {
-        getString(R.string.error_incorrect_auth_data)
-    }
-    private val successAuthorizationText by lazy {
-        getString(R.string.success_authorization)
-    }
     private val bigTopOffset by lazy {
         resources.getDimensionPixelSize(R.dimen.auth_title_top_margin)
     }
@@ -113,12 +104,12 @@ class AuthFragment : BaseFragment(), AuthView {
     }
 
     override fun showTryLaterError() {
-        binding?.authErrorText?.text = tryLaterText
+        binding?.authErrorText?.setText(R.string.error_try_later)
         binding?.authErrorText?.isVisible = true
     }
 
     override fun showIncorrectDataError() {
-        binding?.authErrorText?.text = incorrectDataText
+        binding?.authErrorText?.setText(R.string.error_incorrect_auth_data)
         binding?.authErrorText?.isVisible = true
     }
 
@@ -127,6 +118,6 @@ class AuthFragment : BaseFragment(), AuthView {
     }
 
     override fun showSuccessAuthorizationMessage() {
-        Toast.makeText(context, successAuthorizationText, Toast.LENGTH_LONG).show()
+        Toast.makeText(context, R.string.success_authorization, Toast.LENGTH_LONG).show()
     }
 }

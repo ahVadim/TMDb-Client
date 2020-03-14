@@ -2,4 +2,4 @@ package com.example.core.presentation
 
 import moxy.MvpAppCompatFragment
 
-class BaseFragment : MvpAppCompatFragment()
+open class BaseFragment : MvpAppCompatFragment()

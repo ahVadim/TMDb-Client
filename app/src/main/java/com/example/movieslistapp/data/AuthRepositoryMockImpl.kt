@@ -1,7 +1,7 @@
 package com.example.movieslistapp.data
 
+import com.example.core.exceptions.AuthException
 import com.example.movieslistapp.di.auth.AuthScope
-import com.example.movieslistapp.exceptions.AuthException
 import io.reactivex.Completable
 import javax.inject.Inject
 import kotlin.random.Random

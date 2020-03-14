@@ -1,8 +1,8 @@
 package com.example.movieslistapp.presentation.authorization.presenter
 
+import com.example.core.exceptions.AuthException
 import com.example.core.presentation.BasePresenter
 import com.example.movieslistapp.domain.authorization.AuthInteractor
-import com.example.movieslistapp.exceptions.AuthException
 import com.example.movieslistapp.presentation.authorization.view.AuthView
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.schedulers.Schedulers

@@ -8,16 +8,16 @@ import android.widget.Toast
 import androidx.core.view.isVisible
 import androidx.core.widget.doAfterTextChanged
 import com.example.core.presentation.BaseFragment
+import com.example.core.util.ScreenUtils
 import com.example.movieslistapp.R
 import com.example.movieslistapp.databinding.FragmentAuthorizationBinding
 import com.example.movieslistapp.di.ComponentManager
 import com.example.movieslistapp.presentation.authorization.presenter.AuthPresenter
-import com.example.movieslistapp.util.ScreenUtils
 import moxy.ktx.moxyPresenter
 import javax.inject.Inject
 import javax.inject.Provider
 
-class AuthFragment : BaseFragment, AuthView {
+class AuthFragment : BaseFragment(), AuthView {
 
     companion object {
         fun newInstance() = AuthFragment()

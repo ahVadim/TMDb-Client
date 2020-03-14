@@ -1,4 +1,4 @@
-package com.example.movieslistapp.util
+package com.example.core.util
 
 import android.content.res.Resources
 

@@ -93,6 +93,7 @@
         android:layout_height="64dp"
         android:layout_marginBottom="@dimen/margin_12"
         android:text="@string/enter"
+        android:textAppearance="@style/Text.ButtonText"
         android:textColor="@color/auth_button_text"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"

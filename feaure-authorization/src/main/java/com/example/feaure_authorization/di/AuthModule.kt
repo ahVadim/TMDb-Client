@@ -1,7 +1,7 @@
-package com.example.movieslistapp.di.auth
+package com.example.feaure_authorization.di
 
-import com.example.movieslistapp.data.AuthRepository
-import com.example.movieslistapp.data.AuthRepositoryMockImpl
+import com.example.feaure_authorization.data.AuthRepository
+import com.example.feaure_authorization.data.AuthRepositoryMockImpl
 import dagger.Binds
 import dagger.Module
 

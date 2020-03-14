@@ -1,4 +1,4 @@
-package com.example.movieslistapp.presentation.authorization.view
+package com.example.feaure_authorization.presentation.view
 
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -10,10 +10,10 @@ import androidx.core.widget.doAfterTextChanged
 import com.example.core.di.CoreComponentHolder
 import com.example.core.presentation.BaseFragment
 import com.example.core.util.ScreenUtils
-import com.example.movieslistapp.R
-import com.example.movieslistapp.databinding.FragmentAuthorizationBinding
-import com.example.movieslistapp.di.auth.DaggerAuthComponent
-import com.example.movieslistapp.presentation.authorization.presenter.AuthPresenter
+import com.example.feaure_authorization.R
+import com.example.feaure_authorization.databinding.FragmentAuthorizationBinding
+import com.example.feaure_authorization.di.DaggerAuthComponent
+import com.example.feaure_authorization.presentation.presenter.AuthPresenter
 import moxy.ktx.moxyPresenter
 import javax.inject.Inject
 import javax.inject.Provider

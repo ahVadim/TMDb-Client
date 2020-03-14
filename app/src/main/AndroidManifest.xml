@@ -5,7 +5,7 @@
     package="com.example.movieslistapp">
 
     <application
-        android:name=".presentation.MoviesListApp"
+        android:name=".MoviesListApp"
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
@@ -13,7 +13,7 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
         <activity
-            android:name=".presentation.AppActivity"
+            android:name=".AppActivity"
             android:screenOrientation="portrait"
             android:theme="@style/AppTheme.Launcher"
             android:windowSoftInputMode="adjustResize"

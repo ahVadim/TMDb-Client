@@ -1,7 +1,7 @@
-package com.example.movieslistapp.di.auth
+package com.example.feaure_authorization.di
 
 import com.example.core.di.CoreComponent
-import com.example.movieslistapp.presentation.authorization.view.AuthFragment
+import com.example.feaure_authorization.presentation.view.AuthFragment
 import dagger.Component
 
 @Component(dependencies = [CoreComponent::class], modules = [AuthModule::class])

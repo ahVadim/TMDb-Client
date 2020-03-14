@@ -1,4 +1,4 @@
-package com.example.movieslistapp.data
+package com.example.feaure_authorization.data
 
 import io.reactivex.Completable
 

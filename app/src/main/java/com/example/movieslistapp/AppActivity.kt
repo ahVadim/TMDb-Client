@@ -1,10 +1,9 @@
-package com.example.movieslistapp.presentation
+package com.example.movieslistapp
 
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.commit
-import com.example.movieslistapp.R
-import com.example.movieslistapp.presentation.authorization.view.AuthFragment
+import com.example.feaure_authorization.presentation.view.AuthFragment
 
 class AppActivity : AppCompatActivity() {
 

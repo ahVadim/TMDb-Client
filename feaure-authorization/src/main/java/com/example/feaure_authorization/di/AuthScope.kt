@@ -1,4 +1,4 @@
-package com.example.movieslistapp.di.auth
+package com.example.feaure_authorization.di
 
 import javax.inject.Scope
 

@@ -1,4 +1,4 @@
-package com.example.movieslistapp.presentation
+package com.example.movieslistapp
 
 import android.app.Application
 import com.example.core.di.CoreComponentHolder

@@ -1,4 +1,4 @@
-package com.example.movieslistapp.presentation.authorization.view
+package com.example.feaure_authorization.presentation.view
 
 import moxy.MvpView
 import moxy.viewstate.strategy.alias.AddToEndSingle

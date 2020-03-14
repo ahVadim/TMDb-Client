@@ -1,7 +1,7 @@
-package com.example.movieslistapp.domain.authorization
+package com.example.feaure_authorization.domain
 
-import com.example.movieslistapp.data.AuthRepository
-import com.example.movieslistapp.di.auth.AuthScope
+import com.example.feaure_authorization.data.AuthRepository
+import com.example.feaure_authorization.di.AuthScope
 import io.reactivex.Completable
 import javax.inject.Inject
 

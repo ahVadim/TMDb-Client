@@ -54,13 +54,10 @@ dependencies {
     implementation 'com.google.dagger:dagger:2.26'
     kapt 'com.google.dagger:dagger-compiler:2.26'
 
-    implementation "com.github.moxy-community:moxy:2.1.1"
-    kapt "com.github.moxy-community:moxy-compiler:2.1.1"
-    implementation "com.github.moxy-community:moxy-androidx:2.1.1"
-    implementation "com.github.moxy-community:moxy-ktx:2.1.1"
-
-    implementation "io.reactivex.rxjava2:rxjava:2.2.9"
-    implementation 'io.reactivex.rxjava2:rxandroid:2.1.0'
+    implementation "com.github.moxy-community:moxy:$moxy_version"
+    kapt "com.github.moxy-community:moxy-compiler:$moxy_version"
+    implementation "com.github.moxy-community:moxy-androidx:$moxy_version"
+    implementation "com.github.moxy-community:moxy-ktx:$moxy_version"
 
     testImplementation 'junit:junit:4.12'
     androidTestImplementation 'androidx.test.ext:junit:1.1.1'

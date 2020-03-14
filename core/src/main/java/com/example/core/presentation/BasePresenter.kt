@@ -1,4 +1,4 @@
-package com.example.movieslistapp.presentation
+package com.example.core.presentation
 
 import io.reactivex.disposables.CompositeDisposable
 import moxy.MvpPresenter

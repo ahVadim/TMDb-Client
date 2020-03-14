@@ -30,13 +30,6 @@ class AuthFragment : BaseFragment(), AuthView {
 
     private var binding: FragmentAuthorizationBinding? = null
 
-    private val bigTopOffset by lazy {
-        resources.getDimensionPixelSize(R.dimen.auth_title_top_margin)
-    }
-    private val smallTopOffset by lazy {
-        resources.getDimensionPixelSize(R.dimen.margin_24)
-    }
-
     override fun onCreate(savedInstanceState: Bundle?) {
         DaggerAuthComponent.factory()
             .create(CoreComponentHolder.coreComponent)
@@ -85,9 +78,9 @@ class AuthFragment : BaseFragment(), AuthView {
             val heightDiff = root.rootView.height - root.height
             (binding?.authTitle?.layoutParams as? ViewGroup.MarginLayoutParams)?.let { newParams ->
                 newParams.topMargin = if (heightDiff > ScreenUtils.KEYBOARD_MIN_HEIGHT) {
-                    smallTopOffset
+                    resources.getDimensionPixelSize(R.dimen.margin_24)
                 } else {
-                    bigTopOffset
+                    resources.getDimensionPixelSize(R.dimen.auth_title_top_margin)
                 }
                 binding?.authTitle?.layoutParams = newParams
             }

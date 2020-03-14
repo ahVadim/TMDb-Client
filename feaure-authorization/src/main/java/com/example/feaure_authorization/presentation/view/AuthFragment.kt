@@ -9,7 +9,6 @@ import androidx.core.view.isVisible
 import androidx.core.widget.doAfterTextChanged
 import com.example.core.di.CoreComponentHolder
 import com.example.core.presentation.BaseFragment
-import com.example.core.util.ScreenUtils
 import com.example.feaure_authorization.R
 import com.example.feaure_authorization.databinding.FragmentAuthorizationBinding
 import com.example.feaure_authorization.di.DaggerAuthComponent
@@ -50,8 +49,6 @@ class AuthFragment : BaseFragment(), AuthView {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        changeTopMarginDependOnKeyboardShown(binding.root)
-
         binding.authLoginEditText.doAfterTextChanged {
             presenter.onUserDataChange(
                 login = binding.authLoginEditText.text?.toString(),
@@ -70,20 +67,6 @@ class AuthFragment : BaseFragment(), AuthView {
             val password = binding.authPasswordEditText.text?.toString()
             if (login != null && password != null) {
                 presenter.onLoginButtonClick(login, password)
-            }
-        }
-    }
-
-    private fun changeTopMarginDependOnKeyboardShown(root: View) {
-        root.viewTreeObserver.addOnGlobalLayoutListener {
-            val heightDiff = root.rootView.height - root.height
-            (binding.authTitle.layoutParams as? ViewGroup.MarginLayoutParams)?.let { newParams ->
-                newParams.topMargin = if (heightDiff > ScreenUtils.KEYBOARD_MIN_HEIGHT) {
-                    resources.getDimensionPixelSize(R.dimen.margin_24)
-                } else {
-                    resources.getDimensionPixelSize(R.dimen.auth_title_top_margin)
-                }
-                binding.authTitle.layoutParams = newParams
             }
         }
     }

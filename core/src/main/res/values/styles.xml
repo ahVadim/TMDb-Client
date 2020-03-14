@@ -73,4 +73,9 @@
         <item name="android:textColorHint">@color/gray</item>
         <item name="hintTextColor">@color/gray</item>
     </style>
+
+    <style name="AuthButtonStyle" parent="Widget.MaterialComponents.Button">
+        <item name="backgroundTint">@color/auth_button_bg_color</item>
+        <item name="rippleColor">@color/light</item>
+    </style>
 </resources>

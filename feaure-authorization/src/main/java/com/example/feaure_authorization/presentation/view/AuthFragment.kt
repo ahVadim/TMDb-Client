@@ -28,7 +28,8 @@ class AuthFragment : BaseFragment(), AuthView {
     lateinit var presenterProvider: Provider<AuthPresenter>
     private val presenter by moxyPresenter { presenterProvider.get() }
 
-    private var binding: FragmentAuthorizationBinding? = null
+    private var _binding: FragmentAuthorizationBinding? = null
+    private val binding get() = _binding!!
 
     override fun onCreate(savedInstanceState: Bundle?) {
         DaggerAuthComponent.factory()
@@ -42,31 +43,31 @@ class AuthFragment : BaseFragment(), AuthView {
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        binding = FragmentAuthorizationBinding.inflate(inflater, container, false)
-        return binding?.root
+        _binding = FragmentAuthorizationBinding.inflate(inflater, container, false)
+        return binding.root
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        binding?.root?.let { changeTopMarginDependOnKeyboardShown(it) }
+        changeTopMarginDependOnKeyboardShown(binding.root)
 
-        binding?.authLoginEditText?.doAfterTextChanged {
+        binding.authLoginEditText.doAfterTextChanged {
             presenter.onUserDataChange(
-                login = binding?.authLoginEditText?.text?.toString(),
-                password = binding?.authPasswordEditText?.text?.toString()
+                login = binding.authLoginEditText.text?.toString(),
+                password = binding.authPasswordEditText.text?.toString()
             )
         }
-        binding?.authPasswordEditText?.doAfterTextChanged {
+        binding.authPasswordEditText.doAfterTextChanged {
             presenter.onUserDataChange(
-                login = binding?.authLoginEditText?.text?.toString(),
-                password = binding?.authPasswordEditText?.text?.toString()
+                login = binding.authLoginEditText.text?.toString(),
+                password = binding.authPasswordEditText.text?.toString()
             )
         }
 
-        binding?.authLoginButton?.setOnClickListener {
-            val login = binding?.authLoginEditText?.text?.toString()
-            val password = binding?.authPasswordEditText?.text?.toString()
+        binding.authLoginButton.setOnClickListener {
+            val login = binding.authLoginEditText.text?.toString()
+            val password = binding.authPasswordEditText.text?.toString()
             if (login != null && password != null) {
                 presenter.onLoginButtonClick(login, password)
             }
@@ -76,38 +77,38 @@ class AuthFragment : BaseFragment(), AuthView {
     private fun changeTopMarginDependOnKeyboardShown(root: View) {
         root.viewTreeObserver.addOnGlobalLayoutListener {
             val heightDiff = root.rootView.height - root.height
-            (binding?.authTitle?.layoutParams as? ViewGroup.MarginLayoutParams)?.let { newParams ->
+            (binding.authTitle.layoutParams as? ViewGroup.MarginLayoutParams)?.let { newParams ->
                 newParams.topMargin = if (heightDiff > ScreenUtils.KEYBOARD_MIN_HEIGHT) {
                     resources.getDimensionPixelSize(R.dimen.margin_24)
                 } else {
                     resources.getDimensionPixelSize(R.dimen.auth_title_top_margin)
                 }
-                binding?.authTitle?.layoutParams = newParams
+                binding.authTitle.layoutParams = newParams
             }
         }
     }
 
     override fun onDestroyView() {
         super.onDestroyView()
-        binding = null
+        _binding = null
     }
 
     override fun setLoginButtonEnable(isEnable: Boolean) {
-        binding?.authLoginButton?.isEnabled = isEnable
+        binding.authLoginButton.isEnabled = isEnable
     }
 
     override fun showTryLaterError() {
-        binding?.authErrorText?.setText(R.string.error_try_later)
-        binding?.authErrorText?.isVisible = true
+        binding.authErrorText.setText(R.string.error_try_later)
+        binding.authErrorText.isVisible = true
     }
 
     override fun showIncorrectDataError() {
-        binding?.authErrorText?.setText(R.string.error_incorrect_auth_data)
-        binding?.authErrorText?.isVisible = true
+        binding.authErrorText.setText(R.string.error_incorrect_auth_data)
+        binding.authErrorText.isVisible = true
     }
 
     override fun hideError() {
-        binding?.authErrorText?.isVisible = false
+        binding.authErrorText.isVisible = false
     }
 
     override fun showSuccessAuthorizationMessage() {

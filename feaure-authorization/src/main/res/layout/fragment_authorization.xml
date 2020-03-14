@@ -54,6 +54,10 @@
                 style="@style/Text.Content1"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:imeOptions="actionNext"
+                android:inputType="text"
+                android:maxLines="1"
+                android:nextFocusForward="@id/auth_password_edit_text"
                 android:textColor="@color/light"/>
         </com.google.android.material.textfield.TextInputLayout>
 
@@ -75,7 +79,10 @@
                 style="@style/Text.Content1"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:imeOptions="actionNext"
                 android:inputType="textPassword"
+                android:maxLines="1"
+                android:nextFocusForward="@id/auth_login_button"
                 android:textColor="@color/light"/>
         </com.google.android.material.textfield.TextInputLayout>
 

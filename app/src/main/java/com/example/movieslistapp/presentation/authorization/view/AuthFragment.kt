@@ -7,17 +7,17 @@ import android.view.ViewGroup
 import android.widget.Toast
 import androidx.core.view.isVisible
 import androidx.core.widget.doAfterTextChanged
+import com.example.core.presentation.BaseFragment
 import com.example.movieslistapp.R
 import com.example.movieslistapp.databinding.FragmentAuthorizationBinding
 import com.example.movieslistapp.di.ComponentManager
 import com.example.movieslistapp.presentation.authorization.presenter.AuthPresenter
 import com.example.movieslistapp.util.ScreenUtils
-import moxy.MvpAppCompatFragment
 import moxy.ktx.moxyPresenter
 import javax.inject.Inject
 import javax.inject.Provider
 
-class AuthFragment : MvpAppCompatFragment(), AuthView {
+class AuthFragment : BaseFragment, AuthView {
 
     companion object {
         fun newInstance() = AuthFragment()

@@ -11,6 +11,18 @@ class AuthInteractor @Inject constructor(
 ) {
 
     fun authorize(login: String, password: String): Completable {
-        return authRepository.authorize(login = login, password = password)
+        return authRepository.getRequestToken()
+            .flatMap { requestToken ->
+                authRepository.getValidatedRequestToken(
+                    login = login,
+                    password = password,
+                    requestToken = requestToken
+
+                )
+            }
+            .flatMap { validatedRequestToken ->
+                authRepository.createSessionAndGetSessionId(validatedRequestToken)
+            }
+            .ignoreElement()
     }
 }

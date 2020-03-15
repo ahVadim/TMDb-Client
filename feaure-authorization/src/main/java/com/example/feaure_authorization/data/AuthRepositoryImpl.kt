@@ -1,9 +1,9 @@
 package com.example.feaure_authorization.data
 
-import android.util.Log
+import com.example.feaure_authorization.data.dto.CreateSessionRequestDto
+import com.example.feaure_authorization.data.dto.ValidateTokenRequestDto
 import com.example.feaure_authorization.di.AuthScope
 import com.example.feaure_authorization.network.AuthApi
-import io.reactivex.Completable
 import io.reactivex.Single
 import javax.inject.Inject
 
@@ -12,23 +12,28 @@ class AuthRepositoryImpl @Inject constructor(
     private val authApi: AuthApi
 ) : AuthRepository {
 
-    override fun authorize(login: String, password: String): Completable {
-        return getRequestToken().ignoreElement()
-    }
-
     override fun getRequestToken(): Single<String> {
         return authApi.getRequestToken()
-            .map {
-                Log.d("avd", it.toString())
-                it.request_token
-            }
+            .map { it.request_token }
     }
 
-    override fun createSessionAndGetSessionId(
+    override fun getValidatedRequestToken(
         login: String,
         password: String,
         requestToken: String
     ): Single<String> {
-        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+        return authApi.validateRequestTokenWithLogin(
+            ValidateTokenRequestDto(
+                username = login,
+                password = password,
+                request_token = requestToken
+            )
+        )
+            .map { it.request_token }
+    }
+
+    override fun createSessionAndGetSessionId(requestToken: String): Single<String> {
+        return authApi.createSession(CreateSessionRequestDto(requestToken))
+            .map { it.session_id }
     }
 }

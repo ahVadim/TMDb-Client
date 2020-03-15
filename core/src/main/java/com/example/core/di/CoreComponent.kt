@@ -4,8 +4,10 @@ import android.content.Context
 import dagger.BindsInstance
 import dagger.Component
 import retrofit2.Retrofit
+import javax.inject.Singleton
 
-@Component(modules = [NetworkModule::class])
+@Singleton
+@Component(modules = [NetworkModule::class, AppModule::class])
 interface CoreComponent {
 
     @Component.Factory
@@ -15,5 +17,6 @@ interface CoreComponent {
     }
 
     fun provideContext(): Context
+
     fun provideRetrofit(): Retrofit
 }

@@ -1,4 +1,4 @@
-apply plugin: 'com.android.application'
+apply plugin: 'com.android.library'
 apply plugin: 'kotlin-android'
 apply plugin: 'kotlin-android-extensions'
 apply plugin: 'kotlin-kapt'
@@ -21,7 +21,6 @@ android {
     }
 
     defaultConfig {
-        applicationId "com.example.movieslistapp"
         minSdkVersion 21
         targetSdkVersion 29
         versionCode 1
@@ -41,20 +40,11 @@ android {
 
 dependencies {
     implementation project(':core')
-    implementation project(':feaure-authorization')
-    implementation project(':feature-mainscreen')
 
     implementation fileTree(dir: 'libs', include: ['*.jar'])
-
-    implementation "com.google.dagger:dagger:$dagger_version"
-    kapt "com.google.dagger:dagger-compiler:$dagger_version"
-
-    implementation "com.github.moxy-community:moxy:$moxy_version"
-    kapt "com.github.moxy-community:moxy-compiler:$moxy_version"
-    implementation "com.github.moxy-community:moxy-androidx:$moxy_version"
-    implementation "com.github.moxy-community:moxy-ktx:$moxy_version"
-
-    implementation 'com.facebook.stetho:stetho:1.5.1'
+    implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlin_version"
+    implementation 'androidx.appcompat:appcompat:1.1.0'
+    implementation 'androidx.core:core-ktx:1.2.0'
 
     testImplementation 'junit:junit:4.12'
     androidTestImplementation 'androidx.test.ext:junit:1.1.1'

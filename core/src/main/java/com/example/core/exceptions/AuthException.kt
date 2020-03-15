@@ -1,3 +1,3 @@
 package com.example.core.exceptions
 
-class AuthException : Exception()
+class AuthException(message: String) : Exception(message)

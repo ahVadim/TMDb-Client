@@ -14,6 +14,7 @@ class AuthInteractor @Inject constructor(
 
     fun authorize(login: String, password: String): Completable {
         return sessionRepository.refreshSessionId(login, password)
+            .ignoreElement()
             .doOnComplete {
                 userPrefs.userLogin = login
                 userPrefs.userPassword = password

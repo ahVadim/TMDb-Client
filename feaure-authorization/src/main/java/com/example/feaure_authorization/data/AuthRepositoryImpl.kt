@@ -23,4 +23,12 @@ class AuthRepositoryImpl @Inject constructor(
                 it.request_token
             }
     }
+
+    override fun createSessionAndGetSessionId(
+        login: String,
+        password: String,
+        requestToken: String
+    ): Single<String> {
+        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+    }
 }

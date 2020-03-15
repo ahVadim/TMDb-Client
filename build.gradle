@@ -6,6 +6,8 @@ buildscript {
     ext.rxjava_version = '2.2.9'
     ext.rxandroid_version = '2.1.0'
     ext.dagger_version = '2.27'
+    ext.retrofit_version = '2.5.0'
+    ext.moshi_version = '1.9.2'
     repositories {
         google()
         jcenter()

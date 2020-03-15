@@ -1,4 +1,4 @@
-package com.example.feaure_authorization.network
+package com.example.core.network.refreshsession
 
 import com.example.core.data.session.dto.CreateSessionRequestDto
 import com.example.core.data.session.dto.CreateSessionResponseDto
@@ -9,7 +9,7 @@ import retrofit2.http.Body
 import retrofit2.http.GET
 import retrofit2.http.POST
 
-interface AuthApi {
+interface SessionApi {
 
     @GET("authentication/token/new")
     fun getRequestToken(): Single<RequestTokenResponseDto>

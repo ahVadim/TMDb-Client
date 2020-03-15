@@ -1,4 +1,4 @@
-package com.example.feaure_authorization.data.dto
+package com.example.core.data.session.dto
 
 import com.squareup.moshi.JsonClass
 

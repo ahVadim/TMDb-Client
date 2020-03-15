@@ -3,6 +3,8 @@ package com.example.core.di
 import android.net.ConnectivityManager
 import com.example.core.network.AuthInterceptor
 import com.example.core.network.NetworkErrorInterceptor
+import com.example.core.network.RefreshSessionAuthenticator
+import com.example.core.network.refreshsession.SessionApi
 import dagger.Module
 import dagger.Provides
 import okhttp3.OkHttpClient
@@ -17,13 +19,17 @@ class NetworkModule {
 
     @Provides
     @Singleton
-    fun provideOkhttpClient(connectivityManager: ConnectivityManager?): OkHttpClient {
+    fun provideOkhttpClient(
+        connectivityManager: ConnectivityManager?,
+        refreshSessionAuthenticator: RefreshSessionAuthenticator
+    ): OkHttpClient {
         return OkHttpClient.Builder()
             .addInterceptor(AuthInterceptor())
             .addInterceptor(HttpLoggingInterceptor().apply {
                 setLevel(HttpLoggingInterceptor.Level.BASIC)
             })
             .addInterceptor(NetworkErrorInterceptor(connectivityManager))
+            .authenticator(refreshSessionAuthenticator)
             .build()
     }
 
@@ -36,5 +42,11 @@ class NetworkModule {
             .addConverterFactory(MoshiConverterFactory.create())
             .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
             .build()
+    }
+
+    @Provides
+    @Singleton
+    fun provideSessionApi(retrofit: Retrofit): SessionApi {
+        return retrofit.create(SessionApi::class.java)
     }
 }

@@ -1,2 +1,4 @@
 rootProject.name='MoviesListApp'
 include ':app'
+include ':core'
+include ':feaure-authorization'

@@ -1,0 +1,11 @@
+<resources>
+    <string name="app_name">MoviesListApp</string>
+    <string name="welcome">Добро пожаловать!</string>
+    <string name="authorization_subtitle">Укажите логин и пароль, которые вы использовали для входа</string>
+    <string name="login">Логин</string>
+    <string name="password">Пароль</string>
+    <string name="error_try_later">Что-то пошло не так,\nпопробуйте войти позже</string>
+    <string name="error_incorrect_auth_data">Неверный логин или пароль</string>
+    <string name="success_authorization">Авторизация упешно пройдена</string>
+    <string name="enter">Войти</string>
+</resources>

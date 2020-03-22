@@ -13,7 +13,7 @@ import org.spekframework.spek2.style.gherkin.Feature
 object AuthInteractorTest : Spek(
     {
         val mockSessionId = "123"
-        val testLogin = "testlogin"
+        val testLogin = "testLogin"
         val testPassword = "testPassword"
         val repositoryMock: RefreshSessionRepository = mock {
             on { refreshSessionId(eq(testLogin), eq(testPassword)) } doReturn Single.just(

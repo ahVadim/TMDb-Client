@@ -3,6 +3,8 @@ apply plugin: 'kotlin-android'
 apply plugin: 'kotlin-android-extensions'
 apply plugin: 'kotlin-kapt'
 
+apply from: rootProject.file('dependencies.gradle')
+
 android {
     compileSdkVersion 29
     buildToolsVersion "29.0.2"
@@ -40,21 +42,27 @@ android {
 }
 
 dependencies {
-    implementation project(':core')
-    implementation project(':feaure-authorization')
-    implementation project(':feature-mainscreen')
+    
+    implementation(
+            fileTree(dir: 'libs', include: ['*.jar']),
 
-    implementation fileTree(dir: 'libs', include: ['*.jar'])
+            project(':core'),
+            project(':feaure-authorization'),
+            project(':feature-mainscreen'),
 
-    implementation "com.google.dagger:dagger:$dagger_version"
-    kapt "com.google.dagger:dagger-compiler:$dagger_version"
+            deps.dagger.dagger,
 
-    implementation "com.github.moxy-community:moxy:$moxy_version"
-    kapt "com.github.moxy-community:moxy-compiler:$moxy_version"
-    implementation "com.github.moxy-community:moxy-androidx:$moxy_version"
-    implementation "com.github.moxy-community:moxy-ktx:$moxy_version"
+            deps.moxy.moxy,
+            deps.moxy.androidx,
+            deps.moxy.ktx,
 
-    implementation 'com.facebook.stetho:stetho:1.5.1'
+            deps.stetho
+    )
+
+    kapt(
+            deps.dagger.processor,
+            deps.moxy.processor
+    )
 
     testImplementation 'junit:junit:4.12'
     androidTestImplementation 'androidx.test.ext:junit:1.1.1'

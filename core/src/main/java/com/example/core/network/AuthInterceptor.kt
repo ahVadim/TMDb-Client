@@ -7,7 +7,7 @@ import okhttp3.Response
 class AuthInterceptor : Interceptor {
 
     companion object {
-        private const val API_TOKEN_QUERY_FIELD_NAME = "api_key"
+        const val API_TOKEN_QUERY_FIELD_NAME = "api_key"
     }
 
     override fun intercept(chain: Interceptor.Chain): Response {

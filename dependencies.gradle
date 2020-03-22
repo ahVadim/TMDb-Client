@@ -65,6 +65,7 @@ def androidx_junit_version = '1.1.1'
 def junit_version = '4.12'
 def assertJ_version = '3.15.0'
 def spek_version = '2.0.10'
+def mockwebserver_version = '4.4.0'
 
 ext {
     testDependencies = [
@@ -72,7 +73,8 @@ ext {
             assertJ = "org.assertj:assertj-core:$assertJ_version",
             spek = "org.spekframework.spek2:spek-dsl-jvm:$spek_version",
             spek_runner = "org.spekframework.spek2:spek-runner-junit5:$spek_version",
-            kotlin_reflect = "org.jetbrains.kotlin:kotlin-reflect:$versions.kotlin"
+            kotlin_reflect = "org.jetbrains.kotlin:kotlin-reflect:$versions.kotlin",
+            mockwebserver = "com.squareup.okhttp3:mockwebserver:$mockwebserver_version"
 
     ]
 

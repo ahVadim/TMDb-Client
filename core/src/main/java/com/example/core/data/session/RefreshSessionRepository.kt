@@ -16,23 +16,23 @@ class RefreshSessionRepository @Inject constructor(
 
     fun refreshSessionId(login: String, password: String): Single<String> {
         return sessionApi.getRequestToken()
-            .map { it.request_token }
+            .map { it.requestToken }
             .flatMap { requestToken ->
                 sessionApi.validateRequestTokenWithLogin(
                     ValidateTokenRequestDto(
                         username = login,
                         password = password,
-                        request_token = requestToken
+                        requestToken = requestToken
                     )
                 )
             }
-            .map { it.request_token }
+            .map { it.requestToken }
             .flatMap { validatedRequestToken ->
                 sessionApi.createSession(
                     CreateSessionRequestDto(validatedRequestToken)
                 )
             }
-            .map { it.session_id }
+            .map { it.sessionId }
             .doOnSuccess { sessionId ->
                 userPrefs.sessionId = sessionId
             }

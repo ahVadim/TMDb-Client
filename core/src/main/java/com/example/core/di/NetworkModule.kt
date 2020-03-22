@@ -1,6 +1,7 @@
 package com.example.core.di
 
 import android.net.ConnectivityManager
+import com.example.core.BuildConfig
 import com.example.core.network.AuthInterceptor
 import com.example.core.network.NetworkErrorInterceptor
 import com.example.core.network.RefreshSessionAuthenticator
@@ -37,7 +38,7 @@ class NetworkModule {
     @Singleton
     fun provideRetrofit(client: OkHttpClient): Retrofit {
         return Retrofit.Builder()
-            .baseUrl("https://api.themoviedb.org/3/")
+            .baseUrl(BuildConfig.BASE_URL)
             .client(client)
             .addConverterFactory(MoshiConverterFactory.create())
             .addCallAdapterFactory(RxJava2CallAdapterFactory.create())

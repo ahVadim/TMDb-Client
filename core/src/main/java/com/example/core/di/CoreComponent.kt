@@ -9,7 +9,7 @@ import retrofit2.Retrofit
 import javax.inject.Singleton
 
 @Singleton
-@Component(modules = [NetworkModule::class, AppModule::class])
+@Component(modules = [NetworkModule::class, SystemModule::class])
 interface CoreComponent {
 
     @Component.Factory

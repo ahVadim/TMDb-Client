@@ -59,3 +59,18 @@ def moshi = [:]
 moshi.moshi = "com.squareup.moshi:moshi:$versions.moshi"
 moshi.codegen = "com.squareup.moshi:moshi-kotlin-codegen:$versions.moshi"
 deps.moshi = moshi
+
+def espresso_core_version = '3.2.0'
+def androidx_junit_version = '1.1.1'
+def junit_version = '4.12'
+
+ext {
+    testDependencies = [
+            junit = "junit:junit:$junit_version"
+    ]
+
+    androidTestDependencies = [
+            espresso_core = "com.android.support.test.espresso:espresso-core:$espresso_core_version",
+            androidx_junit = "androidx.test.ext:junit:$androidx_junit_version"
+    ]
+}

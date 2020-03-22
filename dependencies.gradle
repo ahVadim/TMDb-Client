@@ -64,11 +64,15 @@ def espresso_core_version = '3.2.0'
 def androidx_junit_version = '1.1.1'
 def junit_version = '4.12'
 def assertJ_version = '3.15.0'
+def spek_version = '2.0.10'
 
 ext {
     testDependencies = [
             junit = "junit:junit:$junit_version",
-            assertJ = "org.assertj:assertj-core:$assertJ_version"
+            assertJ = "org.assertj:assertj-core:$assertJ_version",
+            spek = "org.spekframework.spek2:spek-dsl-jvm:$spek_version",
+            spek_runner = "org.spekframework.spek2:spek-runner-junit5:$spek_version",
+            kotlin_reflect = "org.jetbrains.kotlin:kotlin-reflect:$versions.kotlin"
 
     ]
 

@@ -11,6 +11,12 @@ import java.nio.charset.Charset
 import javax.net.ssl.HttpsURLConnection
 
 class NetworkErrorInterceptor(private val connectivityManager: ConnectivityManager?) : Interceptor {
+
+    companion object {
+        private const val ERROR_MESSAGE_FIELD_NAME = "status_message"
+        private const val DEFAULT_CHARSET_NAME = "UTF-8"
+    }
+
     override fun intercept(chain: Interceptor.Chain): Response {
         if (!hasNetworkConnection()) {
             throw NoInternetConnectionException()
@@ -39,10 +45,10 @@ class NetworkErrorInterceptor(private val connectivityManager: ConnectivityManag
             source?.request(Long.MAX_VALUE)
             val buffer = source?.buffer
             val charset = response.body?.contentType()?.charset()
-                ?: Charset.forName("UTF-8")
+                ?: Charset.forName(DEFAULT_CHARSET_NAME)
             val jsonString = buffer?.clone()?.readString(charset).orEmpty()
             val jsonObj = JSONObject(jsonString)
-            jsonObj.getString("status_message").orEmpty()
+            jsonObj.getString(ERROR_MESSAGE_FIELD_NAME).orEmpty()
         } catch (e: Exception) {
             ""
         }

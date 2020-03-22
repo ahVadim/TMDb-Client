@@ -1,3 +1,5 @@
 package com.example.core.exceptions
 
-class AuthException(message: String) : Exception(message)
+import java.io.IOException
+
+class AuthException(message: String) : IOException(message)

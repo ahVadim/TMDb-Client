@@ -54,10 +54,10 @@ class RefreshSessionAuthenticator @Inject constructor(
 
     private fun getNewSessionId(): String? {
         return try {
-            refreshSessionRepository.get()!!
+            refreshSessionRepository.get()
                 .refreshSessionId(
-                    login = userPrefs.userLogin!!,
-                    password = userPrefs.userPassword!!
+                    userPrefs.userLogin!!,
+                    userPrefs.userPassword!!
                 ).blockingGet()
         } catch (e: Exception) {
             null

@@ -1,3 +1,5 @@
 package com.example.core.exceptions
 
-class ServerErrorException(message: String) : Exception(message)
+import java.io.IOException
+
+open class ServerErrorException(message: String) : IOException(message)

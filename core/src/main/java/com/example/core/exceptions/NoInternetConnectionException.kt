@@ -1,3 +1,5 @@
 package com.example.core.exceptions
 
-class NoInternetConnectionException : Exception()
+import java.io.IOException
+
+class NoInternetConnectionException : IOException()

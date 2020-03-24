@@ -27,7 +27,11 @@ class NetworkModule {
         return OkHttpClient.Builder()
             .addInterceptor(AuthInterceptor())
             .addInterceptor(HttpLoggingInterceptor().apply {
-                setLevel(HttpLoggingInterceptor.Level.BASIC)
+                if (BuildConfig.DEBUG) {
+                    setLevel(HttpLoggingInterceptor.Level.BODY)
+                } else {
+                    setLevel(HttpLoggingInterceptor.Level.NONE)
+                }
             })
             .addInterceptor(NetworkErrorInterceptor(connectivityManager))
             .authenticator(refreshSessionAuthenticator)

@@ -2,15 +2,15 @@ package com.example.feaure_authorization.presentation.presenter
 
 import com.example.core.exceptions.AuthException
 import com.example.core.presentation.BasePresenter
+import com.example.core.rxjava.SchedulersProvider
 import com.example.feaure_authorization.domain.AuthInteractor
 import com.example.feaure_authorization.presentation.view.AuthView
-import io.reactivex.android.schedulers.AndroidSchedulers
-import io.reactivex.schedulers.Schedulers
 import timber.log.Timber
 import javax.inject.Inject
 
 class AuthPresenter @Inject constructor(
-    private val authInteractor: AuthInteractor
+    private val authInteractor: AuthInteractor,
+    private val schedulers: SchedulersProvider
 ) : BasePresenter<AuthView>() {
 
     init {
@@ -24,12 +24,11 @@ class AuthPresenter @Inject constructor(
 
     fun onLoginButtonClick(login: String, password: String) {
         authInteractor.authorize(login, password)
-            .subscribeOn(Schedulers.io())
-            .observeOn(AndroidSchedulers.mainThread())
+            .subscribeOn(schedulers.io())
+            .observeOn(schedulers.ui())
             .subscribe({
                            viewState.showSuccessAuthorizationMessage()
                            viewState.hideError()
-
                        }, { error ->
                            Timber.e(error)
                            when (error) {

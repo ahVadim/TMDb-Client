@@ -3,6 +3,8 @@ apply plugin: 'kotlin-android'
 apply plugin: 'kotlin-android-extensions'
 apply plugin: 'kotlin-kapt'
 
+apply from: rootProject.file('dependencies.gradle')
+
 android {
     compileSdkVersion 29
     buildToolsVersion "29.0.2"
@@ -20,32 +22,56 @@ android {
         release {
             minifyEnabled false
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
+            buildConfigField "String", "BASE_URL", server_url
+            buildConfigField "String", "API_TOKEN", api_token
+        }
+
+        debug {
+            buildConfigField "String", "BASE_URL", server_url
+            buildConfigField "String", "API_TOKEN", api_token
         }
     }
 
 }
 
 dependencies {
-    implementation fileTree(dir: 'libs', include: ['*.jar'])
 
-    api "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlin_version"
-    api 'androidx.appcompat:appcompat:1.1.0'
-    api 'androidx.core:core-ktx:1.2.0'
-    api 'androidx.constraintlayout:constraintlayout:1.1.3'
-    api 'com.google.android.material:material:1.1.0'
-    api "androidx.fragment:fragment:1.2.2"
-    api "androidx.fragment:fragment-ktx:1.2.2"
+    implementation(
+            fileTree(dir: 'libs', include: ['*.jar']),
 
-    implementation "com.github.moxy-community:moxy:$moxy_version"
-    implementation "com.github.moxy-community:moxy-androidx:$moxy_version"
+            deps.dagger.dagger,
 
-    api "io.reactivex.rxjava2:rxjava:$rxjava_version"
-    api "io.reactivex.rxjava2:rxandroid:$rxandroid_version"
+            deps.moxy.moxy,
+            deps.moxy.androidx,
 
-    implementation "com.google.dagger:dagger:$dagger_version"
-    kapt "com.google.dagger:dagger-compiler:$dagger_version"
+            deps.moshi.moshi,
+            deps.logging_interceptor
+    )
 
-    testImplementation 'junit:junit:4.12'
-    androidTestImplementation 'androidx.test.ext:junit:1.1.1'
-    androidTestImplementation 'androidx.test.espresso:espresso-core:3.2.0'
+    api(
+            deps.kotlin.stdlib,
+            deps.appcompat,
+            deps.material,
+            deps.fragment.fragment,
+            deps.fragment.ktx,
+            deps.constraintlayout,
+            deps.ktx,
+
+            deps.rxjava,
+            deps.rxandroid,
+
+            deps.retrofit.retrofit,
+            deps.retrofit.moshi_converter,
+            deps.retrofit.rxjava_adapter,
+
+            deps.timber
+    )
+
+    kapt(
+            deps.dagger.processor,
+            deps.moshi.codegen
+    )
+
+    testImplementation(testDependencies)
+    androidTestImplementation(androidTestDependencies)
 }

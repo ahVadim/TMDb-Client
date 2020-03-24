@@ -3,6 +3,8 @@ apply plugin: 'kotlin-android'
 apply plugin: 'kotlin-android-extensions'
 apply plugin: 'kotlin-kapt'
 
+apply from: rootProject.file('dependencies.gradle')
+
 android {
     compileSdkVersion 29
     buildToolsVersion "29.0.2"
@@ -19,7 +21,7 @@ android {
     kotlinOptions {
         jvmTarget = "1.8"
     }
-    
+
     defaultConfig {
         minSdkVersion 21
         targetSdkVersion 29
@@ -39,22 +41,24 @@ android {
 }
 
 dependencies {
-    implementation project(':core')
 
-    implementation fileTree(dir: 'libs', include: ['*.jar'])
-    implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlin_version"
-    implementation 'androidx.appcompat:appcompat:1.1.0'
-    implementation 'androidx.core:core-ktx:1.2.0'
+    implementation(
+            fileTree(dir: 'libs', include: ['*.jar']),
 
-    implementation "com.github.moxy-community:moxy:$moxy_version"
-    kapt "com.github.moxy-community:moxy-compiler:$moxy_version"
-    implementation "com.github.moxy-community:moxy-androidx:$moxy_version"
-    implementation "com.github.moxy-community:moxy-ktx:$moxy_version"
+            project(':core'),
 
-    implementation "com.google.dagger:dagger:$dagger_version"
-    kapt "com.google.dagger:dagger-compiler:$dagger_version"
+            deps.dagger.dagger,
 
-    testImplementation 'junit:junit:4.12'
-    androidTestImplementation 'androidx.test.ext:junit:1.1.1'
-    androidTestImplementation 'androidx.test.espresso:espresso-core:3.2.0'
+            deps.moxy.moxy,
+            deps.moxy.androidx,
+            deps.moxy.ktx,
+    )
+
+    kapt(
+            deps.dagger.processor,
+            deps.moxy.processor
+    )
+
+    testImplementation(testDependencies)
+    androidTestImplementation(androidTestDependencies)
 }

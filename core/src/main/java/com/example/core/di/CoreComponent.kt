@@ -1,10 +1,15 @@
 package com.example.core.di
 
 import android.content.Context
+import com.example.core.data.session.RefreshSessionRepository
+import com.example.core.prefs.UserPrefs
 import dagger.BindsInstance
 import dagger.Component
+import retrofit2.Retrofit
+import javax.inject.Singleton
 
-@Component
+@Singleton
+@Component(modules = [NetworkModule::class, SystemModule::class])
 interface CoreComponent {
 
     @Component.Factory
@@ -14,4 +19,10 @@ interface CoreComponent {
     }
 
     fun provideContext(): Context
+
+    fun provideRetrofit(): Retrofit
+
+    fun provideRefreshSessionRepository(): RefreshSessionRepository
+
+    fun provideUserPrefs(): UserPrefs
 }

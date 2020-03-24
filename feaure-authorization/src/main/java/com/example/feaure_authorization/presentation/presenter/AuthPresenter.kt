@@ -6,6 +6,7 @@ import com.example.feaure_authorization.domain.AuthInteractor
 import com.example.feaure_authorization.presentation.view.AuthView
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.schedulers.Schedulers
+import timber.log.Timber
 import javax.inject.Inject
 
 class AuthPresenter @Inject constructor(
@@ -29,8 +30,9 @@ class AuthPresenter @Inject constructor(
                            viewState.showSuccessAuthorizationMessage()
                            viewState.hideError()
 
-                       }, { e ->
-                           when (e) {
+                       }, { error ->
+                           Timber.e(error)
+                           when (error) {
                                is AuthException -> {
                                    viewState.setLoginButtonEnable(isEnable = false)
                                    viewState.showIncorrectDataError()

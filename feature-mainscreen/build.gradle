@@ -1,4 +1,4 @@
-apply plugin: 'com.android.application'
+apply plugin: 'com.android.library'
 apply plugin: 'kotlin-android'
 apply plugin: 'kotlin-android-extensions'
 apply plugin: 'kotlin-kapt'
@@ -23,7 +23,6 @@ android {
     }
 
     defaultConfig {
-        applicationId "com.example.movieslistapp"
         minSdkVersion 21
         targetSdkVersion 29
         versionCode 1
@@ -42,26 +41,10 @@ android {
 }
 
 dependencies {
-
-    implementation(
+    implementation (
             fileTree(dir: 'libs', include: ['*.jar']),
 
-            project(':core'),
-            project(':feaure-authorization'),
-            project(':feature-mainscreen'),
-
-            deps.dagger.dagger,
-
-            deps.moxy.moxy,
-            deps.moxy.androidx,
-            deps.moxy.ktx,
-
-            deps.stetho
-    )
-
-    kapt(
-            deps.dagger.processor,
-            deps.moxy.processor
+            project(':core')
     )
 
     testImplementation(testDependencies)

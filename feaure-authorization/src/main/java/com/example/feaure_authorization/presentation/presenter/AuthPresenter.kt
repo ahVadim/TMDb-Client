@@ -4,6 +4,7 @@ import com.example.core.exceptions.AuthException
 import com.example.core.presentation.BasePresenter
 import com.example.core.rxjava.SchedulersProvider
 import com.example.feaure_authorization.domain.AuthInteractor
+import com.example.feaure_authorization.presentation.view.AuthErrorState
 import com.example.feaure_authorization.presentation.view.AuthView
 import timber.log.Timber
 import javax.inject.Inject
@@ -19,7 +20,7 @@ class AuthPresenter @Inject constructor(
 
     fun onUserDataChange(login: String?, password: String?) {
         viewState.setLoginButtonEnable(!login.isNullOrBlank() && !password.isNullOrBlank())
-        viewState.hideError()
+        viewState.setErrorState(AuthErrorState.None)
     }
 
     fun onLoginButtonClick(login: String, password: String) {
@@ -28,16 +29,16 @@ class AuthPresenter @Inject constructor(
             .observeOn(schedulers.ui())
             .subscribe({
                            viewState.showSuccessAuthorizationMessage()
-                           viewState.hideError()
+                           viewState.setErrorState(AuthErrorState.None)
                        }, { error ->
                            Timber.e(error)
                            when (error) {
                                is AuthException -> {
                                    viewState.setLoginButtonEnable(isEnable = false)
-                                   viewState.showIncorrectDataError()
+                                   viewState.setErrorState(AuthErrorState.IncorrectData)
                                }
                                else -> {
-                                   viewState.showTryLaterError()
+                                   viewState.setErrorState(AuthErrorState.TryLater)
                                }
                            }
                        })

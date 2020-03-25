@@ -7,10 +7,13 @@ import com.example.feaure_authorization.domain.AuthInteractor
 import com.example.feaure_authorization.network.AuthMockDispatcher
 import com.example.feaure_authorization.network.SessionApiFactory
 import com.example.feaure_authorization.presentation.presenter.AuthPresenter
+import com.example.feaure_authorization.presentation.view.AuthErrorState
 import com.example.feaure_authorization.presentation.view.AuthView
+import com.nhaarman.mockitokotlin2.argThat
 import com.nhaarman.mockitokotlin2.mock
 import com.nhaarman.mockitokotlin2.verify
 import okhttp3.mockwebserver.MockWebServer
+import org.mockito.ArgumentMatcher
 import org.spekframework.spek2.Spek
 import org.spekframework.spek2.style.gherkin.Feature
 
@@ -50,6 +53,20 @@ class AuthIntegrationTest : Spek(
 
                 Then("view show success message") {
                     verify(authView).showSuccessAuthorizationMessage()
+                }
+            }
+
+            Scenario("login with invalid user data") {
+
+                When("on login button click") {
+                    authPresenter.onLoginButtonClick(
+                        "invalid login",
+                        "invalid password"
+                    )
+                }
+
+                Then("view show error") {
+                    verify(authView).setErrorState(argThat(ArgumentMatcher { it !is AuthErrorState.None }))
                 }
             }
         }

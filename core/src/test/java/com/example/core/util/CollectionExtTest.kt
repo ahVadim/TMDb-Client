@@ -23,13 +23,13 @@ object CollectionExtTest : Spek(
                 Then("index of a should be 1") {
                     assertThat(sutList.indexOf(a)).isEqualTo(1)
                 }
-                Then("index of b should be 0") {
+                And("index of b should be 0") {
                     assertThat(sutList.indexOf(b)).isEqualTo(0)
                 }
-                Then("index of c should be 2") {
+                And("index of c should be 2") {
                     assertThat(sutList.indexOf(c)).isEqualTo(2)
                 }
-                Then("size of list should be same (3)") {
+                And("size of list should be same (3)") {
                     assertThat(sutList.indexOf(c)).isEqualTo(2)
                 }
             }

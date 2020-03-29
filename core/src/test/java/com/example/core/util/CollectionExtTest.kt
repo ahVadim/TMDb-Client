@@ -20,17 +20,8 @@ object CollectionExtTest : Spek(
                 When("swap a and b") {
                     sutList.swap(0, 1)
                 }
-                Then("index of a should be 1") {
-                    assertThat(sutList.indexOf(a)).isEqualTo(1)
-                }
-                And("index of b should be 0") {
-                    assertThat(sutList.indexOf(b)).isEqualTo(0)
-                }
-                And("index of c should be 2") {
-                    assertThat(sutList.indexOf(c)).isEqualTo(2)
-                }
-                And("size of list should be same (3)") {
-                    assertThat(sutList.indexOf(c)).isEqualTo(2)
+                Then("list should be equal to: b, a, c") {
+                    assertThat(sutList).isEqualTo(listOf(b, a, c))
                 }
             }
 

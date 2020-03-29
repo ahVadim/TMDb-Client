@@ -45,7 +45,7 @@ object AuthInteractorTest : Spek(
 
                 When("authorize call with proper user data") {
                     authInteractor.authorize(testLogin, testPassword)
-                        .subscribe({}, {})
+                        .blockingGet()
                 }
                 Then("refreshSessionId called") {
                     verify(repositoryMock, only()).refreshSessionId(testLogin, testPassword)
@@ -61,7 +61,7 @@ object AuthInteractorTest : Spek(
             Scenario("failed authorization") {
                 When("authorize call with invalid user data") {
                     authInteractor.authorize(invalidTestLogin, invalidTestPassword)
-                        .subscribe({}, {})
+                        .blockingGet()
                 }
                 Then("refreshSessionId called") {
                     verify(repositoryMock, only()).refreshSessionId(

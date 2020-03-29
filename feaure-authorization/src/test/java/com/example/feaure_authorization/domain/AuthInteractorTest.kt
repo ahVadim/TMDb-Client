@@ -15,22 +15,14 @@ object AuthInteractorTest : Spek(
     {
         Feature("AuthInteractor") {
 
+            // region values
             val mockSessionId = "123"
             val testLogin = "testLogin"
             val invalidTestLogin = "invalidTestLogin"
             val testPassword = "testPassword"
             val invalidTestPassword = "invalidTestPassword"
 
-            val repositoryMock: RefreshSessionRepository by memoized {
-                mock<RefreshSessionRepository> {
-                    on {
-                        refreshSessionId(testLogin, testPassword)
-                    } doReturn Single.just(mockSessionId)
-                    on {
-                        refreshSessionId(invalidTestLogin, invalidTestPassword)
-                    } doReturn Single.error<String>(Exception())
-                }
-            }
+            lateinit var repositoryMock: RefreshSessionRepository
 
             val prefsMock by memoized { mock<UserPrefs>() }
 
@@ -40,10 +32,16 @@ object AuthInteractorTest : Spek(
                     prefsMock
                 )
             }
+            //endregion
 
             Scenario("success authorization") {
 
                 When("authorize call with proper user data") {
+                    repositoryMock = mock {
+                        on { refreshSessionId(testLogin, testPassword) } doReturn Single.just(
+                            mockSessionId
+                        )
+                    }
                     authInteractor.authorize(testLogin, testPassword)
                         .blockingGet()
                 }
@@ -60,6 +58,14 @@ object AuthInteractorTest : Spek(
 
             Scenario("failed authorization") {
                 When("authorize call with invalid user data") {
+                    repositoryMock = mock {
+                        on {
+                            refreshSessionId(
+                                invalidTestLogin,
+                                invalidTestPassword
+                            )
+                        } doReturn Single.error<String>(Exception())
+                    }
                     authInteractor.authorize(invalidTestLogin, invalidTestPassword)
                         .blockingGet()
                 }

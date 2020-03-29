@@ -1,14 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
 <resources>
 
-    <!-- Base application theme. -->
-    <style name="AppTheme" parent="Theme.MaterialComponents.Light.NoActionBar">
-        <item name="colorPrimary">@color/light</item>
-        <item name="colorPrimaryDark">@color/bg_black</item>
-        <item name="colorAccent">@color/orange</item>
-        <item name="android:navigationBarColor">@color/bg_black</item>
-    </style>
-
-    <style name="AppTheme.Launcher">
-        <item name="android:windowBackground">@color/bg_black</item>
+    <style name="AppButtonStyle" parent="Widget.MaterialComponents.Button">
+        <item name="rippleColor">@color/light</item>
+        <item name="cornerRadius">8dp</item>
     </style>
 </resources>

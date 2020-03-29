@@ -6,5 +6,11 @@ apply from: rootProject.file('default-config.gradle')
 apply from: rootProject.file('dependencies.gradle')
 
 dependencies {
-    implementation fileTree(dir: 'libs', include: ['*.jar'])
+    implementation (
+            fileTree(dir: 'libs', include: ['*.jar']),
+            project(':core')
+    )
+
+    testImplementation(testDependencies)
+    androidTestImplementation(androidTestDependencies)
 }

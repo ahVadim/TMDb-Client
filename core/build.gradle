@@ -3,36 +3,8 @@ apply plugin: 'kotlin-android'
 apply plugin: 'kotlin-android-extensions'
 apply plugin: 'kotlin-kapt'
 
+apply from: rootProject.file('default-config.gradle')
 apply from: rootProject.file('dependencies.gradle')
-
-android {
-    compileSdkVersion 29
-    buildToolsVersion "29.0.2"
-
-    defaultConfig {
-        minSdkVersion 21
-        targetSdkVersion 29
-        versionCode 1
-        versionName "1.0"
-
-        testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
-    }
-
-    buildTypes {
-        release {
-            minifyEnabled false
-            proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
-            buildConfigField "String", "BASE_URL", server_url
-            buildConfigField "String", "API_TOKEN", api_token
-        }
-
-        debug {
-            buildConfigField "String", "BASE_URL", server_url
-            buildConfigField "String", "API_TOKEN", api_token
-        }
-    }
-
-}
 
 dependencies {
 

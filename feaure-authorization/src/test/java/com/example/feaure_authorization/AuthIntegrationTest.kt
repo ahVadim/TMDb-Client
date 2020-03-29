@@ -1,6 +1,7 @@
 package com.example.feaure_authorization
 
 import com.example.core.data.session.RefreshSessionRepository
+import com.example.core.network.refreshsession.SessionApi
 import com.example.core.prefs.UserPrefs
 import com.example.core.rxjava.TestSchedulersProvider
 import com.example.feaure_authorization.domain.AuthInteractor
@@ -9,11 +10,9 @@ import com.example.feaure_authorization.network.SessionApiFactory
 import com.example.feaure_authorization.presentation.presenter.AuthPresenter
 import com.example.feaure_authorization.presentation.view.AuthErrorState
 import com.example.feaure_authorization.presentation.view.AuthView
-import com.nhaarman.mockitokotlin2.argThat
 import com.nhaarman.mockitokotlin2.mock
 import com.nhaarman.mockitokotlin2.verify
 import okhttp3.mockwebserver.MockWebServer
-import org.mockito.ArgumentMatcher
 import org.spekframework.spek2.Spek
 import org.spekframework.spek2.style.gherkin.Feature
 
@@ -21,30 +20,44 @@ class AuthIntegrationTest : Spek(
     {
         Feature("Auth integration test") {
 
+            // region values
             val server = MockWebServer().apply {
                 dispatcher = AuthMockDispatcher()
             }
             val userPrefs = mock<UserPrefs>()
-            val refreshSessionRepository = RefreshSessionRepository(
-                SessionApiFactory.getSessionApi(server.url("")),
-                userPrefs
-            )
-            val authInteractor = AuthInteractor(
-                refreshSessionRepository,
-                userPrefs
-            )
+            lateinit var sessionApi: SessionApi
+            val refreshSessionRepository by memoized {
+                RefreshSessionRepository(
+                    //                    SessionApiFactory.getSessionApi(server.url("")),
+                    sessionApi,
+                    userPrefs
+                )
+            }
+            val authInteractor by memoized {
+                AuthInteractor(
+                    refreshSessionRepository,
+                    userPrefs
+                )
+            }
 
             val authView = mock<AuthView>()
-            val authPresenter = AuthPresenter(
-                authInteractor,
-                TestSchedulersProvider()
-            ).apply {
-                attachView(authView)
+            val authPresenter by memoized {
+                AuthPresenter(
+                    authInteractor,
+                    TestSchedulersProvider()
+                ).apply {
+                    attachView(authView)
+                }
             }
+            // endregion
 
             Scenario("login with proper user data") {
 
                 When("on login button click") {
+                    sessionApi = SessionApiFactory.getSessionApi(
+                        baseUrl = server.url(""),
+                        isNetworkAvailable = true
+                    )
                     authPresenter.onLoginButtonClick(
                         AuthMockDispatcher.PROPER_LOGIN,
                         AuthMockDispatcher.PROPER_PASSWORD
@@ -56,17 +69,39 @@ class AuthIntegrationTest : Spek(
                 }
             }
 
-            Scenario("login with invalid user data") {
+            Scenario("login with invalid user data and available network") {
 
                 When("on login button click") {
+                    sessionApi = SessionApiFactory.getSessionApi(
+                        baseUrl = server.url(""),
+                        isNetworkAvailable = true
+                    )
                     authPresenter.onLoginButtonClick(
                         "invalid login",
                         "invalid password"
                     )
                 }
 
-                Then("view show error") {
-                    verify(authView).setErrorState(argThat(ArgumentMatcher { it !is AuthErrorState.None }))
+                Then("view show incorrect data error") {
+                    verify(authView).setErrorState(AuthErrorState.IncorrectData)
+                }
+            }
+
+            Scenario("login with invalid user data and not available network") {
+
+                When("on login button click") {
+                    sessionApi = SessionApiFactory.getSessionApi(
+                        baseUrl = server.url(""),
+                        isNetworkAvailable = false
+                    )
+                    authPresenter.onLoginButtonClick(
+                        "invalid login",
+                        "invalid password"
+                    )
+                }
+
+                Then("view show try later error") {
+                    verify(authView).setErrorState(AuthErrorState.TryLater)
                 }
             }
         }

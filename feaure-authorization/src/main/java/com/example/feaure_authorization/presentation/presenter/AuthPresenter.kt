@@ -3,7 +3,7 @@ package com.example.feaure_authorization.presentation.presenter
 import com.example.core.exceptions.AuthException
 import com.example.core.presentation.BasePresenter
 import com.example.core.rxjava.SchedulersProvider
-import com.example.core.util.schedulersIoToMain
+import com.example.core.util.ioToMain
 import com.example.feaure_authorization.domain.AuthInteractor
 import com.example.feaure_authorization.presentation.view.AuthErrorState
 import com.example.feaure_authorization.presentation.view.AuthView
@@ -26,7 +26,7 @@ class AuthPresenter @Inject constructor(
 
     fun onLoginButtonClick(login: String, password: String) {
         authInteractor.authorize(login, password)
-            .schedulersIoToMain(schedulers)
+            .ioToMain(schedulers)
             .subscribe({
                            viewState.showSuccessAuthorizationMessage()
                            viewState.setErrorState(AuthErrorState.None)

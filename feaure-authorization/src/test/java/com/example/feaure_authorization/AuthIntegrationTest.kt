@@ -21,10 +21,12 @@ class AuthIntegrationTest : Spek(
         Feature("Auth integration test") {
 
             // region values
-            val server = MockWebServer().apply {
-                dispatcher = AuthMockDispatcher()
+            val server by memoized {
+                MockWebServer().apply {
+                    dispatcher = AuthMockDispatcher()
+                }
             }
-            val userPrefs = mock<UserPrefs>()
+            val userPrefs by memoized { mock<UserPrefs>() }
             lateinit var sessionApi: SessionApi
             val refreshSessionRepository by memoized {
                 RefreshSessionRepository(
@@ -39,7 +41,7 @@ class AuthIntegrationTest : Spek(
                 )
             }
 
-            val authView = mock<AuthView>()
+            val authView by memoized { mock<AuthView>() }
             val authPresenter by memoized {
                 AuthPresenter(
                     authInteractor,

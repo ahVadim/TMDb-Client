@@ -6,6 +6,7 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.viewModels
 import com.example.core.presentation.BaseFragment
+import com.example.core.util.observe
 import com.example.feature_profile.databinding.FragmentProfileBinding
 
 class ProfileFragment : BaseFragment() {
@@ -26,5 +27,21 @@ class ProfileFragment : BaseFragment() {
     ): View? {
         _binding = FragmentProfileBinding.inflate(inflater, container, false)
         return binding.root
+    }
+
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+        observe(profileViewModel.liveState, ::renderState)
+        binding.profileLogoutButton.setOnClickListener { profileViewModel.onLogoutButtonClick() }
+    }
+
+    private fun renderState(state: ProfileViewState) {
+        binding.profileName.text = state.userName
+        binding.profileMail.text = state.userMail
+    }
+
+    override fun onDestroy() {
+        _binding = null
+        super.onDestroy()
     }
 }

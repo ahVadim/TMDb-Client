@@ -70,6 +70,7 @@ def mokito_kotlin_version = '2.2.0'
 
 ext {
     testDependencies = [
+            test_core = project((':test_core')),
             junit = "junit:junit:$junit_version",
             assertJ = "org.assertj:assertj-core:$assertJ_version",
             spek = "org.spekframework.spek2:spek-dsl-jvm:$spek_version",

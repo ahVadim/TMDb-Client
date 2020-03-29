@@ -3,13 +3,13 @@ package com.example.feaure_authorization
 import com.example.core.data.session.RefreshSessionRepository
 import com.example.core.network.refreshsession.SessionApi
 import com.example.core.prefs.UserPrefs
-import com.example.core.rxjava.TestSchedulersProvider
 import com.example.feaure_authorization.domain.AuthInteractor
 import com.example.feaure_authorization.network.AuthMockDispatcher
 import com.example.feaure_authorization.network.SessionApiFactory
 import com.example.feaure_authorization.presentation.presenter.AuthPresenter
 import com.example.feaure_authorization.presentation.view.AuthErrorState
 import com.example.feaure_authorization.presentation.view.AuthView
+import com.example.test_core.rxjava.TestSchedulersProvider
 import com.nhaarman.mockitokotlin2.mock
 import com.nhaarman.mockitokotlin2.verify
 import okhttp3.mockwebserver.MockWebServer
@@ -28,7 +28,6 @@ class AuthIntegrationTest : Spek(
             lateinit var sessionApi: SessionApi
             val refreshSessionRepository by memoized {
                 RefreshSessionRepository(
-                    //                    SessionApiFactory.getSessionApi(server.url("")),
                     sessionApi,
                     userPrefs
                 )

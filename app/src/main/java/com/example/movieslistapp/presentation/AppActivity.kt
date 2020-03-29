@@ -3,7 +3,7 @@ package com.example.movieslistapp.presentation
 import android.os.Bundle
 import androidx.fragment.app.commit
 import com.example.core.di.CoreComponentHolder
-import com.example.feature_mainscreen.SessionMockFragment
+import com.example.feature_profile.presentation.ProfileFragment
 import com.example.feaure_authorization.presentation.view.AuthFragment
 import com.example.movieslistapp.R
 import com.example.movieslistapp.di.DaggerAppComponent
@@ -35,7 +35,7 @@ class AppActivity : MvpAppCompatActivity(), AppView {
 
     override fun openMainScreen() {
         supportFragmentManager.commit(true) {
-            replace(R.id.fragment_container, SessionMockFragment.newInstance())
+            replace(R.id.fragment_container, ProfileFragment.newInstance())
         }
     }
 }

@@ -1,6 +1,7 @@
 apply plugin: 'com.android.library'
 apply plugin: 'kotlin-android'
 apply plugin: 'kotlin-android-extensions'
+apply plugin: 'kotlin-kapt'
 
 apply from: rootProject.file('default-config.gradle')
 apply from: rootProject.file('dependencies.gradle')
@@ -8,7 +9,18 @@ apply from: rootProject.file('dependencies.gradle')
 dependencies {
     implementation (
             fileTree(dir: 'libs', include: ['*.jar']),
-            project(':core')
+            project(':core'),
+
+            deps.dagger.dagger,
+
+            deps.moxy.moxy,
+            deps.moxy.androidx,
+            deps.moxy.ktx
+    )
+
+    kapt(
+            deps.dagger.processor,
+            deps.moxy.processor
     )
 
     testImplementation(testDependencies)

@@ -17,7 +17,7 @@ dependencies {
 
             deps.moxy.moxy,
             deps.moxy.androidx,
-            deps.moxy.ktx,
+            deps.moxy.ktx
     )
 
     kapt(

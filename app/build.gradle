@@ -14,6 +14,7 @@ dependencies {
             project(':core'),
             project(':feaure-authorization'),
             project(':feature-mainscreen'),
+            project(':feature-profile'),
 
             deps.dagger.dagger,
 

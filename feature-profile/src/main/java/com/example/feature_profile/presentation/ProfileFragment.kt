@@ -9,6 +9,10 @@ import com.example.feature_profile.databinding.FragmentProfileBinding
 
 class ProfileFragment : BaseFragment() {
 
+    companion object {
+        fun newInstance() = ProfileFragment()
+    }
+
     private var _binding: FragmentProfileBinding? = null
     private val binding get() = _binding!!
 

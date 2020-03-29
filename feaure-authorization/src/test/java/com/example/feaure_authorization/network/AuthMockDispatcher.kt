@@ -12,13 +12,19 @@ class AuthMockDispatcher : Dispatcher() {
         const val PROPER_LOGIN = "proper_login"
         const val PROPER_PASSWORD = "proper_password"
         const val SESSION_ID = "a49b2d62ffd9bfab0c59"
+
+        private const val NEW_TOKEN_RESPONSE = """{"success":true,"expires_at":"2020-03-24 22:04:20 UTC","request_token":"$REQUEST_TOKEN"}"""
+        private const val PROPER_VALIDATE_TOKEN_REQUEST = """{"username":"$PROPER_LOGIN","password":"$PROPER_PASSWORD","request_token":"$REQUEST_TOKEN"}"""
+        private const val VALIDATE_TOKEN_RESPONSE = """{"success":true,"expires_at":"2020-03-24 22:04:20 UTC","request_token":"$REQUEST_TOKEN"}"""
+        private const val PROPER_NEW_SESSION_REQUEST = """{"request_token":"$REQUEST_TOKEN"}"""
+        private const val NEW_SESSION_RESPONSE = """{"success":true,"session_id":"$SESSION_ID"}"""
     }
 
     override fun dispatch(request: RecordedRequest): MockResponse {
         return when (request.path) {
 
             "/authentication/token/new" -> MockResponse().setResponseCode(200)
-                .setBody("{\"success\":true,\"expires_at\":\"2020-03-24 22:04:20 UTC\",\"request_token\":\"$REQUEST_TOKEN\"}")
+                .setBody(NEW_TOKEN_RESPONSE)
 
             "/authentication/token/validate_with_login" -> getResponseForValidateToken(request.body.readUtf8())
 
@@ -29,18 +35,18 @@ class AuthMockDispatcher : Dispatcher() {
     }
 
     private fun getResponseForValidateToken(body: String): MockResponse {
-        return if (body == "{\"username\":\"$PROPER_LOGIN\",\"password\":\"$PROPER_PASSWORD\",\"request_token\":\"$REQUEST_TOKEN\"}") {
+        return if (body == PROPER_VALIDATE_TOKEN_REQUEST) {
             MockResponse().setResponseCode(HttpsURLConnection.HTTP_OK)
-                .setBody("{\"success\":true,\"expires_at\":\"2020-03-24 22:04:20 UTC\",\"request_token\":\"$REQUEST_TOKEN\"}")
+                .setBody(VALIDATE_TOKEN_RESPONSE)
         } else {
             MockResponse().setResponseCode(HttpsURLConnection.HTTP_UNAUTHORIZED)
         }
     }
 
     private fun getResponseForSessionNew(body: String): MockResponse {
-        return if (body == "{\"request_token\":\"$REQUEST_TOKEN\"}") {
+        return if (body == PROPER_NEW_SESSION_REQUEST) {
             MockResponse().setResponseCode(HttpsURLConnection.HTTP_OK)
-                .setBody("{\"success\":true,\"session_id\":\"$SESSION_ID\"}")
+                .setBody(NEW_SESSION_RESPONSE)
         } else {
             MockResponse().setResponseCode(HttpsURLConnection.HTTP_UNAUTHORIZED)
         }

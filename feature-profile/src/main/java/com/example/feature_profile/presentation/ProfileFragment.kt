@@ -5,9 +5,11 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.viewModels
+import com.example.core.di.CoreComponentHolder
 import com.example.core.presentation.BaseFragment
 import com.example.core.util.observe
 import com.example.feature_profile.databinding.FragmentProfileBinding
+import com.example.feature_profile.di.DaggerProfileComponent
 
 class ProfileFragment : BaseFragment() {
 
@@ -19,6 +21,13 @@ class ProfileFragment : BaseFragment() {
 
     private var _binding: FragmentProfileBinding? = null
     private val binding get() = _binding!!
+
+    override fun onCreate(savedInstanceState: Bundle?) {
+        DaggerProfileComponent.factory()
+            .create(CoreComponentHolder.coreComponent)
+            .inject(this)
+        super.onCreate(savedInstanceState)
+    }
 
     override fun onCreateView(
         inflater: LayoutInflater,

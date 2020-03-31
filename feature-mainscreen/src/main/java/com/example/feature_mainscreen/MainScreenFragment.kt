@@ -7,11 +7,7 @@ import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import com.example.feature_mainscreen.databinding.FragmentMainBinding
 
-class SessionMockFragment : Fragment() {
-
-    companion object {
-        fun newInstance() = SessionMockFragment()
-    }
+class MainScreenFragment : Fragment() {
 
     override fun onCreateView(
         inflater: LayoutInflater,

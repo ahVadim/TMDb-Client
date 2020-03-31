@@ -14,9 +14,13 @@ class SplashViewModel @Inject constructor(
 
     init {
         if (userPrefs.sessionId.isNullOrBlank()) {
-            eventsQueue.offer(NavEvent.AuthEvent)
+            eventsQueue.offer(
+                NavEvent(SplashFragmentDirections.actionSplashToAuth())
+            )
         } else {
-            eventsQueue.offer(NavEvent.MainScreen)
+            eventsQueue.offer(
+                NavEvent(SplashFragmentDirections.actionSplashToMainScreen())
+            )
         }
     }
 }

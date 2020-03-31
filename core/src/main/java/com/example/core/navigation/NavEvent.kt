@@ -1,8 +1,6 @@
 package com.example.core.navigation
 
+import androidx.navigation.NavDirections
 import com.example.core.presentation.Event
 
-sealed class NavEvent : Event {
-    object AuthEvent : NavEvent()
-    object MainScreen : NavEvent()
-}
+class NavEvent(val direction: NavDirections) : Event

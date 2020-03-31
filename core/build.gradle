@@ -29,6 +29,9 @@ dependencies {
             deps.constraintlayout,
             deps.ktx,
 
+            deps.navigation.fragment,
+            deps.navigation.ui,
+
             deps.rxjava,
             deps.rxandroid,
 

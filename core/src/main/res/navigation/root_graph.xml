@@ -37,5 +37,11 @@
     <fragment
         android:id="@+id/mainScreenFragment"
         android:name="com.example.feature_mainscreen.MainScreenFragment"
-        android:label="MainScreenFragment"/>
+        android:label="MainScreenFragment">
+        <action
+            android:id="@+id/action_mainScreen_to_auth"
+            app:destination="@id/authFragment"
+            app:popUpTo="@id/mainScreenFragment"
+            app:popUpToInclusive="true"/>
+    </fragment>
 </navigation>

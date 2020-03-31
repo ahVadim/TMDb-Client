@@ -3,7 +3,7 @@ package com.example.feaure_authorization.di
 import androidx.lifecycle.ViewModel
 import com.example.core.di.viewmodel.ViewModelKey
 import com.example.core.di.viewmodel.ViewModelModule
-import com.example.feaure_authorization.presentation.presenter.AuthViewModel
+import com.example.feaure_authorization.presentation.AuthViewModel
 import dagger.Binds
 import dagger.Module
 import dagger.multibindings.IntoMap

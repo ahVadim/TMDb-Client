@@ -1,10 +1,9 @@
-package com.example.feaure_authorization.presentation.view
+package com.example.feaure_authorization.presentation
 
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Toast
 import androidx.core.view.isVisible
 import androidx.core.widget.doAfterTextChanged
 import androidx.fragment.app.viewModels
@@ -16,8 +15,6 @@ import com.example.core.util.observe
 import com.example.feaure_authorization.R
 import com.example.feaure_authorization.databinding.FragmentAuthorizationBinding
 import com.example.feaure_authorization.di.DaggerAuthComponent
-import com.example.feaure_authorization.presentation.presenter.AuthViewModel
-import com.example.feaure_authorization.presentation.presenter.AuthViewState
 import javax.inject.Inject
 
 class AuthFragment : BaseFragment() {
@@ -49,6 +46,7 @@ class AuthFragment : BaseFragment() {
         super.onViewCreated(view, savedInstanceState)
 
         observe(authViewModel.liveState, ::renderState)
+        observe(authViewModel.eventsQueue, ::onEvent)
 
         binding.authLoginEditText.doAfterTextChanged {
             authViewModel.onLoginChange(it.toString())
@@ -93,9 +91,5 @@ class AuthFragment : BaseFragment() {
                 binding.authErrorText.isVisible = false
             }
         }
-    }
-
-    fun showSuccessAuthorizationMessage() {
-        Toast.makeText(context, R.string.success_authorization, Toast.LENGTH_LONG).show()
     }
 }

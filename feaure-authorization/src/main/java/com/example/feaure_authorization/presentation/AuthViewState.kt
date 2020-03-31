@@ -1,6 +1,4 @@
-package com.example.feaure_authorization.presentation.presenter
-
-import com.example.feaure_authorization.presentation.view.AuthErrorState
+package com.example.feaure_authorization.presentation
 
 data class AuthViewState(
     val login: String?,

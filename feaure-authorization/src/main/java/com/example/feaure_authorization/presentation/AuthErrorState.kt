@@ -1,4 +1,4 @@
-package com.example.feaure_authorization.presentation.view
+package com.example.feaure_authorization.presentation
 
 sealed class AuthErrorState {
     object TryLater : AuthErrorState()

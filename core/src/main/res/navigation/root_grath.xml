@@ -24,7 +24,7 @@
 
     <fragment
         android:id="@+id/authFragment"
-        android:name="com.example.feaure_authorization.presentation.view.AuthFragment"
+        android:name="com.example.feaure_authorization.presentation.AuthFragment"
         android:label="AuthFragment"
         tools:layout="@layout/fragment_authorization"/>
 

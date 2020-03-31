@@ -1,13 +1,13 @@
-package com.example.feaure_authorization.presentation.presenter
+package com.example.feaure_authorization.presentation
 
 import androidx.lifecycle.MutableLiveData
 import com.example.core.exceptions.AuthException
 import com.example.core.presentation.BaseViewModel
+import com.example.core.presentation.EventsQueue
 import com.example.core.rxjava.SchedulersProvider
 import com.example.core.util.delegate
 import com.example.core.util.ioToMain
 import com.example.feaure_authorization.domain.AuthInteractor
-import com.example.feaure_authorization.presentation.view.AuthErrorState
 import timber.log.Timber
 import javax.inject.Inject
 
@@ -18,6 +18,7 @@ class AuthViewModel @Inject constructor(
 
     var liveState = MutableLiveData<AuthViewState>(createInitialState())
     private var state by liveState.delegate()
+    val eventsQueue = EventsQueue()
 
     private fun createInitialState(): AuthViewState {
         return AuthViewState(
@@ -48,7 +49,6 @@ class AuthViewModel @Inject constructor(
         authInteractor.authorize(login, password)
             .ioToMain(schedulers)
             .subscribe({
-                           // viewState.showSuccessAuthorizationMessage()
                            state = state.copy(errorState = AuthErrorState.None)
                            //todo navigation
                        }, { error ->

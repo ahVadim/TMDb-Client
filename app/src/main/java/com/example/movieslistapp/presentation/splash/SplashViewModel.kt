@@ -1,9 +1,9 @@
 package com.example.movieslistapp.presentation.splash
 
-import com.example.core.navigation.NavEvent
 import com.example.core.prefs.UserPrefs
 import com.example.core.presentation.BaseViewModel
 import com.example.core.presentation.EventsQueue
+import com.example.core.presentation.events.NavEvent
 import javax.inject.Inject
 
 class SplashViewModel @Inject constructor(
@@ -15,11 +15,15 @@ class SplashViewModel @Inject constructor(
     init {
         if (userPrefs.sessionId.isNullOrBlank()) {
             eventsQueue.offer(
-                NavEvent(SplashFragmentDirections.actionSplashToAuth())
+                NavEvent(
+                    SplashFragmentDirections.actionSplashToAuth()
+                )
             )
         } else {
             eventsQueue.offer(
-                NavEvent(SplashFragmentDirections.actionSplashToMainScreen())
+                NavEvent(
+                    SplashFragmentDirections.actionSplashToMainScreen()
+                )
             )
         }
     }

@@ -7,25 +7,24 @@ import android.view.ViewGroup
 import android.widget.Toast
 import androidx.core.view.isVisible
 import androidx.core.widget.doAfterTextChanged
+import androidx.fragment.app.viewModels
+import androidx.lifecycle.ViewModelProvider
 import com.example.core.di.CoreComponentHolder
 import com.example.core.presentation.BaseFragment
+import com.example.core.util.changedText
+import com.example.core.util.observe
 import com.example.feaure_authorization.R
 import com.example.feaure_authorization.databinding.FragmentAuthorizationBinding
 import com.example.feaure_authorization.di.DaggerAuthComponent
-import com.example.feaure_authorization.presentation.presenter.AuthPresenter
-import moxy.ktx.moxyPresenter
+import com.example.feaure_authorization.presentation.presenter.AuthViewModel
+import com.example.feaure_authorization.presentation.presenter.AuthViewState
 import javax.inject.Inject
-import javax.inject.Provider
 
-class AuthFragment : BaseFragment(), AuthView {
-
-    companion object {
-        fun newInstance() = AuthFragment()
-    }
+class AuthFragment : BaseFragment() {
 
     @Inject
-    lateinit var presenterProvider: Provider<AuthPresenter>
-    private val presenter by moxyPresenter { presenterProvider.get() }
+    lateinit var viewModelFactory: ViewModelProvider.Factory
+    private val authViewModel: AuthViewModel by viewModels { viewModelFactory }
 
     private var _binding: FragmentAuthorizationBinding? = null
     private val binding get() = _binding!!
@@ -49,24 +48,20 @@ class AuthFragment : BaseFragment(), AuthView {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
+        observe(authViewModel.liveState, ::renderState)
+
         binding.authLoginEditText.doAfterTextChanged {
-            presenter.onUserDataChange(
-                login = binding.authLoginEditText.text?.toString(),
-                password = binding.authPasswordEditText.text?.toString()
-            )
+            authViewModel.onLoginChange(it.toString())
         }
         binding.authPasswordEditText.doAfterTextChanged {
-            presenter.onUserDataChange(
-                login = binding.authLoginEditText.text?.toString(),
-                password = binding.authPasswordEditText.text?.toString()
-            )
+            authViewModel.onPasswordChange(it.toString())
         }
 
         binding.authLoginButton.setOnClickListener {
             val login = binding.authLoginEditText.text?.toString()
             val password = binding.authPasswordEditText.text?.toString()
             if (login != null && password != null) {
-                presenter.onLoginButtonClick(login, password)
+                authViewModel.onLoginButtonClick(login, password)
             }
         }
     }
@@ -76,11 +71,14 @@ class AuthFragment : BaseFragment(), AuthView {
         _binding = null
     }
 
-    override fun setLoginButtonEnable(isEnable: Boolean) {
-        binding.authLoginButton.isEnabled = isEnable
+    private fun renderState(state: AuthViewState) {
+        binding.authLoginEditText.changedText = state.login
+        binding.authPasswordEditText.changedText = state.password
+        setErrorState(state.errorState)
+        binding.authLoginButton.isEnabled = state.isLoginButtonEnabled
     }
 
-    override fun setErrorState(errorState: AuthErrorState) {
+    private fun setErrorState(errorState: AuthErrorState) {
         when (errorState) {
             AuthErrorState.TryLater -> {
                 binding.authErrorText.setText(R.string.error_try_later)
@@ -97,7 +95,7 @@ class AuthFragment : BaseFragment(), AuthView {
         }
     }
 
-    override fun showSuccessAuthorizationMessage() {
+    fun showSuccessAuthorizationMessage() {
         Toast.makeText(context, R.string.success_authorization, Toast.LENGTH_LONG).show()
     }
 }

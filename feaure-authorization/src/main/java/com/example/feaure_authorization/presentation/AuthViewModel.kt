@@ -4,6 +4,7 @@ import androidx.lifecycle.MutableLiveData
 import com.example.core.exceptions.AuthException
 import com.example.core.presentation.BaseViewModel
 import com.example.core.presentation.EventsQueue
+import com.example.core.presentation.events.NavEvent
 import com.example.core.rxjava.SchedulersProvider
 import com.example.core.util.delegate
 import com.example.core.util.ioToMain
@@ -50,7 +51,9 @@ class AuthViewModel @Inject constructor(
             .ioToMain(schedulers)
             .subscribe({
                            state = state.copy(errorState = AuthErrorState.None)
-                           //todo navigation
+                           eventsQueue.offer(
+                               NavEvent(AuthFragmentDirections.actionAuthToMainScreen())
+                           )
                        }, { error ->
                            Timber.e(error)
                            state = when (error) {

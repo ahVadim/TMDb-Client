@@ -3,9 +3,17 @@
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:id="@+id/main_fragment_graph"
-    app:startDestination="@id/profileFragment">
+    app:startDestination="@id/moviesListFragment">
     <fragment
         android:id="@+id/profileFragment"
         android:name="com.example.feature_profile.presentation.ProfileFragment"
         android:label="ProfileFragment"/>
+    <fragment
+        android:id="@+id/moviesListFragment"
+        android:name="com.example.feature_movieslist.presentation.movies.MoviesListFragment"
+        android:label="MoviesListFragment"/>
+    <fragment
+        android:id="@+id/favoritesListFragment"
+        android:name="com.example.feature_movieslist.presentation.favorites.FavoritesListFragment"
+        android:label="FavoritesListFragment"/>
 </navigation>

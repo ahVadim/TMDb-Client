@@ -1,7 +1,7 @@
 package com.example.core.di
 
 import android.content.Context
-import com.example.core.data.session.RefreshSessionRepository
+import com.example.core.data.session.SessionRepository
 import com.example.core.prefs.UserPrefs
 import dagger.BindsInstance
 import dagger.Component
@@ -22,7 +22,7 @@ interface CoreComponent {
 
     fun provideRetrofit(): Retrofit
 
-    fun provideRefreshSessionRepository(): RefreshSessionRepository
+    fun provideRefreshSessionRepository(): SessionRepository
 
     fun provideUserPrefs(): UserPrefs
 }

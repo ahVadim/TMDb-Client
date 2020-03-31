@@ -15,10 +15,6 @@ import javax.inject.Inject
 
 class ProfileFragment : BaseFragment() {
 
-    companion object {
-        fun newInstance() = ProfileFragment()
-    }
-
     @Inject
     lateinit var viewModelFactory: ViewModelProvider.Factory
     private val profileViewModel: ProfileViewModel by viewModels { viewModelFactory }

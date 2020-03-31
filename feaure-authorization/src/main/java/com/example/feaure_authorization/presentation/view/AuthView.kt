@@ -10,13 +10,7 @@ interface AuthView : MvpView {
     fun setLoginButtonEnable(isEnable: Boolean)
 
     @AddToEndSingle
-    fun showTryLaterError()
-
-    @AddToEndSingle
-    fun showIncorrectDataError()
-
-    @AddToEndSingle
-    fun hideError()
+    fun setErrorState(errorState: AuthErrorState)
 
     @OneExecution
     fun showSuccessAuthorizationMessage()

@@ -63,10 +63,23 @@ deps.moshi = moshi
 def espresso_core_version = '3.2.0'
 def androidx_junit_version = '1.1.1'
 def junit_version = '4.12'
+def assertJ_version = '3.15.0'
+def spek_version = '2.0.10'
+def mockwebserver_version = '4.4.0'
+def mockito_kotlin_version = '2.2.0'
+def mockito_inline_version = '2.28.2'
 
 ext {
     testDependencies = [
-            junit = "junit:junit:$junit_version"
+            test_core = project((':test_core')),
+            junit = "junit:junit:$junit_version",
+            assertJ = "org.assertj:assertj-core:$assertJ_version",
+            spek = "org.spekframework.spek2:spek-dsl-jvm:$spek_version",
+            spek_runner = "org.spekframework.spek2:spek-runner-junit5:$spek_version",
+            kotlin_reflect = "org.jetbrains.kotlin:kotlin-reflect:$versions.kotlin",
+            mockwebserver = "com.squareup.okhttp3:mockwebserver:$mockwebserver_version",
+            mockito_kotlin = "com.nhaarman.mockitokotlin2:mockito-kotlin:$mockito_kotlin_version",
+            mockito_inline = "org.mockito:mockito-inline:$mockito_inline_version",
     ]
 
     androidTestDependencies = [

@@ -80,18 +80,21 @@ class AuthFragment : BaseFragment(), AuthView {
         binding.authLoginButton.isEnabled = isEnable
     }
 
-    override fun showTryLaterError() {
-        binding.authErrorText.setText(R.string.error_try_later)
-        binding.authErrorText.isVisible = true
-    }
-
-    override fun showIncorrectDataError() {
-        binding.authErrorText.setText(R.string.error_incorrect_auth_data)
-        binding.authErrorText.isVisible = true
-    }
-
-    override fun hideError() {
-        binding.authErrorText.isVisible = false
+    override fun setErrorState(errorState: AuthErrorState) {
+        when (errorState) {
+            AuthErrorState.TryLater -> {
+                binding.authErrorText.setText(R.string.error_try_later)
+                binding.authErrorText.isVisible = true
+            }
+            AuthErrorState.IncorrectData -> {
+                binding.authErrorText.setText(R.string.error_incorrect_auth_data)
+                binding.authErrorText.isVisible = true
+            }
+            AuthErrorState.None -> {
+                binding.authErrorText.text = null
+                binding.authErrorText.isVisible = false
+            }
+        }
     }
 
     override fun showSuccessAuthorizationMessage() {

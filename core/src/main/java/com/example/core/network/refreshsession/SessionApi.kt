@@ -8,8 +8,8 @@ import com.example.core.data.session.dto.ValidateTokenRequestDto
 import io.reactivex.Completable
 import io.reactivex.Single
 import retrofit2.http.Body
-import retrofit2.http.DELETE
 import retrofit2.http.GET
+import retrofit2.http.HTTP
 import retrofit2.http.POST
 
 interface SessionApi {
@@ -23,6 +23,6 @@ interface SessionApi {
     @POST("authentication/session/new")
     fun createSession(@Body request: CreateSessionRequestDto): Single<CreateSessionResponseDto>
 
-    @DELETE("authentication/session")
+    @HTTP(method = "DELETE", path = "authentication/session", hasBody = true)
     fun deleteSession(@Body request: DeleteSessionRequestDto): Completable
 }

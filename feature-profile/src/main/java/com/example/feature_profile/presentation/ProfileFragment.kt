@@ -5,11 +5,13 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.viewModels
+import androidx.lifecycle.ViewModelProvider
 import com.example.core.di.CoreComponentHolder
 import com.example.core.presentation.BaseFragment
 import com.example.core.util.observe
 import com.example.feature_profile.databinding.FragmentProfileBinding
 import com.example.feature_profile.di.DaggerProfileComponent
+import javax.inject.Inject
 
 class ProfileFragment : BaseFragment() {
 
@@ -17,7 +19,9 @@ class ProfileFragment : BaseFragment() {
         fun newInstance() = ProfileFragment()
     }
 
-    private val profileViewModel by viewModels<ProfileViewModel>()
+    @Inject
+    lateinit var viewModelFactory: ViewModelProvider.Factory
+    private val profileViewModel: ProfileViewModel by viewModels { viewModelFactory }
 
     private var _binding: FragmentProfileBinding? = null
     private val binding get() = _binding!!

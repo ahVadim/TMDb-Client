@@ -10,4 +10,5 @@
     <color name="red">#E1172F</color>
     <color name="purpure">#6C63FF</color>
     <color name="auth_button_disabled_color">#E5232636</color>
+    <color name="bottom_bar_bg">#282C3F</color>
 </resources>

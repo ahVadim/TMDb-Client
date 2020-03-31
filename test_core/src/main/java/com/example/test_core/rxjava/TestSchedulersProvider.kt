@@ -5,10 +5,10 @@ import io.reactivex.Scheduler
 import io.reactivex.schedulers.Schedulers
 
 open class TestSchedulersProvider(
-    scheduler: Scheduler = Schedulers.trampoline()
+    private val scheduler: Scheduler = Schedulers.trampoline()
 ) : SchedulersProvider() {
 
-    override fun ui(): Scheduler = Schedulers.trampoline()
-    override fun io(): Scheduler = Schedulers.trampoline()
-    override fun computation(): Scheduler = Schedulers.trampoline()
+    override fun ui(): Scheduler = scheduler
+    override fun io(): Scheduler = scheduler
+    override fun computation(): Scheduler = scheduler
 }

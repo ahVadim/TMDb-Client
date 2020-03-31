@@ -41,6 +41,7 @@ class ProfileFragment : BaseFragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         observe(profileViewModel.liveState, ::renderState)
+        observe(profileViewModel.eventsQueue, ::onEvent)
         binding.profileLogoutButton.setOnClickListener { profileViewModel.onLogoutButtonClick() }
     }
 

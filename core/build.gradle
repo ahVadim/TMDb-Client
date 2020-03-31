@@ -13,9 +13,6 @@ dependencies {
 
             deps.dagger.dagger,
 
-            deps.moxy.moxy,
-            deps.moxy.androidx,
-
             deps.moshi.moshi,
             deps.logging_interceptor
     )

@@ -36,7 +36,8 @@ dependencies {
             deps.retrofit.moshi_converter,
             deps.retrofit.rxjava_adapter,
 
-            deps.timber
+            deps.timber,
+            deps.glide
     )
 
     kapt(

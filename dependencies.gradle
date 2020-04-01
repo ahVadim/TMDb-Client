@@ -17,6 +17,7 @@ versions.moshi = '1.9.2'
 versions.stetho = "1.5.1"
 versions.timber = "4.7.1"
 versions.logging_interceptor = "4.4.0"
+versions.glide = "4.11.0"
 
 deps.appcompat = "androidx.appcompat:appcompat:$versions.appcompat"
 deps.material = "com.google.android.material:material:$versions.material"
@@ -27,6 +28,7 @@ deps.rxandroid = "io.reactivex.rxjava2:rxandroid:$versions.rxandroid"
 deps.stetho = "com.facebook.stetho:stetho:$versions.stetho"
 deps.timber = "com.jakewharton.timber:timber:$versions.timber"
 deps.logging_interceptor = "com.squareup.okhttp3:logging-interceptor:$versions.logging_interceptor"
+deps.glide = "com.github.bumptech.glide:glide:$versions.glide"
 
 def kotlin = [:]
 kotlin.stdlib = "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$versions.kotlin"

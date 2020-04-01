@@ -12,7 +12,7 @@ class MovieViewHolder(
         movieBinding.movieTitle.text = viewModel.title
         movieBinding.movieSubtitle.text = viewModel.subtitle
         movieBinding.movieGenre.text = viewModel.genre
-        movieBinding.movieRating.text = viewModel.rating
+        movieBinding.movieRating.text = viewModel.rating.toString()
         movieBinding.movieRatingsCount.text = viewModel.ratingCount.toString()
         movieBinding.movieDuration.text = viewModel.duration
     }

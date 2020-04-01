@@ -4,6 +4,7 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.core.widget.doAfterTextChanged
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -47,6 +48,10 @@ class MoviesListFragment : BaseFragment() {
         adapter = MoviesAdapter()
         binding.moviesRecycler.adapter = adapter
         binding.moviesRecycler.layoutManager = LinearLayoutManager(context)
+
+        binding.searchInputText.doAfterTextChanged {
+            moviesListViewModel.onSearchInputTextChange(it?.toString())
+        }
 
         observe(moviesListViewModel.liveState, ::renderState)
     }

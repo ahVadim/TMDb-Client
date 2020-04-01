@@ -14,7 +14,10 @@ dependencies {
             deps.dagger.dagger
     )
 
-    kapt(deps.dagger.processor)
+    kapt(
+            deps.dagger.processor,
+            deps.moshi.codegen
+    )
 
     testImplementation(testDependencies)
     androidTestImplementation(androidTestDependencies)

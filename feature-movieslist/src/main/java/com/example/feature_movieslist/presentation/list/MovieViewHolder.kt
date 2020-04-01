@@ -10,7 +10,8 @@ import com.example.feature_movieslist.databinding.ItemMovieLineBinding
 import com.example.feature_movieslist.domain.MovieEntity
 
 class MovieViewHolder(
-    private val movieBinding: ItemMovieLineBinding
+    private val movieBinding: ItemMovieLineBinding,
+    private val onMoviewClickListener: (MovieEntity) -> Unit
 ) : RecyclerView.ViewHolder(movieBinding.root) {
 
     private val placeholder: Drawable
@@ -21,15 +22,20 @@ class MovieViewHolder(
         )
     }
 
-    fun bind(viewModel: MovieEntity) {
-        movieBinding.movieTitle.text = viewModel.title
-        movieBinding.movieSubtitle.text = viewModel.subtitle
-        movieBinding.movieGenre.text = viewModel.genre
-        movieBinding.movieRating.text = viewModel.rating.toString()
-        movieBinding.movieRatingsCount.text = viewModel.ratingCount.toString()
-        movieBinding.movieDuration.text = viewModel.duration
+    fun bind(movie: MovieEntity) {
+        itemView.setOnClickListener {
+            if (adapterPosition != RecyclerView.NO_POSITION) {
+                onMoviewClickListener.invoke(movie)
+            }
+        }
+        movieBinding.movieTitle.text = movie.title
+        movieBinding.movieSubtitle.text = movie.subtitle
+        movieBinding.movieGenre.text = movie.genre
+        movieBinding.movieRating.text = movie.rating.toString()
+        movieBinding.movieRatingsCount.text = movie.ratingCount.toString()
+        movieBinding.movieDuration.text = movie.duration
         Glide.with(itemView)
-            .load(viewModel.posterUrl)
+            .load(movie.posterUrl)
             .placeholder(placeholder)
             .into(movieBinding.moviePoster)
     }

@@ -2,10 +2,13 @@ package com.example.feature_movieslist.presentation.movies
 
 import androidx.lifecycle.MutableLiveData
 import com.example.core.presentation.BaseViewModel
+import com.example.core.presentation.EventsQueue
+import com.example.core.presentation.events.NavEvent
 import com.example.core.rxjava.SchedulersProvider
 import com.example.core.util.ioToMain
 import com.example.core.util.onNext
 import com.example.feature_movieslist.data.MoviesSearchRepository
+import com.example.feature_movieslist.domain.MovieEntity
 import io.reactivex.Observable
 import io.reactivex.Single
 import io.reactivex.disposables.Disposables
@@ -23,6 +26,8 @@ class MoviesListViewModel @Inject constructor(
     }
 
     var liveState = MutableLiveData<MoviesListViewState>(createInitialState())
+    val eventsQueue = EventsQueue()
+
     private var searchDisposable = Disposables.disposed()
 
     private fun createInitialState(): MoviesListViewState {
@@ -48,5 +53,15 @@ class MoviesListViewModel @Inject constructor(
                            Timber.e(error)
                        })
             .also { addDisposable(it) }
+    }
+
+    fun onMovieClick(movie: MovieEntity) {
+        eventsQueue.offer(
+            NavEvent(
+                MoviesListFragmentDirections.actionMoviesListFragmentToMovieDetailsFragment(
+                    movie.title
+                )
+            )
+        )
     }
 }

@@ -45,7 +45,7 @@ class MoviesListFragment : BaseFragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        adapter = MoviesAdapter()
+        adapter = MoviesAdapter(moviesListViewModel::onMovieClick)
         binding.moviesRecycler.adapter = adapter
         binding.moviesRecycler.layoutManager = LinearLayoutManager(context)
 
@@ -54,6 +54,7 @@ class MoviesListFragment : BaseFragment() {
         }
 
         observe(moviesListViewModel.liveState, ::renderState)
+        observe(moviesListViewModel.eventsQueue, ::onEvent)
     }
 
     private fun renderState(state: MoviesListViewState) {

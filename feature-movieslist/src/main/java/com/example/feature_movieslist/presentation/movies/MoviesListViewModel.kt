@@ -9,6 +9,8 @@ class MoviesListViewModel @Inject constructor() : BaseViewModel() {
     var liveState = MutableLiveData<MoviesListViewState>(createInitialState())
 
     private fun createInitialState(): MoviesListViewState {
-        return MoviesListViewState(emptyList())
+        return MoviesListViewState(
+            emptyList()
+        )
     }
 }

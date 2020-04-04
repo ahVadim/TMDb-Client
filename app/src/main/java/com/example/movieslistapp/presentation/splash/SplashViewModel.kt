@@ -2,29 +2,17 @@ package com.example.movieslistapp.presentation.splash
 
 import com.example.core.prefs.UserPrefs
 import com.example.core.presentation.BaseViewModel
-import com.example.core.presentation.EventsQueue
-import com.example.core.presentation.events.NavEvent
 import javax.inject.Inject
 
 class SplashViewModel @Inject constructor(
     userPrefs: UserPrefs
 ) : BaseViewModel() {
 
-    val eventsQueue = EventsQueue()
-
     init {
         if (userPrefs.sessionId.isNullOrBlank()) {
-            eventsQueue.offer(
-                NavEvent(
-                    SplashFragmentDirections.actionSplashToAuth()
-                )
-            )
+            navigateTo(SplashFragmentDirections.actionSplashToAuth())
         } else {
-            eventsQueue.offer(
-                NavEvent(
-                    SplashFragmentDirections.actionSplashToMainScreen()
-                )
-            )
+            navigateTo(SplashFragmentDirections.actionSplashToMainScreen())
         }
     }
 }

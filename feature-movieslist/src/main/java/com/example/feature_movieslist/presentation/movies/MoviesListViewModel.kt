@@ -2,8 +2,6 @@ package com.example.feature_movieslist.presentation.movies
 
 import androidx.lifecycle.MutableLiveData
 import com.example.core.presentation.BaseViewModel
-import com.example.core.presentation.EventsQueue
-import com.example.core.presentation.events.NavEvent
 import com.example.core.rxjava.SchedulersProvider
 import com.example.core.util.ioToMain
 import com.example.core.util.onNext
@@ -26,7 +24,6 @@ class MoviesListViewModel @Inject constructor(
     }
 
     var liveState = MutableLiveData<MoviesListViewState>(createInitialState())
-    val eventsQueue = EventsQueue()
 
     private var searchDisposable = Disposables.disposed()
 
@@ -56,12 +53,9 @@ class MoviesListViewModel @Inject constructor(
     }
 
     fun onMovieClick(movie: MovieEntity) {
-        eventsQueue.offer(
-            NavEvent(
-                MoviesListFragmentDirections.actionMoviesListFragmentToMovieDetailsFragment(
-                    movie.title
-                )
-            )
+        navigateTo(
+            MoviesListFragmentDirections
+                .actionMoviesListFragmentToMovieDetailsFragment(movie.title)
         )
     }
 }

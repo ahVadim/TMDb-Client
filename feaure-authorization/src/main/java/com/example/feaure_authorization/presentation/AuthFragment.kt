@@ -1,5 +1,6 @@
 package com.example.feaure_authorization.presentation
 
+import android.content.Context
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -26,11 +27,11 @@ class AuthFragment : BaseFragment() {
     private var _binding: FragmentAuthorizationBinding? = null
     private val binding get() = _binding!!
 
-    override fun onCreate(savedInstanceState: Bundle?) {
+    override fun onAttach(context: Context) {
         DaggerAuthComponent.factory()
             .create(CoreComponentHolder.coreComponent)
             .inject(this)
-        super.onCreate(savedInstanceState)
+        super.onAttach(context)
     }
 
     override fun onCreateView(

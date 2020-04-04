@@ -1,5 +1,6 @@
 package com.example.movieslistapp.presentation.splash
 
+import android.content.Context
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -19,11 +20,11 @@ class SplashFragment : BaseFragment() {
     lateinit var viewModelFactory: ViewModelProvider.Factory
     private val splashViewModel: SplashViewModel by viewModels { viewModelFactory }
 
-    override fun onCreate(savedInstanceState: Bundle?) {
+    override fun onAttach(context: Context) {
         DaggerAppComponent.factory()
             .create(CoreComponentHolder.coreComponent)
             .inject(this)
-        super.onCreate(savedInstanceState)
+        super.onAttach(context)
     }
 
     override fun onCreateView(

@@ -1,5 +1,6 @@
 package com.example.feature_profile.presentation
 
+import android.content.Context
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -22,11 +23,11 @@ class ProfileFragment : BaseFragment() {
     private var _binding: FragmentProfileBinding? = null
     private val binding get() = _binding!!
 
-    override fun onCreate(savedInstanceState: Bundle?) {
+    override fun onAttach(context: Context) {
         DaggerProfileComponent.factory()
             .create(CoreComponentHolder.coreComponent)
             .inject(this)
-        super.onCreate(savedInstanceState)
+        super.onAttach(context)
     }
 
     override fun onCreateView(

@@ -1,5 +1,6 @@
 package com.example.feature_movieslist.presentation.movies
 
+import android.content.Context
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -27,11 +28,11 @@ class MoviesListFragment : BaseFragment() {
 
     lateinit var adapter: MoviesAdapter
 
-    override fun onCreate(savedInstanceState: Bundle?) {
+    override fun onAttach(context: Context) {
         DaggerMoviesListComponent.factory()
             .create(CoreComponentHolder.coreComponent)
             .inject(this)
-        super.onCreate(savedInstanceState)
+        super.onAttach(context)
     }
 
     override fun onCreateView(

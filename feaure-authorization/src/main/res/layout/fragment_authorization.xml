@@ -40,7 +40,7 @@
 
         <com.google.android.material.textfield.TextInputLayout
             android:id="@+id/auth_login_input_layout"
-            style="@style/AuthTextInputLayoutStyle"
+            style="@style/Widget.App.TextInputLayout.OutlinedBox"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="@dimen/margin_32"
@@ -51,7 +51,7 @@
 
             <com.google.android.material.textfield.TextInputEditText
                 android:id="@+id/auth_login_edit_text"
-                style="@style/Text.Content1"
+                android:textAppearance="@style/Text.Content1"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:imeOptions="actionNext"
@@ -63,7 +63,7 @@
 
         <com.google.android.material.textfield.TextInputLayout
             android:id="@+id/auth_password_input_layout"
-            style="@style/AuthTextInputLayoutStyle"
+            style="@style/Widget.App.TextInputLayout.OutlinedBox"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="@dimen/margin_24"
@@ -76,7 +76,7 @@
 
             <com.google.android.material.textfield.TextInputEditText
                 android:id="@+id/auth_password_edit_text"
-                style="@style/Text.Content1"
+                android:textAppearance="@style/Text.Content1"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:imeOptions="actionNext"
@@ -100,7 +100,7 @@
 
         <Button
             android:id="@+id/auth_login_button"
-            style="@style/AppButtonStyle"
+            style="@style/Widget.App.Button"
             android:backgroundTint="@color/auth_button_bg_color"
             android:layout_width="match_parent"
             android:layout_height="64dp"

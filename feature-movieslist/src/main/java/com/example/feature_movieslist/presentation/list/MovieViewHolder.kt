@@ -2,9 +2,9 @@ package com.example.feature_movieslist.presentation.list
 
 import android.graphics.drawable.ColorDrawable
 import android.graphics.drawable.Drawable
-import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
+import com.example.core.util.getColorFromAttr
 import com.example.feature_movieslist.R
 import com.example.feature_movieslist.databinding.ItemMovieLineBinding
 import com.example.feature_movieslist.domain.MovieEntity
@@ -18,7 +18,7 @@ class MovieViewHolder(
 
     init {
         placeholder = ColorDrawable(
-            ContextCompat.getColor(itemView.context, R.color.dark_blue)
+            itemView.context.getColorFromAttr(R.attr.colorOnBackgroundSecondary)
         )
     }
 

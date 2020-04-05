@@ -24,4 +24,10 @@
     <style name="Widget.App.TextInputLayout.OutlinedBox.Password">
         <item name="endIconMode">password_toggle</item>
     </style>
+
+    <style name="Widget.App.BottomNavigationView" parent="Widget.MaterialComponents.BottomNavigationView">
+        <item name="itemIconTint">@color/bottom_nav_bar_colors</item>
+        <item name="itemTextColor">@color/bottom_nav_bar_colors</item>
+        <item name="android:background">@color/bottom_bar_bg</item>
+    </style>
 </resources>

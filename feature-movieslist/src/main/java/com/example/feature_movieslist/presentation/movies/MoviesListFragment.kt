@@ -20,7 +20,7 @@ import javax.inject.Inject
 class MoviesListFragment : BaseFragment() {
 
     @Inject
-    lateinit var viewModelFactory: ViewModelProvider.Factory
+    internal lateinit var viewModelFactory: ViewModelProvider.Factory
     private val moviesListViewModel: MoviesListViewModel by viewModels { viewModelFactory }
 
     private var _binding: FragmentMovieslistBinding? = null

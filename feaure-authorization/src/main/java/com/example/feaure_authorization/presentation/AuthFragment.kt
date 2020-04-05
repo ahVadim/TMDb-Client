@@ -21,7 +21,7 @@ import javax.inject.Inject
 class AuthFragment : BaseFragment() {
 
     @Inject
-    lateinit var viewModelFactory: ViewModelProvider.Factory
+    internal lateinit var viewModelFactory: ViewModelProvider.Factory
     private val authViewModel: AuthViewModel by viewModels { viewModelFactory }
 
     private var _binding: FragmentAuthorizationBinding? = null

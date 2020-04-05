@@ -17,7 +17,7 @@ import javax.inject.Inject
 class ProfileFragment : BaseFragment() {
 
     @Inject
-    lateinit var viewModelFactory: ViewModelProvider.Factory
+    internal lateinit var viewModelFactory: ViewModelProvider.Factory
     private val profileViewModel: ProfileViewModel by viewModels { viewModelFactory }
 
     private var _binding: FragmentProfileBinding? = null

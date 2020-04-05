@@ -17,7 +17,7 @@ import javax.inject.Inject
 class SplashFragment : BaseFragment() {
 
     @Inject
-    lateinit var viewModelFactory: ViewModelProvider.Factory
+    internal lateinit var viewModelFactory: ViewModelProvider.Factory
     private val splashViewModel: SplashViewModel by viewModels { viewModelFactory }
 
     override fun onAttach(context: Context) {

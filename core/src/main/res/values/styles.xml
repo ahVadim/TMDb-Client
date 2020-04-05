@@ -4,6 +4,7 @@
     <style name="Widget.App.Button" parent="Widget.MaterialComponents.Button">
         <item name="rippleColor">@color/light</item>
         <item name="cornerRadius">8dp</item>
+        <item name="android:textAppearance">@style/Text.ButtonText</item>
     </style>
 
     <style name="Widget.App.TextInputLayout.OutlinedBox" parent="Widget.MaterialComponents.TextInputLayout.OutlinedBox">

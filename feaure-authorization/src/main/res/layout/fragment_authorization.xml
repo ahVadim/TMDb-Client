@@ -98,14 +98,12 @@
 
         <Button
             android:id="@+id/auth_login_button"
-            style="@style/Widget.App.Button"
             android:backgroundTint="@color/auth_button_bg_color"
             android:layout_width="match_parent"
             android:layout_height="64dp"
             android:layout_marginTop="72dp"
             android:layout_marginBottom="@dimen/margin_12"
             android:text="@string/enter"
-            android:textAppearance="@style/Text.ButtonText"
             android:textColor="@color/auth_button_text"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"

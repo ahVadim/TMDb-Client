@@ -97,7 +97,6 @@
 
         <Button
             android:id="@+id/auth_login_button"
-            android:backgroundTint="@color/auth_button_bg_color"
             android:layout_width="match_parent"
             android:layout_height="64dp"
             android:layout_marginTop="72dp"

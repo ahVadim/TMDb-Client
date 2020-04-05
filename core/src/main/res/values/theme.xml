@@ -8,6 +8,7 @@
         <item name="colorOnSurface">@color/gray</item>
         <item name="colorAccent">@color/orange</item>
         <item name="colorSecondary">@color/purpure</item>
+        <item name="colorError">@color/red</item>
         <item name="android:colorBackground">@color/bg_black</item>
         <item name="android:navigationBarColor">@color/bg_black</item>
         <item name="materialButtonStyle">@style/Widget.App.Button</item>

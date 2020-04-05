@@ -9,7 +9,7 @@ import com.example.movieslistapp.di.DaggerAppComponent
 class AppActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
-        setTheme(R.style.AppTheme)
+        setTheme(R.style.Theme_App)
         DaggerAppComponent.factory()
             .create(CoreComponentHolder.coreComponent)
             .inject(this)

@@ -41,7 +41,7 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="@dimen/margin_8"
         android:gravity="center"
-        android:textColor="@color/gray"
+        android:textColor="?attr/colorOnSurface"
         android:layout_marginStart="@dimen/margin_16"
         android:layout_marginEnd="@dimen/margin_16"
         app:layout_constraintBottom_toTopOf="@id/profile_logout_button"

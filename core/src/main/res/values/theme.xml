@@ -5,6 +5,7 @@
         <item name="colorPrimary">@color/orange</item>
         <item name="colorOnPrimary">@color/light</item>
         <item name="colorPrimaryDark">@color/bg_black</item>
+        <item name="colorOnSurface">@color/gray</item>
         <item name="colorAccent">@color/orange</item>
         <item name="android:colorBackground">@color/bg_black</item>
         <item name="android:navigationBarColor">@color/bg_black</item>

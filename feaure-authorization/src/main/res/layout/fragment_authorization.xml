@@ -20,7 +20,7 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="@dimen/auth_title_top_margin"
             android:text="@string/welcome"
-            android:textColor="@color/light"
+            android:textColor="?attr/colorOnPrimary"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"/>
@@ -32,7 +32,7 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="@dimen/margin_24"
             android:text="@string/authorization_subtitle"
-            android:textColor="@color/light"
+            android:textColor="?attr/colorOnPrimary"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/auth_title"/>
@@ -57,7 +57,7 @@
                 android:inputType="text"
                 android:maxLines="1"
                 android:nextFocusForward="@id/auth_password_edit_text"
-                android:textColor="@color/light"/>
+                android:textColor="?attr/colorOnPrimary"/>
         </com.google.android.material.textfield.TextInputLayout>
 
         <com.google.android.material.textfield.TextInputLayout
@@ -80,7 +80,7 @@
                 android:inputType="textPassword"
                 android:maxLines="1"
                 android:nextFocusForward="@id/auth_login_button"
-                android:textColor="@color/light"/>
+                android:textColor="?attr/colorOnPrimary"/>
         </com.google.android.material.textfield.TextInputLayout>
 
         <TextView

@@ -16,7 +16,7 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        tools:src="@color/light"/>
+        tools:src="?attr/colorOnPrimary"/>
 
     <TextView
         android:id="@+id/movie_title"
@@ -27,7 +27,7 @@
         android:ellipsize="end"
         android:maxLines="1"
         android:textAppearance="@style/Text.H3"
-        android:textColor="@color/light"
+        android:textColor="?attr/colorOnPrimary"
         app:layout_constraintBottom_toTopOf="@id/movie_subtitle"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toEndOf="@id/movie_poster"
@@ -62,7 +62,7 @@
         android:ellipsize="end"
         android:maxLines="1"
         android:textAppearance="@style/Text.Caption2"
-        android:textColor="@color/light"
+        android:textColor="?attr/colorOnPrimary"
         app:layout_constraintBottom_toTopOf="@id/movie_rating"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toEndOf="@id/movie_poster"
@@ -78,7 +78,7 @@
         android:layout_marginEnd="@dimen/margin_16"
         android:fontFamily="sans-serif-medium"
         android:lineSpacingExtra="8sp"
-        android:textColor="@color/light"
+        android:textColor="?attr/colorOnPrimary"
         android:textSize="16sp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toEndOf="@id/movie_poster"
@@ -114,7 +114,7 @@
         android:layout_marginStart="36dp"
         android:fontFamily="sans-serif-medium"
         android:lineSpacingExtra="8sp"
-        android:textColor="@color/light"
+        android:textColor="?attr/colorOnPrimary"
         android:textSize="12sp"
         app:layout_constraintBottom_toBottomOf="@id/movie_rating"
         app:layout_constraintStart_toEndOf="@id/movie_ratings_count"

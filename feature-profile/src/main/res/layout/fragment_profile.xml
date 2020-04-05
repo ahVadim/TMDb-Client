@@ -27,7 +27,7 @@
         android:layout_marginStart="@dimen/margin_16"
         android:layout_marginEnd="@dimen/margin_16"
         android:gravity="center"
-        android:textColor="@color/light"
+        android:textColor="?attr/colorOnPrimary"
         app:layout_constraintBottom_toTopOf="@id/profile_mail"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"

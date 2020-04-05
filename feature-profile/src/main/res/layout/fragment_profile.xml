@@ -12,7 +12,7 @@
         android:layout_width="136dp"
         android:layout_height="136dp"
         android:contentDescription="@string/user_avatar_description"
-        android:src="@drawable/ic_avatar_placeholder"
+        app:srcCompat="@drawable/ic_avatar_placeholder"
         app:layout_constraintBottom_toTopOf="@id/profile_name"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"

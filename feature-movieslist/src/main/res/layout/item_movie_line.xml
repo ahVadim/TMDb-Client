@@ -103,7 +103,7 @@
         android:layout_width="16dp"
         android:layout_height="16dp"
         android:layout_marginEnd="4dp"
-        android:src="@drawable/ic_duration_icon"
+        app:srcCompat="@drawable/ic_duration_icon"
         app:layout_constraintBottom_toBottomOf="@id/movie_duration"
         app:layout_constraintEnd_toStartOf="@id/movie_duration"
         app:layout_constraintTop_toTopOf="@id/movie_duration"/>

@@ -15,4 +15,9 @@
         <item name="boxCornerRadiusTopEnd">8dp</item>
         <item name="boxCornerRadiusTopStart">8dp</item>
     </style>
+
+    <style name="Widget.App.TextInputLayout.OutlinedBox.Password">
+        <item name="endIconMode">password_toggle</item>
+        <item name="endIconTint">@color/gray</item>
+    </style>
 </resources>

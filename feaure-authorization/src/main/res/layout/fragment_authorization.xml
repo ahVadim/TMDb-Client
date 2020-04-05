@@ -16,7 +16,7 @@
 
         <TextView
             android:id="@+id/auth_title"
-            style="@style/Text.H1"
+            android:textAppearance="@style/Text.H1"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="@dimen/auth_title_top_margin"
@@ -28,7 +28,7 @@
 
         <TextView
             android:id="@+id/auth_subtitle"
-            style="@style/Text.Content1"
+            android:textAppearance="@style/Text.Content1"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="@dimen/margin_24"
@@ -63,13 +63,11 @@
 
         <com.google.android.material.textfield.TextInputLayout
             android:id="@+id/auth_password_input_layout"
-            style="@style/Widget.App.TextInputLayout.OutlinedBox"
+            style="@style/Widget.App.TextInputLayout.OutlinedBox.Password"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="@dimen/margin_24"
             android:hint="@string/password"
-            app:endIconMode="password_toggle"
-            app:endIconTint="@color/gray"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/auth_login_input_layout">

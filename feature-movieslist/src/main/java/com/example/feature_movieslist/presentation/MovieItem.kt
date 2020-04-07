@@ -28,7 +28,7 @@ class MovieItem(
             }
         }
         viewBinding.movieTitle.text = movie.title
-        viewBinding.movieSubtitle.text = movie.subtitle
+        viewBinding.movieSubtitle.text = movie.originTitle
         viewBinding.movieGenre.text = movie.genre
         viewBinding.movieRating.text = movie.rating.toString()
         viewBinding.movieRatingsCount.text = movie.ratingCount.toString()

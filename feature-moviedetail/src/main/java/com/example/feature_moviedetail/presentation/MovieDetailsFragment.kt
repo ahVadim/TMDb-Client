@@ -8,9 +8,12 @@ import android.view.ViewGroup
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.navArgs
+import com.bumptech.glide.Glide
 import com.example.core.di.CoreComponentHolder
+import com.example.core.domain.MovieEntity
 import com.example.core.presentation.BaseFragment
 import com.example.core.util.observe
+import com.example.feature_moviedetail.R
 import com.example.feature_moviedetail.databinding.FragmentMoviedetailsBinding
 import com.example.feature_moviedetail.di.DaggerMoviesDetailsComponent
 import javax.inject.Inject
@@ -49,6 +52,23 @@ class MovieDetailsFragment : BaseFragment() {
     }
 
     private fun renderState(state: MovieDetailsViewState) {
+        showMovie(state.movie)
+    }
+
+    private fun showMovie(movie: MovieEntity) {
+        with(binding) {
+            movieTitle.text = movie.title
+            movieSubtitle.text = movie.originTitle
+            movieGenre.text = movie.genre
+            movieRating.text = movie.rating.toString()
+            movieRatingsCount.text = movie.ratingCount.toString()
+            movieDuration.text = movie.duration
+            movieDescription.text = movie.description
+            Glide.with(root)
+                .load(movie.posterUrl)
+                .placeholder(R.drawable.movie_placeholder)
+                .into(moviePoster)
+        }
     }
 
     override fun onDestroyView() {

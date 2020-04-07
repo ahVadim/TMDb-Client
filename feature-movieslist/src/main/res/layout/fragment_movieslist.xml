@@ -60,4 +60,28 @@
         tools:itemCount="3"
         tools:listitem="@layout/item_movie_line"/>
 
+    <ProgressBar
+        android:id="@+id/movies_progress"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:visibility="gone"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/search_input_bg"
+        tools:visibility="visible"/>
+
+    <TextView
+        android:id="@+id/movies_empty"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/empty_movies_search"
+        android:textAppearance="@style/Text.H3"
+        android:textColor="?attr/colorOnPrimary"
+        android:visibility="gone"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/search_input_bg"/>
+
 </androidx.constraintlayout.widget.ConstraintLayout>

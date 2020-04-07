@@ -22,7 +22,7 @@
         android:label="FavoritesListFragment"/>
     <fragment
         android:id="@+id/movieDetailsFragment"
-        android:name="com.example.feature_movieslist.presentation.moviedetails.MovieDetailsFragment"
+        android:name="com.example.feature_moviedetail.presentation.MovieDetailsFragment"
         android:label="MovieDetailsFragment">
         <argument
             android:name="movieEntity"

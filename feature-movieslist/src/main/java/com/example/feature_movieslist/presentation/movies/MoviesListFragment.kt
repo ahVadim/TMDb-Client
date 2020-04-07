@@ -14,7 +14,7 @@ import com.example.core.presentation.BaseFragment
 import com.example.core.util.observe
 import com.example.feature_movieslist.databinding.FragmentMovieslistBinding
 import com.example.feature_movieslist.di.DaggerMoviesListComponent
-import com.example.feature_movieslist.presentation.list.MovieItem
+import com.example.feature_movieslist.presentation.MovieItem
 import com.xwray.groupie.GroupAdapter
 import com.xwray.groupie.GroupieViewHolder
 import javax.inject.Inject
@@ -60,7 +60,9 @@ class MoviesListFragment : BaseFragment() {
     }
 
     private fun renderState(state: MoviesListViewState) {
-        adapter.update(state.moviesList.map { MovieItem(it, moviesListViewModel::onMovieClick) })
+        adapter.update(state.moviesList.map {
+            MovieItem(it, moviesListViewModel::onMovieClick)
+        })
     }
 
     override fun onDestroyView() {

@@ -1,4 +1,4 @@
-package com.example.feature_movieslist.presentation.list
+package com.example.feature_movieslist.presentation
 
 import android.view.View
 import androidx.recyclerview.widget.RecyclerView

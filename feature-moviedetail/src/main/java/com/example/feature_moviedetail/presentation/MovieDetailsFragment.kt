@@ -1,4 +1,4 @@
-package com.example.feature_movieslist.presentation.moviedetails
+package com.example.feature_moviedetail.presentation
 
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -6,7 +6,7 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.navigation.fragment.navArgs
 import com.example.core.presentation.BaseFragment
-import com.example.feature_movieslist.databinding.FragmentMoviedetailsBinding
+import com.example.feature_moviedetail.databinding.FragmentMoviedetailsBinding
 
 class MovieDetailsFragment : BaseFragment() {
 

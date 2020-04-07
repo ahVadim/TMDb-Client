@@ -8,6 +8,7 @@ import com.bumptech.glide.request.RequestOptions
 import com.example.core.domain.MovieEntity
 import com.example.feature_movieslist.R
 import com.example.feature_movieslist.databinding.ItemMovieLineBinding
+import com.xwray.groupie.Item
 import com.xwray.groupie.viewbinding.BindableItem
 
 class MovieItem(
@@ -22,6 +23,11 @@ class MovieItem(
     }
 
     override fun getId() = movie.id.toLong()
+
+    override fun hasSameContentAs(other: Item<*>): Boolean {
+        if (other !is MovieItem) return false
+        return movie == other.movie
+    }
 
     override fun bind(viewBinding: ItemMovieLineBinding, position: Int) {
         viewBinding.root.setOnClickListener {

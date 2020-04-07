@@ -1,8 +1,8 @@
 package com.example.feature_movieslist.mapper
 
 import com.example.core.consts.IMAGE_BASE_URL
+import com.example.core.domain.MovieEntity
 import com.example.feature_movieslist.data.dto.MovieDto
-import com.example.feature_movieslist.domain.MovieEntity
 import javax.inject.Inject
 
 class MovieMapper @Inject constructor() {

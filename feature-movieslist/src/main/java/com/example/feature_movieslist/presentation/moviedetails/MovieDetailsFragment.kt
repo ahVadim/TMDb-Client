@@ -18,7 +18,7 @@ class MovieDetailsFragment : BaseFragment() {
         savedInstanceState: Bundle?
     ): View? {
         val binding = FragmentMoviedetailsBinding.inflate(inflater, container, false)
-        binding.movieTitle.text = args.movieName
+        //        binding.movieTitle.text = args.movieName
         return binding.root
     }
 }

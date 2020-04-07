@@ -3,9 +3,9 @@ package com.example.feature_movieslist.presentation.list
 import android.view.View
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
+import com.example.core.domain.MovieEntity
 import com.example.feature_movieslist.R
 import com.example.feature_movieslist.databinding.ItemMovieLineBinding
-import com.example.feature_movieslist.domain.MovieEntity
 import com.xwray.groupie.viewbinding.BindableItem
 
 class MovieItem(

@@ -1,6 +1,6 @@
 package com.example.feature_movieslist.presentation.movies
 
-import com.example.feature_movieslist.domain.MovieEntity
+import com.example.core.domain.MovieEntity
 
 data class MoviesListViewState(
     val moviesList: List<MovieEntity>

@@ -1,12 +1,12 @@
 package com.example.feature_movieslist.presentation.movies
 
 import androidx.lifecycle.MutableLiveData
+import com.example.core.domain.MovieEntity
 import com.example.core.presentation.BaseViewModel
 import com.example.core.rxjava.SchedulersProvider
 import com.example.core.util.ioToMain
 import com.example.core.util.onNext
 import com.example.feature_movieslist.data.MoviesSearchRepository
-import com.example.feature_movieslist.domain.MovieEntity
 import io.reactivex.Observable
 import io.reactivex.Single
 import io.reactivex.disposables.Disposables
@@ -55,7 +55,7 @@ class MoviesListViewModel @Inject constructor(
     fun onMovieClick(movie: MovieEntity) {
         navigateTo(
             MoviesListFragmentDirections
-                .actionMoviesListFragmentToMovieDetailsFragment(movie.title)
+                .actionMoviesListFragmentToMovieDetailsFragment(movie)
         )
     }
 }

@@ -18,6 +18,7 @@ versions.stetho = "1.5.1"
 versions.timber = "4.7.1"
 versions.logging_interceptor = "4.4.0"
 versions.glide = "4.11.0"
+versions.groupie = "2.8.0"
 
 deps.appcompat = "androidx.appcompat:appcompat:$versions.appcompat"
 deps.material = "com.google.android.material:material:$versions.material"
@@ -59,6 +60,11 @@ def moshi = [:]
 moshi.moshi = "com.squareup.moshi:moshi:$versions.moshi"
 moshi.codegen = "com.squareup.moshi:moshi-kotlin-codegen:$versions.moshi"
 deps.moshi = moshi
+
+def groupie = [:]
+groupie.groupie = "com.xwray:groupie:$versions.groupie"
+groupie.viewbinding = "com.xwray:groupie-viewbinding:$versions.groupie"
+deps.groupie = groupie
 
 def espresso_core_version = '3.2.0'
 def androidx_junit_version = '1.1.1'

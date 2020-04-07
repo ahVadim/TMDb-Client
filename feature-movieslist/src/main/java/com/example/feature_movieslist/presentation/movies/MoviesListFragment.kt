@@ -14,7 +14,9 @@ import com.example.core.presentation.BaseFragment
 import com.example.core.util.observe
 import com.example.feature_movieslist.databinding.FragmentMovieslistBinding
 import com.example.feature_movieslist.di.DaggerMoviesListComponent
-import com.example.feature_movieslist.presentation.list.MoviesAdapter
+import com.example.feature_movieslist.presentation.list.MovieItem
+import com.xwray.groupie.GroupAdapter
+import com.xwray.groupie.GroupieViewHolder
 import javax.inject.Inject
 
 class MoviesListFragment : BaseFragment() {
@@ -26,7 +28,7 @@ class MoviesListFragment : BaseFragment() {
     private var _binding: FragmentMovieslistBinding? = null
     private val binding get() = _binding!!
 
-    lateinit var adapter: MoviesAdapter
+    private val adapter = GroupAdapter<GroupieViewHolder>()
 
     override fun onAttach(context: Context) {
         DaggerMoviesListComponent.factory()
@@ -46,7 +48,6 @@ class MoviesListFragment : BaseFragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        adapter = MoviesAdapter(moviesListViewModel::onMovieClick)
         binding.moviesRecycler.adapter = adapter
         binding.moviesRecycler.layoutManager = LinearLayoutManager(context)
 
@@ -59,7 +60,7 @@ class MoviesListFragment : BaseFragment() {
     }
 
     private fun renderState(state: MoviesListViewState) {
-        adapter.submitList(state.moviesList)
+        adapter.update(state.moviesList.map { MovieItem(it, moviesListViewModel::onMovieClick) })
     }
 
     override fun onDestroyView() {

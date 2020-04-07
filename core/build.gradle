@@ -37,7 +37,10 @@ dependencies {
             deps.retrofit.rxjava_adapter,
 
             deps.timber,
-            deps.glide
+            deps.glide,
+
+            deps.groupie.groupie,
+            deps.groupie.viewbinding
     )
 
     kapt(

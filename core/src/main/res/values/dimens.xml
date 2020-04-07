@@ -9,4 +9,5 @@
     <dimen name="margin_36">36dp</dimen>
 
     <dimen name="auth_title_top_margin">92dp</dimen>
+    <dimen name="poster_corner_radius">8dp</dimen>
 </resources>

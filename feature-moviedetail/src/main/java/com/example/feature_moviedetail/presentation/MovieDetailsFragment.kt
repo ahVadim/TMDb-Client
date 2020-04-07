@@ -9,6 +9,8 @@ import androidx.fragment.app.viewModels
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.navArgs
 import com.bumptech.glide.Glide
+import com.bumptech.glide.load.resource.bitmap.RoundedCorners
+import com.bumptech.glide.request.RequestOptions
 import com.example.core.di.CoreComponentHolder
 import com.example.core.domain.MovieEntity
 import com.example.core.presentation.BaseFragment
@@ -56,6 +58,8 @@ class MovieDetailsFragment : BaseFragment() {
     }
 
     private fun showMovie(movie: MovieEntity) {
+        val posterCornerRadius = resources
+            .getDimensionPixelSize(R.dimen.poster_corner_radius)
         with(binding) {
             movieTitle.text = movie.title
             movieSubtitle.text = movie.originTitle
@@ -66,7 +70,11 @@ class MovieDetailsFragment : BaseFragment() {
             movieDescription.text = movie.description
             Glide.with(root)
                 .load(movie.posterUrl)
-                .placeholder(R.drawable.movie_placeholder)
+                .apply(
+                    RequestOptions()
+                        .transform(RoundedCorners(posterCornerRadius))
+                        .placeholder(R.drawable.movie_placeholder)
+                )
                 .into(moviePoster)
         }
     }

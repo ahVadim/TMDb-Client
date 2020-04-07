@@ -3,6 +3,8 @@ package com.example.feature_movieslist.presentation
 import android.view.View
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
+import com.bumptech.glide.load.resource.bitmap.RoundedCorners
+import com.bumptech.glide.request.RequestOptions
 import com.example.core.domain.MovieEntity
 import com.example.feature_movieslist.R
 import com.example.feature_movieslist.databinding.ItemMovieLineBinding
@@ -33,9 +35,15 @@ class MovieItem(
         viewBinding.movieRating.text = movie.rating.toString()
         viewBinding.movieRatingsCount.text = movie.ratingCount.toString()
         viewBinding.movieDuration.text = movie.duration
+        val posterCornerRadius = viewBinding.root.resources
+            .getDimensionPixelSize(R.dimen.poster_corner_radius)
         Glide.with(viewBinding.root)
             .load(movie.posterUrl)
-            .placeholder(R.drawable.movie_placeholder)
+            .apply(
+                RequestOptions()
+                    .transform(RoundedCorners(posterCornerRadius))
+                    .placeholder(R.drawable.movie_placeholder)
+            )
             .into(viewBinding.moviePoster)
     }
 }

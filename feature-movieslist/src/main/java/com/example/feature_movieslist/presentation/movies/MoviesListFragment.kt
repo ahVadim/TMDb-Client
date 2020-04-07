@@ -30,6 +30,8 @@ class MoviesListFragment : BaseFragment() {
     private var _binding: FragmentMovieslistBinding? = null
     private val binding get() = _binding!!
 
+    private var isGridLayout = false
+
     private val stateDelegate by lazy {
         ListStateDelegate(
             contentView = binding.moviesRecycler,
@@ -67,8 +69,12 @@ class MoviesListFragment : BaseFragment() {
             moviesListViewModel.onSearchInputTextChange(it?.toString())
         }
 
-        observe(moviesListViewModel.liveState, stateDelegate::renderState)
+        observe(moviesListViewModel.liveState, ::renderState)
         observe(moviesListViewModel.eventsQueue, ::onEvent)
+    }
+
+    private fun renderState(state: MoviesListViewState) {
+        stateDelegate.renderState(state.listState)
     }
 
     private fun renderMoviesList(movies: List<MovieEntity>) {

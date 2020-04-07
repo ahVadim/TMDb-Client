@@ -5,8 +5,8 @@ import com.example.core.domain.MovieEntity
 import com.example.core.presentation.BaseViewModel
 import com.example.core.presentation.statedelegate.ListViewState
 import com.example.core.rxjava.SchedulersProvider
+import com.example.core.util.delegate
 import com.example.core.util.ioToMain
-import com.example.core.util.onNext
 import com.example.feature_movieslist.data.MoviesSearchRepository
 import io.reactivex.Observable
 import io.reactivex.Single
@@ -24,7 +24,13 @@ class MoviesListViewModel @Inject constructor(
         private const val SEARCH_DEBOUNCE_DELAY_MS = 300L
     }
 
-    val liveState = MutableLiveData<ListViewState<MovieEntity>>()
+    val liveState = MutableLiveData<MoviesListViewState>(createInitialData())
+    private var state by liveState.delegate()
+
+    private fun createInitialData() = MoviesListViewState(
+        listState = ListViewState.Data(emptyList()),
+        isGridLayout = false
+    )
 
     private var searchDisposable = Disposables.disposed()
 
@@ -41,11 +47,11 @@ class MoviesListViewModel @Inject constructor(
             .ioToMain(schedulersProvider)
             .map { ListViewState.Data(it) as ListViewState<MovieEntity> }
             .startWith(ListViewState.Loading())
-            .subscribe({ state ->
-                           liveState.onNext(state)
+            .subscribe({ listState ->
+                           state = state.copy(listState = listState)
                        }, { error ->
                            Timber.e(error)
-                           liveState.onNext(ListViewState.Data(emptyList()))
+                           state = state.copy(listState = ListViewState.Data(emptyList()))
                        })
             .also { addDisposable(it) }
     }

@@ -8,6 +8,7 @@ import android.view.ViewGroup
 import androidx.core.widget.doAfterTextChanged
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.ViewModelProvider
+import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.core.di.CoreComponentHolder
 import com.example.core.domain.MovieEntity
@@ -22,6 +23,10 @@ import com.xwray.groupie.GroupieViewHolder
 import javax.inject.Inject
 
 class MoviesListFragment : BaseFragment() {
+
+    companion object {
+        private const val GRID_SPAN_COUNT = 2
+    }
 
     @Inject
     internal lateinit var viewModelFactory: ViewModelProvider.Factory
@@ -69,11 +74,23 @@ class MoviesListFragment : BaseFragment() {
             moviesListViewModel.onSearchInputTextChange(it?.toString())
         }
 
+        binding.moviesGridSwitch.setOnClickListener {
+            moviesListViewModel.onSwitchGridClick()
+        }
+
         observe(moviesListViewModel.liveState, ::renderState)
         observe(moviesListViewModel.eventsQueue, ::onEvent)
     }
 
     private fun renderState(state: MoviesListViewState) {
+        if (state.isGridLayout != this.isGridLayout) {
+            binding.moviesRecycler.layoutManager = if (state.isGridLayout) {
+                GridLayoutManager(context, GRID_SPAN_COUNT)
+            } else {
+                LinearLayoutManager(context)
+            }
+            this.isGridLayout = state.isGridLayout
+        }
         stateDelegate.renderState(state.listState)
     }
 

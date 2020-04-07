@@ -62,4 +62,8 @@ class MoviesListViewModel @Inject constructor(
                 .actionMoviesListFragmentToMovieDetailsFragment(movie)
         )
     }
+
+    fun onSwitchGridClick() {
+        state = state.copy(isGridLayout = !state.isGridLayout)
+    }
 }

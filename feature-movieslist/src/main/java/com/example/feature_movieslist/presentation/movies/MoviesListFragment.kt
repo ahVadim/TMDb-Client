@@ -17,7 +17,8 @@ import com.example.core.presentation.statedelegate.ListStateDelegate
 import com.example.core.util.observe
 import com.example.feature_movieslist.databinding.FragmentMovieslistBinding
 import com.example.feature_movieslist.di.DaggerMoviesListComponent
-import com.example.feature_movieslist.presentation.MovieItem
+import com.example.feature_movieslist.presentation.MovieItemGrid
+import com.example.feature_movieslist.presentation.MovieItemLine
 import com.xwray.groupie.GroupAdapter
 import com.xwray.groupie.GroupieViewHolder
 import javax.inject.Inject
@@ -96,7 +97,11 @@ class MoviesListFragment : BaseFragment() {
 
     private fun renderMoviesList(movies: List<MovieEntity>) {
         adapter.update(movies.map {
-            MovieItem(it, moviesListViewModel::onMovieClick)
+            if (isGridLayout) {
+                MovieItemGrid(it, moviesListViewModel::onMovieClick)
+            } else {
+                MovieItemLine(it, moviesListViewModel::onMovieClick)
+            }
         })
     }
 

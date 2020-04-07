@@ -7,29 +7,29 @@ import com.bumptech.glide.load.resource.bitmap.RoundedCorners
 import com.bumptech.glide.request.RequestOptions
 import com.example.core.domain.MovieEntity
 import com.example.feature_movieslist.R
-import com.example.feature_movieslist.databinding.ItemMovieLineBinding
+import com.example.feature_movieslist.databinding.ItemMovieGridBinding
 import com.xwray.groupie.Item
 import com.xwray.groupie.viewbinding.BindableItem
 
-class MovieItem(
+class MovieItemGrid(
     private val movie: MovieEntity,
     private val onMoviewClickListener: (MovieEntity) -> Unit
-) : BindableItem<ItemMovieLineBinding>() {
+) : BindableItem<ItemMovieGridBinding>() {
 
-    override fun getLayout() = R.layout.item_movie_line
+    override fun getLayout() = R.layout.item_movie_grid
 
-    override fun initializeViewBinding(view: View): ItemMovieLineBinding {
-        return ItemMovieLineBinding.bind(view)
+    override fun initializeViewBinding(view: View): ItemMovieGridBinding {
+        return ItemMovieGridBinding.bind(view)
     }
 
     override fun getId() = movie.id.toLong()
 
     override fun hasSameContentAs(other: Item<*>): Boolean {
-        if (other !is MovieItem) return false
+        if (other !is MovieItemGrid) return false
         return movie == other.movie
     }
 
-    override fun bind(viewBinding: ItemMovieLineBinding, position: Int) {
+    override fun bind(viewBinding: ItemMovieGridBinding, position: Int) {
         viewBinding.root.setOnClickListener {
             if (position != RecyclerView.NO_POSITION) {
                 onMoviewClickListener.invoke(movie)

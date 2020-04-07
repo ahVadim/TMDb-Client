@@ -14,7 +14,7 @@
         android:layout_marginTop="@dimen/margin_32"
         android:layout_marginEnd="@dimen/margin_16"
         android:background="@drawable/movie_search_input_bg"
-        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintEnd_toStartOf="@id/movies_grid_switch"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"/>
 
@@ -29,6 +29,17 @@
         app:layout_constraintBottom_toBottomOf="@id/search_input_bg"
         app:layout_constraintStart_toStartOf="@id/search_input_bg"
         app:layout_constraintTop_toTopOf="@id/search_input_bg"/>
+
+    <ImageView
+        android:id="@+id/movies_grid_switch"
+        android:layout_width="24dp"
+        android:layout_height="24dp"
+        android:layout_marginStart="@dimen/margin_16"
+        android:layout_marginEnd="@dimen/margin_16"
+        app:layout_constraintBottom_toBottomOf="@id/search_input_bg"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="@id/search_input_bg"
+        app:srcCompat="@drawable/ic_grid_icon"/>
 
     <EditText
         android:id="@+id/search_input_text"

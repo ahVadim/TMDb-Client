@@ -40,7 +40,9 @@ dependencies {
             deps.glide,
 
             deps.groupie.groupie,
-            deps.groupie.viewbinding
+            deps.groupie.viewbinding,
+
+            deps.lottie
     )
 
     kapt(

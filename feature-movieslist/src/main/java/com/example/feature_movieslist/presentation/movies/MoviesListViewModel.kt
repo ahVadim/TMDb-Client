@@ -3,6 +3,7 @@ package com.example.feature_movieslist.presentation.movies
 import androidx.lifecycle.MutableLiveData
 import com.example.core.domain.MovieEntity
 import com.example.core.presentation.BaseViewModel
+import com.example.core.presentation.statedelegate.ListViewState
 import com.example.core.rxjava.SchedulersProvider
 import com.example.core.util.ioToMain
 import com.example.core.util.onNext
@@ -23,15 +24,9 @@ class MoviesListViewModel @Inject constructor(
         private const val SEARCH_DEBOUNCE_DELAY_MS = 300L
     }
 
-    var liveState = MutableLiveData<MoviesListViewState>(createInitialState())
+    val liveState = MutableLiveData<ListViewState<MovieEntity>>()
 
     private var searchDisposable = Disposables.disposed()
-
-    private fun createInitialState(): MoviesListViewState {
-        return MoviesListViewState(
-            emptyList()
-        )
-    }
 
     fun onSearchInputTextChange(text: String?) {
         searchDisposable.dispose()
@@ -44,10 +39,13 @@ class MoviesListViewModel @Inject constructor(
                 }
             }
             .ioToMain(schedulersProvider)
-            .subscribe({ movies ->
-                           liveState.onNext(MoviesListViewState(movies))
+            .map { ListViewState.Data(it) as ListViewState<MovieEntity> }
+            .startWith(ListViewState.Loading())
+            .subscribe({ state ->
+                           liveState.onNext(state)
                        }, { error ->
                            Timber.e(error)
+                           liveState.onNext(ListViewState.Data(emptyList()))
                        })
             .also { addDisposable(it) }
     }

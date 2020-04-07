@@ -10,7 +10,9 @@ import androidx.fragment.app.viewModels
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.core.di.CoreComponentHolder
+import com.example.core.domain.MovieEntity
 import com.example.core.presentation.BaseFragment
+import com.example.core.presentation.statedelegate.ListStateDelegate
 import com.example.core.util.observe
 import com.example.feature_movieslist.databinding.FragmentMovieslistBinding
 import com.example.feature_movieslist.di.DaggerMoviesListComponent
@@ -27,6 +29,16 @@ class MoviesListFragment : BaseFragment() {
 
     private var _binding: FragmentMovieslistBinding? = null
     private val binding get() = _binding!!
+
+    private val stateDelegate by lazy {
+        ListStateDelegate(
+            contentView = binding.moviesRecycler,
+            emptyStateView = binding.moviesEmpty,
+            loadingView = binding.moviesProgress,
+            shouldHideContentWhenLoading = false,
+            showData = ::renderMoviesList
+        )
+    }
 
     private val adapter = GroupAdapter<GroupieViewHolder>()
 
@@ -55,12 +67,12 @@ class MoviesListFragment : BaseFragment() {
             moviesListViewModel.onSearchInputTextChange(it?.toString())
         }
 
-        observe(moviesListViewModel.liveState, ::renderState)
+        observe(moviesListViewModel.liveState, stateDelegate::renderState)
         observe(moviesListViewModel.eventsQueue, ::onEvent)
     }
 
-    private fun renderState(state: MoviesListViewState) {
-        adapter.update(state.moviesList.map {
+    private fun renderMoviesList(movies: List<MovieEntity>) {
+        adapter.update(movies.map {
             MovieItem(it, moviesListViewModel::onMovieClick)
         })
     }

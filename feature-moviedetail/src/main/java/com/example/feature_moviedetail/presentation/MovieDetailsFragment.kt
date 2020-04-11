@@ -51,6 +51,7 @@ class MovieDetailsFragment : BaseFragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        binding.addFavoriteButton.setOnClickListener{ movieDetailsViewModel.onAddFavoriteButtonClick() }
         observe(movieDetailsViewModel.liveState, stateWatcher::invoke)
     }
 

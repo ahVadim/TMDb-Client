@@ -4,6 +4,7 @@ import android.net.ConnectivityManager
 import com.example.core.exceptions.AuthException
 import com.example.core.exceptions.NoInternetConnectionException
 import com.example.core.exceptions.ServerErrorException
+import com.example.core.util.NetworkUtil
 import okhttp3.Interceptor
 import okhttp3.Response
 import org.json.JSONObject
@@ -24,7 +25,7 @@ class NetworkErrorInterceptor(private val connectivityManager: ConnectivityManag
         val request = chain.request()
         val response = chain.proceed(request)
 
-        if (response.code != HttpsURLConnection.HTTP_OK) {
+        if (!NetworkUtil.isResponseCodeSuccessful(response.code)) {
             val errorMessage = getErrorMessage(response)
             throw when (response.code) {
                 HttpsURLConnection.HTTP_UNAUTHORIZED -> AuthException(errorMessage)

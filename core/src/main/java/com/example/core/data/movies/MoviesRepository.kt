@@ -6,12 +6,11 @@ import io.reactivex.Single
 import javax.inject.Inject
 
 class MoviesRepository @Inject constructor(
-    private val moviesApi: MoviesApi,
-    private val userPrefs: UserPrefs
+    private val moviesApi: MoviesApi
 ) {
 
     fun isMovieFavorite(movieId: Int): Single<Boolean> {
-        return moviesApi.getMovieAccountStates(movieId, userPrefs.sessionId)
+        return moviesApi.getMovieAccountStates(movieId)
             .map { it.isFavorite }
     }
 }

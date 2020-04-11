@@ -5,8 +5,10 @@ import com.example.core.BuildConfig
 import com.example.core.network.AuthInterceptor
 import com.example.core.network.NetworkErrorInterceptor
 import com.example.core.network.RefreshSessionAuthenticator
+import com.example.core.network.api.AccountApi
 import com.example.core.network.api.MoviesApi
 import com.example.core.network.api.SessionApi
+import com.example.core.prefs.UserPrefs
 import dagger.Module
 import dagger.Provides
 import okhttp3.OkHttpClient
@@ -22,10 +24,11 @@ class NetworkModule {
     @AppScope
     fun provideOkhttpClient(
         connectivityManager: ConnectivityManager?,
-        refreshSessionAuthenticator: RefreshSessionAuthenticator
+        refreshSessionAuthenticator: RefreshSessionAuthenticator,
+        userPrefs: UserPrefs
     ): OkHttpClient {
         return OkHttpClient.Builder()
-            .addInterceptor(AuthInterceptor())
+            .addInterceptor(AuthInterceptor(userPrefs))
             .addInterceptor(HttpLoggingInterceptor().apply {
                 if (BuildConfig.DEBUG) {
                     setLevel(HttpLoggingInterceptor.Level.BODY)
@@ -59,5 +62,11 @@ class NetworkModule {
     @AppScope
     fun provideMoviesApi(retrofit: Retrofit): MoviesApi {
         return retrofit.create(MoviesApi::class.java)
+    }
+
+    @Provides
+    @AppScope
+    fun provideAccountApi(retrofit: Retrofit): AccountApi {
+        return retrofit.create(AccountApi::class.java)
     }
 }

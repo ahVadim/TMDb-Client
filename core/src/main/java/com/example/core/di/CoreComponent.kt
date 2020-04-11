@@ -1,6 +1,7 @@
 package com.example.core.di
 
 import android.content.Context
+import com.example.core.data.account.AccountRepository
 import com.example.core.data.movies.MoviesRepository
 import com.example.core.data.session.SessionRepository
 import com.example.core.prefs.UserPrefs
@@ -27,4 +28,6 @@ interface CoreComponent {
     fun provideUserPrefs(): UserPrefs
 
     fun provideMoviesRepository(): MoviesRepository
+
+    fun provideAccountRepository(): AccountRepository
 }

@@ -10,6 +10,7 @@ import androidx.fragment.app.viewModels
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.badoo.mvicore.modelWatcher
 import com.example.core.di.CoreComponentHolder
 import com.example.core.domain.MovieEntity
 import com.example.core.presentation.BaseFragment
@@ -37,16 +38,6 @@ class MoviesListFragment : BaseFragment() {
     private val binding get() = _binding!!
 
     private var isGridLayout = false
-
-    private val stateDelegate by lazy {
-        ListStateDelegate(
-            contentView = binding.moviesRecycler,
-            emptyStateView = binding.moviesEmpty,
-            loadingView = binding.moviesProgress,
-            shouldHideContentWhenLoading = false,
-            showData = ::renderMoviesList
-        )
-    }
 
     private val adapter = GroupAdapter<GroupieViewHolder>()
 
@@ -79,25 +70,37 @@ class MoviesListFragment : BaseFragment() {
             moviesListViewModel.onSwitchGridClick()
         }
 
-        observe(moviesListViewModel.liveState, ::renderState)
+        observe(moviesListViewModel.liveState, stateWatcher::invoke)
         observe(moviesListViewModel.eventsQueue, ::onEvent)
     }
 
-    private fun renderState(state: MoviesListViewState) {
-        if (state.isGridLayout != this.isGridLayout) {
-            binding.moviesRecycler.layoutManager = if (state.isGridLayout) {
+    private val stateWatcher = modelWatcher<MoviesListViewState> {
+
+        watch(MoviesListViewState::isGridLayout) { isGrid ->
+            binding.moviesRecycler.layoutManager = if (isGrid) {
                 GridLayoutManager(context, GRID_SPAN_COUNT)
             } else {
                 LinearLayoutManager(context)
             }
-            this.isGridLayout = state.isGridLayout
         }
-        stateDelegate.renderState(state.listState)
+
+        watch({ it }) { viewState ->
+            getStateDelegate { movies -> renderMoviesList(movies, viewState.isGridLayout) }
+                .renderState(viewState.listState)
+        }
     }
 
-    private fun renderMoviesList(movies: List<MovieEntity>) {
+    private fun getStateDelegate(showData: (List<MovieEntity>) -> Unit) = ListStateDelegate(
+        contentView = binding.moviesRecycler,
+        emptyStateView = binding.moviesEmpty,
+        loadingView = binding.moviesProgress,
+        shouldHideContentWhenLoading = false,
+        showData = showData
+    )
+
+    private fun renderMoviesList(movies: List<MovieEntity>, isGrid: Boolean) {
         adapter.update(movies.map {
-            if (isGridLayout) {
+            if (isGrid) {
                 MovieItemGrid(it, moviesListViewModel::onMovieClick)
             } else {
                 MovieItemLine(it, moviesListViewModel::onMovieClick)

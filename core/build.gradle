@@ -42,7 +42,8 @@ dependencies {
             deps.groupie.groupie,
             deps.groupie.viewbinding,
 
-            deps.lottie
+            deps.lottie,
+            deps.mvicorediff
     )
 
     kapt(

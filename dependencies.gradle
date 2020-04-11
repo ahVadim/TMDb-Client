@@ -20,6 +20,7 @@ versions.logging_interceptor = "4.4.0"
 versions.glide = "4.11.0"
 versions.groupie = "2.8.0"
 versions.lottie = "3.4.0"
+versions.mvicorediff = "1.2.4"
 
 deps.appcompat = "androidx.appcompat:appcompat:$versions.appcompat"
 deps.material = "com.google.android.material:material:$versions.material"
@@ -32,7 +33,7 @@ deps.timber = "com.jakewharton.timber:timber:$versions.timber"
 deps.logging_interceptor = "com.squareup.okhttp3:logging-interceptor:$versions.logging_interceptor"
 deps.glide = "com.github.bumptech.glide:glide:$versions.glide"
 deps.lottie = "com.airbnb.android:lottie:$versions.lottie"
-
+deps.mvicorediff = "com.github.badoo.mvicore:mvicore-diff:$versions.mvicorediff"
 
 def kotlin = [:]
 kotlin.stdlib = "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$versions.kotlin"

@@ -23,6 +23,7 @@ allprojects {
         google()
         jcenter()
         maven { url 'https://dl.bintray.com/lisawray/maven' }
+        maven { url 'https://jitpack.io' }
     }
 }
 

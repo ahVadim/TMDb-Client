@@ -19,7 +19,6 @@
             android:name=".presentation.AppActivity"
             android:screenOrientation="portrait"
             android:theme="@style/Theme.App.Launcher"
-            android:windowSoftInputMode="adjustResize"
             tools:ignore="LockedOrientationActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN"/>

@@ -5,8 +5,8 @@ import com.example.core.BuildConfig
 import com.example.core.network.AuthInterceptor
 import com.example.core.network.NetworkErrorInterceptor
 import com.example.core.network.RefreshSessionAuthenticator
-import com.example.core.network.movies.MoviesApi
-import com.example.core.network.refreshsession.SessionApi
+import com.example.core.network.api.MoviesApi
+import com.example.core.network.api.SessionApi
 import dagger.Module
 import dagger.Provides
 import okhttp3.OkHttpClient

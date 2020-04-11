@@ -1,4 +1,4 @@
-package com.example.core.network.refreshsession
+package com.example.core.network.api
 
 import com.example.core.data.session.dto.CreateSessionRequestDto
 import com.example.core.data.session.dto.CreateSessionResponseDto

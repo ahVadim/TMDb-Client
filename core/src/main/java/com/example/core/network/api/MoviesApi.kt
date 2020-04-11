@@ -1,4 +1,4 @@
-package com.example.core.network.movies
+package com.example.core.network.api
 
 import com.example.core.data.movies.dto.MovieStateResponseDto
 import io.reactivex.Single

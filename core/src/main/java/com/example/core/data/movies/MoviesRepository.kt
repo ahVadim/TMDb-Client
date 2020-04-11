@@ -1,6 +1,6 @@
 package com.example.core.data.movies
 
-import com.example.core.network.movies.MoviesApi
+import com.example.core.network.api.MoviesApi
 import com.example.core.prefs.UserPrefs
 import io.reactivex.Single
 import javax.inject.Inject

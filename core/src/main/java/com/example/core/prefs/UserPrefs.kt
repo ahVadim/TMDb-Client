@@ -1,10 +1,10 @@
 package com.example.core.prefs
 
 import android.content.Context
+import com.example.core.di.AppScope
 import javax.inject.Inject
-import javax.inject.Singleton
 
-@Singleton
+@AppScope
 class UserPrefs @Inject constructor(
     context: Context
 ) : BasePrefs(context, "user_prefs") {

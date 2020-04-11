@@ -1,7 +1,7 @@
-package com.example.feature_movieslist.di
+package com.example.core.di
 
 import javax.inject.Scope
 
 @Scope
 @Retention(AnnotationRetention.RUNTIME)
-annotation class MoviesListScope
+annotation class FeatureScope

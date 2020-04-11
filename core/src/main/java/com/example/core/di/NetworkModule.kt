@@ -13,13 +13,12 @@ import okhttp3.logging.HttpLoggingInterceptor
 import retrofit2.Retrofit
 import retrofit2.adapter.rxjava2.RxJava2CallAdapterFactory
 import retrofit2.converter.moshi.MoshiConverterFactory
-import javax.inject.Singleton
 
 @Module
 class NetworkModule {
 
     @Provides
-    @Singleton
+    @AppScope
     fun provideOkhttpClient(
         connectivityManager: ConnectivityManager?,
         refreshSessionAuthenticator: RefreshSessionAuthenticator
@@ -39,7 +38,7 @@ class NetworkModule {
     }
 
     @Provides
-    @Singleton
+    @AppScope
     fun provideRetrofit(client: OkHttpClient): Retrofit {
         return Retrofit.Builder()
             .baseUrl(BuildConfig.BASE_URL)
@@ -50,7 +49,7 @@ class NetworkModule {
     }
 
     @Provides
-    @Singleton
+    @AppScope
     fun provideSessionApi(retrofit: Retrofit): SessionApi {
         return retrofit.create(SessionApi::class.java)
     }

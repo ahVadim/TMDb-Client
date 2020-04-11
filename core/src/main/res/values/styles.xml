@@ -15,10 +15,10 @@
         </item>
         <item name="boxStrokeColor">@color/text_input_box_stroke</item>
         <item name="hintTextColor">?attr/colorOnSurface</item>
-        <item name="boxCornerRadiusBottomEnd">8dp</item>
-        <item name="boxCornerRadiusBottomStart">8dp</item>
-        <item name="boxCornerRadiusTopEnd">8dp</item>
-        <item name="boxCornerRadiusTopStart">8dp</item>
+        <item name="boxCornerRadiusBottomEnd">@dimen/input_layout_corner_radius</item>
+        <item name="boxCornerRadiusBottomStart">@dimen/input_layout_corner_radius</item>
+        <item name="boxCornerRadiusTopEnd">@dimen/input_layout_corner_radius</item>
+        <item name="boxCornerRadiusTopStart">@dimen/input_layout_corner_radius</item>
     </style>
 
     <style name="Widget.App.TextInputLayout.OutlinedBox.Password">

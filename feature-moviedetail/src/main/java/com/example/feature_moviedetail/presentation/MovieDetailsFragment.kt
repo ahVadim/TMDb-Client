@@ -8,6 +8,7 @@ import android.view.ViewGroup
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.navArgs
+import com.badoo.mvicore.modelWatcher
 import com.bumptech.glide.Glide
 import com.bumptech.glide.load.resource.bitmap.RoundedCorners
 import com.bumptech.glide.request.RequestOptions
@@ -50,11 +51,12 @@ class MovieDetailsFragment : BaseFragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        observe(movieDetailsViewModel.liveState, ::renderState)
+        observe(movieDetailsViewModel.liveState, stateWatcher::invoke)
     }
 
-    private fun renderState(state: MovieDetailsViewState) {
-        showMovie(state.movie)
+    private val stateWatcher = modelWatcher<MovieDetailsViewState> {
+        watch(MovieDetailsViewState::movie) { showMovie(it) }
+        watch(MovieDetailsViewState::isFavorite) { binding.addFavoriteButton.isActivated = it }
     }
 
     private fun showMovie(movie: MovieEntity) {

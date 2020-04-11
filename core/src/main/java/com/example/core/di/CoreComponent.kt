@@ -1,6 +1,7 @@
 package com.example.core.di
 
 import android.content.Context
+import com.example.core.data.movies.MoviesRepository
 import com.example.core.data.session.SessionRepository
 import com.example.core.prefs.UserPrefs
 import dagger.BindsInstance
@@ -24,4 +25,6 @@ interface CoreComponent {
     fun provideRefreshSessionRepository(): SessionRepository
 
     fun provideUserPrefs(): UserPrefs
+
+    fun provideMoviesRepository(): MoviesRepository
 }

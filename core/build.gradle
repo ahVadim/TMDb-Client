@@ -43,7 +43,8 @@ dependencies {
             deps.groupie.viewbinding,
 
             deps.lottie,
-            deps.mvicorediff
+            deps.mvicorediff,
+            deps.rxkotlin
     )
 
     kapt(

@@ -5,6 +5,7 @@ import com.example.core.BuildConfig
 import com.example.core.network.AuthInterceptor
 import com.example.core.network.NetworkErrorInterceptor
 import com.example.core.network.RefreshSessionAuthenticator
+import com.example.core.network.movies.MoviesApi
 import com.example.core.network.refreshsession.SessionApi
 import dagger.Module
 import dagger.Provides
@@ -52,5 +53,11 @@ class NetworkModule {
     @AppScope
     fun provideSessionApi(retrofit: Retrofit): SessionApi {
         return retrofit.create(SessionApi::class.java)
+    }
+
+    @Provides
+    @AppScope
+    fun provideMoviesApi(retrofit: Retrofit): MoviesApi {
+        return retrofit.create(MoviesApi::class.java)
     }
 }

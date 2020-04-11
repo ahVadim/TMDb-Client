@@ -37,8 +37,6 @@ class MoviesListFragment : BaseFragment() {
     private var _binding: FragmentMovieslistBinding? = null
     private val binding get() = _binding!!
 
-    private var isGridLayout = false
-
     private val adapter = GroupAdapter<GroupieViewHolder>()
 
     override fun onAttach(context: Context) {

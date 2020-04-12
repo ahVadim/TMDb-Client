@@ -1,6 +1,8 @@
 package com.example.feature_pincode.presentation
 
+import com.xwray.groupie.Item
+
 data class PincodeViewState(
     val isPincodeErrorVisible: Boolean,
-    val userMail: String
+    val pincodeItems: List<Item<*>>
 )

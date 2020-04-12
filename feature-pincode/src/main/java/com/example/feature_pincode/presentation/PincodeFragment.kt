@@ -12,6 +12,8 @@ import com.example.core.presentation.BaseFragment
 import com.example.core.util.observe
 import com.example.feature_pincode.databinding.FragmentPincodeBinding
 import com.example.feature_pincode.di.DaggerPincodeComponent
+import com.xwray.groupie.GroupAdapter
+import com.xwray.groupie.GroupieViewHolder
 import javax.inject.Inject
 
 class PincodeFragment: BaseFragment() {
@@ -22,6 +24,8 @@ class PincodeFragment: BaseFragment() {
 
     private var _binding: FragmentPincodeBinding? = null
     private val binding get() = _binding!!
+
+    private val adapter = GroupAdapter<GroupieViewHolder>()
 
     override fun onAttach(context: Context) {
         DaggerPincodeComponent.factory()
@@ -41,10 +45,11 @@ class PincodeFragment: BaseFragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        binding.pincodeButtons.adapter = adapter
         observe(profileViewModel.liveState, ::renderState)
     }
 
     private fun renderState(state: PincodeViewState) {
-
+        adapter.update(state.pincodeItems)
     }
 }

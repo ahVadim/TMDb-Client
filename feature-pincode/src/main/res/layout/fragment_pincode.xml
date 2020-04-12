@@ -6,70 +6,65 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-    <ImageView
-        android:id="@+id/profile_avatar"
-        android:layout_width="72dp"
-        android:layout_height="72dp"
-        android:contentDescription="@string/user_avatar_description"
-        app:srcCompat="@drawable/ic_avatar_placeholder"
-        app:layout_constraintBottom_toTopOf="@id/profile_name"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
+    <LinearLayout
+        android:id="@+id/top_elements_group"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center_horizontal"
+        android:orientation="vertical"
+        app:layout_constraintBottom_toTopOf="@id/pincode_buttons"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_chainStyle="packed"/>
+        app:layout_constraintVertical_chainStyle="spread">
 
-    <TextView
-        android:id="@+id/profile_name"
-        style="@style/Text.H2"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="@dimen/margin_24"
-        android:layout_marginStart="@dimen/margin_16"
-        android:layout_marginEnd="@dimen/margin_16"
-        android:gravity="center"
-        android:textColor="?attr/colorOnPrimary"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/profile_avatar"
-        tools:text="Виталий Белов"/>
+        <ImageView
+            android:id="@+id/profile_avatar"
+            android:layout_width="72dp"
+            android:layout_height="72dp"
+            android:contentDescription="@string/user_avatar_description"
+            app:srcCompat="@drawable/ic_avatar_placeholder"/>
 
-    <com.example.feature_pincode.presentation.PincodeBubblesView
-        android:id="@+id/pincode_bubbles"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="@dimen/margin_24"
-        app:bubbles_count="4"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/profile_name"/>
+        <TextView
+            android:id="@+id/profile_name"
+            style="@style/Text.H2"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/margin_24"
+            android:gravity="center"
+            android:textColor="?attr/colorOnPrimary"
+            tools:text="Виталий Белов"/>
 
-    <TextView
-        android:id="@+id/pincode_error"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="@dimen/margin_16"
-        android:layout_marginTop="@dimen/margin_16"
-        android:layout_marginEnd="@dimen/margin_16"
-        android:gravity="center"
-        android:text="@string/incorrect_pincode"
-        android:textAppearance="@style/Text.Content1"
-        android:textColor="?attr/colorError"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/pincode_bubbles"/>
+        <com.example.feature_pincode.presentation.PincodeBubblesView
+            android:id="@+id/pincode_bubbles"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/margin_24"
+            app:bubbles_count="4"/>
+
+        <TextView
+            android:id="@+id/pincode_error"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/margin_16"
+            android:layout_marginTop="@dimen/margin_16"
+            android:layout_marginEnd="@dimen/margin_16"
+            android:gravity="center"
+            android:text="@string/incorrect_pincode"
+            android:textAppearance="@style/Text.Content1"
+            android:textColor="?attr/colorError"/>
+    </LinearLayout>
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/pincode_buttons"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_margin="@dimen/margin_24"
+        android:overScrollMode="never"
         app:layoutManager="androidx.recyclerview.widget.GridLayoutManager"
         app:layout_constrainedHeight="true"
-        app:layout_constrainedWidth="true"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/pincode_error"
+        app:layout_constraintTop_toBottomOf="@id/top_elements_group"
         app:spanCount="3"
         tools:itemCount="12"
         tools:listitem="@layout/item_pincode_number"/>

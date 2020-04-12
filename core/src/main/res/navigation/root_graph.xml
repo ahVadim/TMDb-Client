@@ -23,6 +23,12 @@
     </fragment>
 
     <fragment
+        android:id="@+id/pincodeFragment"
+        android:name="com.example.feature_pincode.presentation.PincodeFragment"
+        android:label="PincodeFragment">
+    </fragment>
+
+    <fragment
         android:id="@+id/authFragment"
         android:name="com.example.feaure_authorization.presentation.AuthFragment"
         android:label="AuthFragment"

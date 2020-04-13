@@ -6,6 +6,7 @@ import com.example.core.presentation.BaseViewModel
 import com.example.core.presentation.events.Exit
 import com.example.core.util.delegate
 import com.example.feature_pincode.PincodeConst
+import com.example.feature_pincode.presentation.events.OpenBiometrics
 import com.example.feature_pincode.presentation.items.DeleteItem
 import com.example.feature_pincode.presentation.items.ExitItem
 import com.example.feature_pincode.presentation.items.FingerprintItem
@@ -48,6 +49,7 @@ class PincodeViewModel @Inject constructor(
                 currentPincode = state.currentPincode.dropLast(1),
                 isPincodeErrorVisible = false
             )
+            is FingerprintItem -> eventsQueue.offer(OpenBiometrics)
             is ExitItem -> eventsQueue.offer(Exit)
         }
     }
@@ -100,5 +102,11 @@ class PincodeViewModel @Inject constructor(
         } else {
             state = state.copy(isPincodeErrorVisible = true)
         }
+    }
+
+    fun onBiometricsAuthenticationFailed() {
+    }
+
+    fun onBiometricsAuthenticationSucceed() {
     }
 }

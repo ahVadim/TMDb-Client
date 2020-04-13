@@ -11,7 +11,8 @@ dependencies {
             fileTree(dir: 'libs', include: ['*.jar']),
             project(':core'),
 
-            deps.dagger.dagger
+            deps.dagger.dagger,
+            deps.biometric
     )
 
     kapt(deps.dagger.processor)

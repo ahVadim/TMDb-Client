@@ -5,17 +5,21 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.biometric.BiometricPrompt
+import androidx.core.content.ContextCompat
 import androidx.core.view.isInvisible
 import androidx.core.view.isVisible
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.ViewModelProvider
 import com.example.core.di.CoreComponentHolder
 import com.example.core.presentation.BaseFragment
+import com.example.core.presentation.Event
 import com.example.core.util.observe
 import com.example.feature_pincode.PincodeConst
 import com.example.feature_pincode.R
 import com.example.feature_pincode.databinding.FragmentPincodeBinding
 import com.example.feature_pincode.di.DaggerPincodeComponent
+import com.example.feature_pincode.presentation.events.OpenBiometrics
 import com.xwray.groupie.GroupAdapter
 import com.xwray.groupie.GroupieViewHolder
 import javax.inject.Inject
@@ -24,7 +28,7 @@ class PincodeFragment: BaseFragment() {
 
     @Inject
     internal lateinit var viewModelFactory: ViewModelProvider.Factory
-    private val profileViewModel: PincodeViewModel by viewModels { viewModelFactory }
+    private val pincodeViewModel: PincodeViewModel by viewModels { viewModelFactory }
 
     private var _binding: FragmentPincodeBinding? = null
     private val binding get() = _binding!!
@@ -51,11 +55,11 @@ class PincodeFragment: BaseFragment() {
         super.onViewCreated(view, savedInstanceState)
         binding.pincodeBubbles.setBubblesCount(PincodeConst.PINCODE_NUMBERS_COUNT)
         adapter.setOnItemClickListener { item, _ ->
-            profileViewModel.onItemClick(item)
+            pincodeViewModel.onItemClick(item)
         }
         binding.pincodeButtons.adapter = adapter
-        observe(profileViewModel.liveState, ::renderState)
-        observe(profileViewModel.eventsQueue, ::onEvent)
+        observe(pincodeViewModel.liveState, ::renderState)
+        observe(pincodeViewModel.eventsQueue, ::onEvent)
     }
 
     private fun renderState(state: PincodeViewState) {
@@ -76,5 +80,36 @@ class PincodeFragment: BaseFragment() {
         } else {
             binding.pincodeBubbles.setActiveBubblesCount(state.currentPincode.length)
         }
+    }
+
+    override fun onEvent(event: Event) {
+        super.onEvent(event)
+        when (event) {
+            is OpenBiometrics -> showBiometricDialog()
+        }
+    }
+
+    private fun showBiometricDialog() {
+        val executor = ContextCompat.getMainExecutor(context)
+        val biometricPrompt = BiometricPrompt(
+            this, executor,
+            object : BiometricPrompt.AuthenticationCallback() {
+                override fun onAuthenticationError(errorCode: Int, errString: CharSequence) {
+                    pincodeViewModel.onBiometricsAuthenticationFailed()
+                }
+
+                override fun onAuthenticationSucceeded(result: BiometricPrompt.AuthenticationResult) {
+                    pincodeViewModel.onBiometricsAuthenticationSucceed()
+                }
+
+                override fun onAuthenticationFailed() {
+                    pincodeViewModel.onBiometricsAuthenticationFailed()
+                }
+            })
+        val promptInfo = BiometricPrompt.PromptInfo.Builder()
+            .setTitle(getString(R.string.biometrics_promp_title))
+            .setNegativeButtonText(getString(R.string.cancel))
+            .build()
+        biometricPrompt.authenticate(promptInfo)
     }
 }

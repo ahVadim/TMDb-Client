@@ -5,4 +5,6 @@
     <string name="incorrect_pincode">Неверный пин-код</string>
     <string name="new_pincode_title">Придумайте пин-код для быстрого входа</string>
     <string name="repeat_pincode_title">Повторите ваш пин-код</string>
+    <string name="biometrics_promp_title">Авторизуйтесь с помощью биометрических данных</string>
+    <string name="cancel">Отмена</string>
 </resources>

@@ -4,6 +4,7 @@ import android.widget.Toast
 import androidx.annotation.CallSuper
 import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
+import com.example.core.presentation.events.Exit
 import com.example.core.presentation.events.NavEvent
 import com.example.core.presentation.events.ParentNavEvent
 import com.example.core.presentation.events.ToastString
@@ -18,6 +19,7 @@ open class BaseFragment : Fragment() {
             is ParentNavEvent -> parentFragment?.parentFragment?.findNavController()?.navigate(event.direction)
             is ToastString -> Toast.makeText(context, event.text, Toast.LENGTH_LONG).show()
             is ToastStringRes -> Toast.makeText(context, event.text, Toast.LENGTH_LONG).show()
+            is Exit -> activity?.finish()
         }
     }
 }

@@ -3,8 +3,10 @@ package com.example.feature_pincode.presentation
 import androidx.lifecycle.MutableLiveData
 import com.example.core.prefs.UserPrefs
 import com.example.core.presentation.BaseViewModel
+import com.example.core.presentation.events.Exit
 import com.example.core.util.delegate
 import com.example.feature_pincode.PincodeConst
+import com.example.feature_pincode.presentation.items.DeleteItem
 import com.example.feature_pincode.presentation.items.ExitItem
 import com.example.feature_pincode.presentation.items.FingerprintItem
 import com.example.feature_pincode.presentation.items.NumberItem
@@ -19,17 +21,17 @@ class PincodeViewModel @Inject constructor(
     var state by liveState.delegate()
 
     private fun createInitialState(): PincodeViewState {
-        val items = mutableListOf<Item<*>>()
-        items.addAll((1..9).map { NumberItem(it) })
-        items.add(ExitItem())
-        items.add(NumberItem(0))
-        items.add(FingerprintItem())
-
         val screenState = if (userPrefs.userPincode?.length != PincodeConst.PINCODE_NUMBERS_COUNT) {
             ScreenState.NewPinCode
         } else {
             ScreenState.AuthPinCode(userPrefs.userName ?: userPrefs.userLogin)
         }
+
+        val items = mutableListOf<Item<*>>()
+        items.addAll((1..9).map { NumberItem(it) })
+        items.add(if (screenState is ScreenState.AuthPinCode) FingerprintItem() else ExitItem())
+        items.add(NumberItem(0))
+        items.add(DeleteItem())
 
         return PincodeViewState(
             screenState = screenState,
@@ -42,6 +44,11 @@ class PincodeViewModel @Inject constructor(
     fun onItemClick(item: Item<*>) {
         when (item) {
             is NumberItem -> processNewNumber(item.number)
+            is DeleteItem -> state = state.copy(
+                currentPincode = state.currentPincode.dropLast(1),
+                isPincodeErrorVisible = false
+            )
+            is ExitItem -> eventsQueue.offer(Exit)
         }
     }
 

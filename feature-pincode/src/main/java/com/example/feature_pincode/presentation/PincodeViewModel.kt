@@ -24,7 +24,8 @@ class PincodeViewModel @Inject constructor(
         items.add(NumberItem(0))
         items.add(FingerprintItem())
         return PincodeViewState(
-            userName = userPrefs.userName ?: userPrefs.userLogin,
+            isAvatarVisible = false,
+            title = userPrefs.userName ?: userPrefs.userLogin,
             currentPincode = "",
             isPincodeErrorVisible = false,
             pincodeItems = items

@@ -58,8 +58,8 @@ class PincodeFragment: BaseFragment() {
     private fun renderState(state: PincodeViewState) {
         adapter.update(state.pincodeItems)
 
-        binding.profileName.isVisible = !state.userName.isNullOrBlank()
-        binding.profileName.text = state.userName
+        binding.profileName.isVisible = !state.title.isNullOrBlank()
+        binding.profileName.text = state.title
 
         binding.pincodeError.isInvisible = !state.isPincodeErrorVisible
 

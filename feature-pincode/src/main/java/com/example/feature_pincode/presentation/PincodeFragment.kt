@@ -52,6 +52,7 @@ class PincodeFragment: BaseFragment() {
         }
         binding.pincodeButtons.adapter = adapter
         observe(profileViewModel.liveState, ::renderState)
+        observe(profileViewModel.eventsQueue, ::onEvent)
     }
 
     private fun renderState(state: PincodeViewState) {

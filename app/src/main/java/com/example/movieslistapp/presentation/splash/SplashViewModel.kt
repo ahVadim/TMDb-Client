@@ -12,7 +12,7 @@ class SplashViewModel @Inject constructor(
         if (userPrefs.sessionId.isNullOrBlank()) {
             navigateTo(SplashFragmentDirections.actionSplashToAuth())
         } else {
-            navigateTo(SplashFragmentDirections.actionSplashToMainScreen())
+            navigateTo(SplashFragmentDirections.actionSplashToPincode())
         }
     }
 }

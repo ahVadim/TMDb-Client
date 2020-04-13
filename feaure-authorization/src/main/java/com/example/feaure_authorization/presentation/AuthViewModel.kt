@@ -48,7 +48,7 @@ class AuthViewModel @Inject constructor(
             .ioToMain(schedulers)
             .subscribe({
                            state = state.copy(errorState = AuthErrorState.None)
-                           navigateTo(AuthFragmentDirections.actionAuthToMainScreen())
+                           navigateTo(AuthFragmentDirections.actionAuthToPincode())
                        }, { error ->
                            Timber.e(error)
                            state = when (error) {

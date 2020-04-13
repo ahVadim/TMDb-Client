@@ -49,7 +49,7 @@ class PincodeViewModel @Inject constructor(
 
         if (state.currentPincode.length == userPrefs.userPincode?.length) {
             if (state.currentPincode == userPrefs.userPincode) {
-                // navigate next
+                navigateTo(PincodeFragmentDirections.actionPincodeToMainScreen())
             } else {
                 state = state.copy(isPincodeErrorVisible = true)
             }

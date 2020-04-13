@@ -20,6 +20,7 @@
             android:id="@+id/profile_avatar"
             android:layout_width="72dp"
             android:layout_height="72dp"
+            android:layout_marginTop="@dimen/margin_24"
             android:contentDescription="@string/user_avatar_description"
             app:srcCompat="@drawable/ic_avatar_placeholder"/>
 

@@ -57,7 +57,8 @@ class PincodeBubblesView @JvmOverloads constructor(
     }
 
     fun setBubblesCount(count: Int) {
-        (0 until bubblesCount).forEach { _ ->
+        removeAllViews()
+        (0 until count).forEach { _ ->
             val imageView = ImageView(context).apply {
                 layoutParams = ViewGroup.LayoutParams(bubbleSize, bubbleSize)
                 setImageDrawable(inactiveBubbleDrawable)

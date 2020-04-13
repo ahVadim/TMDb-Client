@@ -14,7 +14,7 @@ class ProfileViewModel @Inject constructor(
     private val schedulersProvider: SchedulersProvider
 ) : BaseViewModel() {
 
-    var liveState = MutableLiveData<ProfileViewState>(createInitialState())
+    val liveState = MutableLiveData<ProfileViewState>(createInitialState())
 
     private fun createInitialState(): ProfileViewState {
         return ProfileViewState(

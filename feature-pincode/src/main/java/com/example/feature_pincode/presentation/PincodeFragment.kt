@@ -45,6 +45,9 @@ class PincodeFragment: BaseFragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        adapter.setOnItemClickListener { item, _ ->
+            profileViewModel.onItemClick(item)
+        }
         binding.pincodeButtons.adapter = adapter
         observe(profileViewModel.liveState, ::renderState)
     }

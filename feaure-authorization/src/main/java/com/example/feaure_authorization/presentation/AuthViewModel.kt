@@ -15,7 +15,7 @@ class AuthViewModel @Inject constructor(
     private val schedulers: SchedulersProvider
 ) : BaseViewModel() {
 
-    var liveState = MutableLiveData<AuthViewState>(createInitialState())
+    val liveState = MutableLiveData<AuthViewState>(createInitialState())
     private var state by liveState.delegate()
 
     private fun createInitialState(): AuthViewState {

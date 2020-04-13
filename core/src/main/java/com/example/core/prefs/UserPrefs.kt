@@ -14,6 +14,7 @@ class UserPrefs @Inject constructor(
     var userPassword by StringPreference(key = "userPassword", defValue = null)
     var userName by StringPreference(key = "userName", defValue = null)
     var userId by IntPreference(key = "userId", defValue = -1)
+    var userPincode by StringPreference(key = "userPincode", defValue = null)
 
     fun deleteAllPrefs() = this.edit().clear().apply()
 }

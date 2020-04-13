@@ -5,7 +5,7 @@ import com.example.feature_pincode.R
 import com.example.feature_pincode.databinding.ItemPincodeNumberBinding
 import com.xwray.groupie.viewbinding.BindableItem
 
-class NumberItem(private val number: Int) : BindableItem<ItemPincodeNumberBinding>() {
+class NumberItem(val number: Int) : BindableItem<ItemPincodeNumberBinding>() {
 
     override fun getLayout() = R.layout.item_pincode_number
 

@@ -37,6 +37,8 @@ class PincodeBubblesView @JvmOverloads constructor(
         R.drawable.pincode_error_bubble_bg
     )
 
+    private val bubbleSize = resources.getDimensionPixelSize(R.dimen.pincode_bubble_size)
+
     init {
         orientation = HORIZONTAL
         if (attrs != null) {
@@ -52,9 +54,9 @@ class PincodeBubblesView @JvmOverloads constructor(
 
         dividerDrawable = ContextCompat.getDrawable(context, R.drawable.pincode_bubble_divider)
         showDividers = SHOW_DIVIDER_MIDDLE
+    }
 
-        val bubbleSize = resources.getDimensionPixelSize(R.dimen.pincode_bubble_size)
-
+    fun setBubblesCount(count: Int) {
         (0 until bubblesCount).forEach { _ ->
             val imageView = ImageView(context).apply {
                 layoutParams = ViewGroup.LayoutParams(bubbleSize, bubbleSize)

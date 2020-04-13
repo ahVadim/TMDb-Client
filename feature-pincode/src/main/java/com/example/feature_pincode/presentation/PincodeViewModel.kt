@@ -4,6 +4,7 @@ import androidx.lifecycle.MutableLiveData
 import com.example.core.prefs.UserPrefs
 import com.example.core.presentation.BaseViewModel
 import com.example.core.util.delegate
+import com.example.feature_pincode.PincodeConst
 import com.example.feature_pincode.presentation.items.ExitItem
 import com.example.feature_pincode.presentation.items.FingerprintItem
 import com.example.feature_pincode.presentation.items.NumberItem
@@ -23,9 +24,15 @@ class PincodeViewModel @Inject constructor(
         items.add(ExitItem())
         items.add(NumberItem(0))
         items.add(FingerprintItem())
+
+        val screenState = if (userPrefs.userPincode?.length != PincodeConst.PINCODE_NUMBERS_COUNT) {
+            ScreenState.NewPinCode
+        } else {
+            ScreenState.AuthPinCode(userPrefs.userName ?: userPrefs.userLogin)
+        }
+
         return PincodeViewState(
-            isAvatarVisible = false,
-            title = userPrefs.userName ?: userPrefs.userLogin,
+            screenState = screenState,
             currentPincode = "",
             isPincodeErrorVisible = false,
             pincodeItems = items
@@ -48,12 +55,43 @@ class PincodeViewModel @Inject constructor(
             state.copy(currentPincode = state.currentPincode + number)
         }
 
-        if (state.currentPincode.length == userPrefs.userPincode?.length) {
-            if (state.currentPincode == userPrefs.userPincode) {
-                navigateTo(PincodeFragmentDirections.actionPincodeToMainScreen())
-            } else {
-                state = state.copy(isPincodeErrorVisible = true)
+        if (state.currentPincode.length == PincodeConst.PINCODE_NUMBERS_COUNT) {
+            when (val screenState = state.screenState) {
+
+                ScreenState.NewPinCode -> processNewPincode(
+                    pincode = state.currentPincode
+                )
+
+                is ScreenState.RepeatPinCode -> processRepeatPincode(
+                    pincode = state.currentPincode,
+                    previousPincode = screenState.previousPincode
+                )
+
+                is ScreenState.AuthPinCode -> processAuthPincode(
+                    pincode = state.currentPincode
+                )
             }
+        }
+    }
+
+    private fun processNewPincode(pincode: String) {
+        state = state.copy(screenState = ScreenState.RepeatPinCode(pincode), currentPincode = "")
+    }
+
+    private fun processRepeatPincode(pincode: String, previousPincode: String) {
+        if (pincode == previousPincode) {
+            userPrefs.userPincode = pincode
+            navigateTo(PincodeFragmentDirections.actionPincodeToMainScreen())
+        } else {
+            state = state.copy(isPincodeErrorVisible = true)
+        }
+    }
+
+    private fun processAuthPincode(pincode: String) {
+        if (pincode == userPrefs.userPincode) {
+            navigateTo(PincodeFragmentDirections.actionPincodeToMainScreen())
+        } else {
+            state = state.copy(isPincodeErrorVisible = true)
         }
     }
 }

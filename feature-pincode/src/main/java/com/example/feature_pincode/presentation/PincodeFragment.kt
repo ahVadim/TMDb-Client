@@ -12,6 +12,8 @@ import androidx.lifecycle.ViewModelProvider
 import com.example.core.di.CoreComponentHolder
 import com.example.core.presentation.BaseFragment
 import com.example.core.util.observe
+import com.example.feature_pincode.PincodeConst
+import com.example.feature_pincode.R
 import com.example.feature_pincode.databinding.FragmentPincodeBinding
 import com.example.feature_pincode.di.DaggerPincodeComponent
 import com.xwray.groupie.GroupAdapter
@@ -47,6 +49,7 @@ class PincodeFragment: BaseFragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        binding.pincodeBubbles.setBubblesCount(PincodeConst.PINCODE_NUMBERS_COUNT)
         adapter.setOnItemClickListener { item, _ ->
             profileViewModel.onItemClick(item)
         }
@@ -58,8 +61,13 @@ class PincodeFragment: BaseFragment() {
     private fun renderState(state: PincodeViewState) {
         adapter.update(state.pincodeItems)
 
-        binding.profileName.isVisible = !state.title.isNullOrBlank()
-        binding.profileName.text = state.title
+        when (state.screenState) {
+            ScreenState.NewPinCode -> binding.profileName.setText(R.string.new_pincode_title)
+            is ScreenState.RepeatPinCode -> binding.profileName.setText(R.string.repeat_pincode_title)
+            is ScreenState.AuthPinCode -> binding.profileName.text = state.screenState.userName
+        }
+        binding.profileName.isVisible = !binding.profileName.text.isNullOrBlank()
+        binding.profileAvatar.isVisible = state.screenState is ScreenState.AuthPinCode
 
         binding.pincodeError.isInvisible = !state.isPincodeErrorVisible
 

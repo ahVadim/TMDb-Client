@@ -10,6 +10,8 @@
         android:id="@+id/top_elements_group"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_marginStart="@dimen/margin_16"
+        android:layout_marginEnd="@dimen/margin_16"
         android:gravity="center_horizontal"
         android:orientation="vertical"
         app:layout_constraintBottom_toTopOf="@id/pincode_buttons"
@@ -38,16 +40,13 @@
             android:id="@+id/pincode_bubbles"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="@dimen/margin_24"
-            app:bubbles_count="4"/>
+            android:layout_marginTop="@dimen/margin_24"/>
 
         <TextView
             android:id="@+id/pincode_error"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginStart="@dimen/margin_16"
             android:layout_marginTop="@dimen/margin_16"
-            android:layout_marginEnd="@dimen/margin_16"
             android:gravity="center"
             android:text="@string/incorrect_pincode"
             android:textAppearance="@style/Text.Content1"

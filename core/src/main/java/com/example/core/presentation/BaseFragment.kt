@@ -7,8 +7,11 @@ import androidx.navigation.fragment.findNavController
 import com.example.core.presentation.events.Exit
 import com.example.core.presentation.events.NavEvent
 import com.example.core.presentation.events.ParentNavEvent
+import com.example.core.presentation.events.ShowSnackbar
+import com.example.core.presentation.events.ShowSnackbarResId
 import com.example.core.presentation.events.ToastString
 import com.example.core.presentation.events.ToastStringRes
+import com.google.android.material.snackbar.Snackbar
 
 open class BaseFragment : Fragment() {
 
@@ -19,6 +22,17 @@ open class BaseFragment : Fragment() {
             is ParentNavEvent -> parentFragment?.parentFragment?.findNavController()?.navigate(event.direction)
             is ToastString -> Toast.makeText(context, event.text, Toast.LENGTH_LONG).show()
             is ToastStringRes -> Toast.makeText(context, event.text, Toast.LENGTH_LONG).show()
+            is ShowSnackbar -> view?.let {
+                Snackbar.make(it, event.text, Snackbar.LENGTH_SHORT)
+                    .show()
+            }
+            is ShowSnackbarResId -> view?.let {
+                Snackbar.make(
+                    it,
+                    event.textResId,
+                    Snackbar.LENGTH_SHORT
+                ).show()
+            }
             is Exit -> activity?.finish()
         }
     }

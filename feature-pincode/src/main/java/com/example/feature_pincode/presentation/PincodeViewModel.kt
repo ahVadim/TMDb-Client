@@ -4,8 +4,10 @@ import androidx.lifecycle.MutableLiveData
 import com.example.core.prefs.UserPrefs
 import com.example.core.presentation.BaseViewModel
 import com.example.core.presentation.events.Exit
+import com.example.core.presentation.events.ShowSnackbarResId
 import com.example.core.util.delegate
 import com.example.feature_pincode.PincodeConst
+import com.example.feature_pincode.R
 import com.example.feature_pincode.presentation.events.OpenBiometrics
 import com.example.feature_pincode.presentation.items.DeleteItem
 import com.example.feature_pincode.presentation.items.ExitItem
@@ -105,8 +107,10 @@ class PincodeViewModel @Inject constructor(
     }
 
     fun onBiometricsAuthenticationFailed() {
+        eventsQueue.offer(ShowSnackbarResId(R.string.biometrics_failed_error_text))
     }
 
     fun onBiometricsAuthenticationSucceed() {
+        navigateTo(PincodeFragmentDirections.actionPincodeToMainScreen())
     }
 }

@@ -24,6 +24,7 @@ class PincodeViewModel @Inject constructor(
         items.add(NumberItem(0))
         items.add(FingerprintItem())
         return PincodeViewState(
+            userName = userPrefs.userName ?: userPrefs.userLogin,
             currentPincode = "",
             isPincodeErrorVisible = false,
             pincodeItems = items
@@ -46,8 +47,12 @@ class PincodeViewModel @Inject constructor(
             state.copy(currentPincode = state.currentPincode + number)
         }
 
-        if (state.currentPincode == userPrefs.userPincode) {
-            // navigate next
+        if (state.currentPincode.length == userPrefs.userPincode?.length) {
+            if (state.currentPincode == userPrefs.userPincode) {
+                // navigate next
+            } else {
+                state = state.copy(isPincodeErrorVisible = true)
+            }
         }
     }
 }

@@ -5,6 +5,8 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.core.view.isInvisible
+import androidx.core.view.isVisible
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.ViewModelProvider
 import com.example.core.di.CoreComponentHolder
@@ -54,5 +56,16 @@ class PincodeFragment: BaseFragment() {
 
     private fun renderState(state: PincodeViewState) {
         adapter.update(state.pincodeItems)
+
+        binding.profileName.isVisible = !state.userName.isNullOrBlank()
+        binding.profileName.text = state.userName
+
+        binding.pincodeError.isInvisible = !state.isPincodeErrorVisible
+
+        if (state.isPincodeErrorVisible) {
+            binding.pincodeBubbles.setErrorState()
+        } else {
+            binding.pincodeBubbles.setActiveBubblesCount(state.currentPincode.length)
+        }
     }
 }

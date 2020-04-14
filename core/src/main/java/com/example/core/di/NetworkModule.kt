@@ -2,6 +2,8 @@ package com.example.core.di
 
 import android.net.ConnectivityManager
 import com.example.core.BuildConfig
+import com.example.core.consts.HOST_PATTERN
+import com.example.core.consts.SSL_KEY
 import com.example.core.network.AuthInterceptor
 import com.example.core.network.NetworkErrorInterceptor
 import com.example.core.network.RefreshSessionAuthenticator
@@ -11,6 +13,7 @@ import com.example.core.network.api.SessionApi
 import com.example.core.prefs.UserPrefs
 import dagger.Module
 import dagger.Provides
+import okhttp3.CertificatePinner
 import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
 import retrofit2.Retrofit
@@ -27,7 +30,11 @@ class NetworkModule {
         refreshSessionAuthenticator: RefreshSessionAuthenticator,
         userPrefs: UserPrefs
     ): OkHttpClient {
+        val certificatePinner = CertificatePinner.Builder()
+            .add(HOST_PATTERN, SSL_KEY)
+            .build()
         return OkHttpClient.Builder()
+            .certificatePinner(certificatePinner)
             .addInterceptor(AuthInterceptor(userPrefs))
             .addInterceptor(HttpLoggingInterceptor().apply {
                 if (BuildConfig.DEBUG) {

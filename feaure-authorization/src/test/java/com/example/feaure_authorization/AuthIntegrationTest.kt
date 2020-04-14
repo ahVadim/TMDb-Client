@@ -1,6 +1,6 @@
 package com.example.feaure_authorization
 
-import com.example.core.data.session.RefreshSessionRepository
+import com.example.core.data.session.SessionRepository
 import com.example.core.network.refreshsession.SessionApi
 import com.example.core.prefs.UserPrefs
 import com.example.feaure_authorization.domain.AuthInteractor
@@ -29,7 +29,7 @@ class AuthIntegrationTest : Spek(
             val userPrefs by memoized { mock<UserPrefs>() }
             lateinit var sessionApi: SessionApi
             val refreshSessionRepository by memoized {
-                RefreshSessionRepository(
+                SessionRepository(
                     sessionApi,
                     userPrefs
                 )

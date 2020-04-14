@@ -13,9 +13,6 @@ dependencies {
 
             deps.dagger.dagger,
 
-            deps.moxy.moxy,
-            deps.moxy.androidx,
-
             deps.moshi.moshi,
             deps.logging_interceptor
     )
@@ -29,6 +26,9 @@ dependencies {
             deps.constraintlayout,
             deps.ktx,
 
+            deps.navigation.fragment,
+            deps.navigation.ui,
+
             deps.rxjava,
             deps.rxandroid,
 
@@ -36,7 +36,8 @@ dependencies {
             deps.retrofit.moshi_converter,
             deps.retrofit.rxjava_adapter,
 
-            deps.timber
+            deps.timber,
+            deps.glide
     )
 
     kapt(

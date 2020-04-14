@@ -1,6 +1,6 @@
 package com.example.feaure_authorization.domain
 
-import com.example.core.data.session.RefreshSessionRepository
+import com.example.core.data.session.SessionRepository
 import com.example.core.prefs.UserPrefs
 import com.nhaarman.mockitokotlin2.doReturn
 import com.nhaarman.mockitokotlin2.mock
@@ -22,7 +22,7 @@ object AuthInteractorTest : Spek(
             val testPassword = "testPassword"
             val invalidTestPassword = "invalidTestPassword"
 
-            lateinit var repositoryMock: RefreshSessionRepository
+            lateinit var repositoryMock: SessionRepository
 
             val prefsMock by memoized { mock<UserPrefs>() }
 

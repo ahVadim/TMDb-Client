@@ -10,10 +10,4 @@
         <item name="boxCornerRadiusTopEnd">8dp</item>
         <item name="boxCornerRadiusTopStart">8dp</item>
     </style>
-
-    <style name="AuthButtonStyle" parent="Widget.MaterialComponents.Button">
-        <item name="backgroundTint">@color/auth_button_bg_color</item>
-        <item name="rippleColor">@color/light</item>
-        <item name="cornerRadius">8dp</item>
-    </style>
 </resources>

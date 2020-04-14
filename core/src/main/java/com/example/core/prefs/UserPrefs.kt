@@ -12,4 +12,6 @@ class UserPrefs @Inject constructor(
     var sessionId by StringPreference(key = "sessionId", defValue = null)
     var userLogin by StringPreference(key = "userLogin", defValue = null)
     var userPassword by StringPreference(key = "userPassword", defValue = null)
+
+    fun deleteAllPrefs() = this.edit().clear().apply()
 }

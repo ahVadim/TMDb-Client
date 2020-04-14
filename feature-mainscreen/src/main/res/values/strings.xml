@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="movies">Фильмы</string>
+    <string name="favorites">Избранное</string>
+    <string name="profile">Профиль</string>
+</resources>

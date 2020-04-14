@@ -6,6 +6,6 @@
     <string name="password">Пароль</string>
     <string name="error_try_later">Что-то пошло не так,\nпопробуйте войти позже</string>
     <string name="error_incorrect_auth_data">Неверный логин или пароль</string>
-    <string name="success_authorization">Авторизация упешно пройдена</string>
     <string name="enter">Войти</string>
+    <string name="movies_search">Поиск фильмов</string>
 </resources>

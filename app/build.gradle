@@ -14,20 +14,14 @@ dependencies {
             project(':core'),
             project(':feaure-authorization'),
             project(':feature-mainscreen'),
+            project(':feature-profile'),
 
             deps.dagger.dagger,
-
-            deps.moxy.moxy,
-            deps.moxy.androidx,
-            deps.moxy.ktx,
 
             deps.stetho
     )
 
-    kapt(
-            deps.dagger.processor,
-            deps.moxy.processor
-    )
+    kapt(deps.dagger.processor)
 
     testImplementation(testDependencies)
     androidTestImplementation(androidTestDependencies)

@@ -1,6 +1,6 @@
 package com.example.core.network
 
-import com.example.core.data.session.RefreshSessionRepository
+import com.example.core.data.session.SessionRepository
 import com.example.core.prefs.UserPrefs
 import dagger.Lazy
 import okhttp3.Authenticator
@@ -10,7 +10,7 @@ import okhttp3.Route
 import javax.inject.Inject
 
 class RefreshSessionAuthenticator @Inject constructor(
-    private val refreshSessionRepository: Lazy<RefreshSessionRepository>,
+    private val sessionRepository: Lazy<SessionRepository>,
     private val userPrefs: UserPrefs
 ) : Authenticator {
 
@@ -54,7 +54,7 @@ class RefreshSessionAuthenticator @Inject constructor(
 
     private fun getNewSessionId(): String? {
         return try {
-            refreshSessionRepository.get()
+            sessionRepository.get()
                 .refreshSessionId(
                     userPrefs.userLogin!!,
                     userPrefs.userPassword!!

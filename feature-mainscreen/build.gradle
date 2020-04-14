@@ -10,7 +10,9 @@ dependencies {
     implementation (
             fileTree(dir: 'libs', include: ['*.jar']),
 
-            project(':core')
+            project(':core'),
+            project(':feature-profile'),
+            project(':feature-movieslist')
     )
 
     testImplementation(testDependencies)

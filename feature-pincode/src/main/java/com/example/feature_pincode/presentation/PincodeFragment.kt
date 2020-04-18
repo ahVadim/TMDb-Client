@@ -15,7 +15,6 @@ import com.example.core.di.CoreComponentHolder
 import com.example.core.presentation.BaseFragment
 import com.example.core.presentation.Event
 import com.example.core.util.observe
-import com.example.feature_pincode.PincodeConst
 import com.example.feature_pincode.R
 import com.example.feature_pincode.databinding.FragmentPincodeBinding
 import com.example.feature_pincode.di.DaggerPincodeComponent
@@ -53,7 +52,6 @@ class PincodeFragment: BaseFragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        binding.pincodeBubbles.setBubblesCount(PincodeConst.PINCODE_NUMBERS_COUNT)
         adapter.setOnItemClickListener { item, _ ->
             pincodeViewModel.onItemClick(item)
         }

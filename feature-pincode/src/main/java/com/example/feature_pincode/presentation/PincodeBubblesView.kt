@@ -20,8 +20,6 @@ class PincodeBubblesView @JvmOverloads constructor(
         private const val DEFAULT_BUBBLES_COUNT = 4
     }
 
-    private val bubblesCount: Int
-
     private val activeBubbleDrawable = ContextCompat.getDrawable(
         context,
         R.drawable.pincode_active_bubble_bg
@@ -41,23 +39,14 @@ class PincodeBubblesView @JvmOverloads constructor(
 
     init {
         orientation = HORIZONTAL
-        if (attrs != null) {
-            val typedArray = context.obtainStyledAttributes(attrs, R.styleable.PincodeBubblesView)
-            bubblesCount = typedArray.getInteger(
-                R.styleable.PincodeBubblesView_bubbles_count,
-                DEFAULT_BUBBLES_COUNT
-            )
-            typedArray.recycle()
-        } else {
-            bubblesCount = DEFAULT_BUBBLES_COUNT
-        }
+
+        initVies(resources.getInteger(R.integer.pincode_size))
 
         dividerDrawable = ContextCompat.getDrawable(context, R.drawable.pincode_bubble_divider)
         showDividers = SHOW_DIVIDER_MIDDLE
     }
 
-    fun setBubblesCount(count: Int) {
-        removeAllViews()
+    private fun initVies(count: Int) {
         (0 until count).forEach { _ ->
             val imageView = ImageView(context).apply {
                 layoutParams = ViewGroup.LayoutParams(bubbleSize, bubbleSize)

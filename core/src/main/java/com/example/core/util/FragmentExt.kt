@@ -1,5 +1,7 @@
 package com.example.core.util
 
+import android.app.Activity
+import android.view.inputmethod.InputMethodManager
 import androidx.annotation.MainThread
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.LiveData
@@ -33,4 +35,11 @@ inline fun <reified VM : ViewModel> Fragment.viewModel(
         }
         return@lazy ViewModelProvider(this, factory).get(VM::class.java)
     }
+}
+
+fun Fragment.hideKeyboard() {
+    val inputManager = activity?.getSystemService(Activity.INPUT_METHOD_SERVICE) as? InputMethodManager
+        ?: return
+    val windowToken = view?.rootView?.windowToken
+    inputManager.hideSoftInputFromWindow(windowToken, 0)
 }

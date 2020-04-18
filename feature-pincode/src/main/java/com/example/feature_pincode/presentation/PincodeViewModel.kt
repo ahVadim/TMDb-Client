@@ -21,10 +21,10 @@ class PincodeViewModel @Inject constructor(
     context: Context
 ) : BaseViewModel() {
 
+    private val pincodeSize = context.resources.getInteger(R.integer.pincode_size)
+
     val liveState = MutableLiveData<PincodeViewState>(createInitialState())
     var state by liveState.delegate()
-
-    private val pincodeSize = context.resources.getInteger(R.integer.pincode_size)
 
     private fun createInitialState(): PincodeViewState {
         val screenState = if (userPrefs.userPincode?.length != pincodeSize) {

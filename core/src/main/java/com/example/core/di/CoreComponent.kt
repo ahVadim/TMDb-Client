@@ -10,7 +10,7 @@ import dagger.Component
 import retrofit2.Retrofit
 
 @AppScope
-@Component(modules = [NetworkModule::class, SystemModule::class])
+@Component(modules = [NetworkModule::class, SystemModule::class, SecurePrefsModule::class])
 interface CoreComponent {
 
     @Component.Factory

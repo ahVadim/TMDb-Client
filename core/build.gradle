@@ -45,7 +45,8 @@ dependencies {
 
             deps.lottie,
             deps.mvicorediff,
-            deps.rxkotlin
+            deps.rxkotlin,
+            deps.tink
     )
 
     kapt(

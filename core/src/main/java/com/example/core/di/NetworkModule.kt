@@ -2,8 +2,6 @@ package com.example.core.di
 
 import android.net.ConnectivityManager
 import com.example.core.BuildConfig
-import com.example.core.consts.HOST_PATTERN
-import com.example.core.consts.SSL_KEY
 import com.example.core.network.AuthInterceptor
 import com.example.core.network.NetworkErrorInterceptor
 import com.example.core.network.RefreshSessionAuthenticator
@@ -31,20 +29,23 @@ class NetworkModule {
         userPrefs: UserPrefs
     ): OkHttpClient {
         val certificatePinner = CertificatePinner.Builder()
-            .add(HOST_PATTERN, SSL_KEY)
+            .add(BuildConfig.HOST_PATTERN, BuildConfig.SSL_KEY)
             .build()
-        return OkHttpClient.Builder()
-            .certificatePinner(certificatePinner)
-            .addInterceptor(AuthInterceptor(userPrefs))
-            .addInterceptor(HttpLoggingInterceptor().apply {
+        return OkHttpClient.Builder().apply {
+            if (!BuildConfig.DEBUG) {
+                certificatePinner(certificatePinner)
+            }
+            addInterceptor(AuthInterceptor(userPrefs))
+            addInterceptor(HttpLoggingInterceptor().apply {
                 if (BuildConfig.DEBUG) {
                     setLevel(HttpLoggingInterceptor.Level.BODY)
                 } else {
                     setLevel(HttpLoggingInterceptor.Level.NONE)
                 }
             })
-            .addInterceptor(NetworkErrorInterceptor(connectivityManager))
-            .authenticator(refreshSessionAuthenticator)
+            addInterceptor(NetworkErrorInterceptor(connectivityManager))
+            authenticator(refreshSessionAuthenticator)
+        }
             .build()
     }
 

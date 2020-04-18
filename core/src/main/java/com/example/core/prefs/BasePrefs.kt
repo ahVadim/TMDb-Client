@@ -2,12 +2,13 @@ package com.example.core.prefs
 
 import android.content.Context
 import android.content.SharedPreferences
+import com.ironz.binaryprefs.BinaryPreferencesBuilder
 import kotlin.properties.ReadWriteProperty
 import kotlin.reflect.KProperty
 
 abstract class BasePrefs(
     context: Context, fileName: String
-) : SharedPreferences by context.getSharedPreferences(fileName, Context.MODE_PRIVATE) {
+) : SharedPreferences by BinaryPreferencesBuilder(context).name(fileName).build() {
 
     protected class StringPreference(
         private val key: String,

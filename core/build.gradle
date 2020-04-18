@@ -14,7 +14,8 @@ dependencies {
             deps.dagger.dagger,
 
             deps.moshi.moshi,
-            deps.logging_interceptor
+            deps.logging_interceptor,
+            deps.binaryprefs
     )
 
     api(

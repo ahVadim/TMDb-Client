@@ -1,7 +1,7 @@
-package com.example.feaure_authorization.di
+package com.example.core.di
 
 import javax.inject.Scope
 
 @Scope
 @Retention(AnnotationRetention.RUNTIME)
-annotation class AuthScope
+annotation class AppScope

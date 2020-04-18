@@ -3,14 +3,14 @@ package com.example.core.data.session
 import com.example.core.data.session.dto.CreateSessionRequestDto
 import com.example.core.data.session.dto.DeleteSessionRequestDto
 import com.example.core.data.session.dto.ValidateTokenRequestDto
+import com.example.core.di.AppScope
 import com.example.core.network.refreshsession.SessionApi
 import com.example.core.prefs.UserPrefs
 import io.reactivex.Completable
 import io.reactivex.Single
 import javax.inject.Inject
-import javax.inject.Singleton
 
-@Singleton
+@AppScope
 class SessionRepository @Inject constructor(
     private val sessionApi: SessionApi,
     private val userPrefs: UserPrefs

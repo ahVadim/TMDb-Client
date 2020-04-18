@@ -1,6 +1,7 @@
 package com.example.feature_movieslist.di
 
 import androidx.lifecycle.ViewModel
+import com.example.core.di.FeatureScope
 import com.example.core.di.viewmodel.ViewModelKey
 import com.example.core.di.viewmodel.ViewModelModule
 import com.example.feature_movieslist.network.SearchApi
@@ -19,7 +20,7 @@ abstract class MoviesListModule {
 
         @Provides
         @JvmStatic
-        @MoviesListScope
+        @FeatureScope
         fun provideSessionApi(retrofit: Retrofit): SearchApi {
             return retrofit.create(SearchApi::class.java)
         }

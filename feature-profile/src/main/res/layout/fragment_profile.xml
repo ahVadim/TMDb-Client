@@ -4,15 +4,14 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:background="@color/bg_black">
+    android:layout_height="match_parent">
 
     <ImageView
         android:id="@+id/profile_avatar"
         android:layout_width="136dp"
         android:layout_height="136dp"
         android:contentDescription="@string/user_avatar_description"
-        android:src="@drawable/ic_avatar_placeholder"
+        app:srcCompat="@drawable/ic_avatar_placeholder"
         app:layout_constraintBottom_toTopOf="@id/profile_name"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -28,7 +27,7 @@
         android:layout_marginStart="@dimen/margin_16"
         android:layout_marginEnd="@dimen/margin_16"
         android:gravity="center"
-        android:textColor="@color/light"
+        android:textColor="?attr/colorOnPrimary"
         app:layout_constraintBottom_toTopOf="@id/profile_mail"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -42,7 +41,7 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="@dimen/margin_8"
         android:gravity="center"
-        android:textColor="@color/gray"
+        android:textColor="?attr/colorOnSurface"
         android:layout_marginStart="@dimen/margin_16"
         android:layout_marginEnd="@dimen/margin_16"
         app:layout_constraintBottom_toTopOf="@id/profile_logout_button"
@@ -53,14 +52,12 @@
 
     <Button
         android:id="@+id/profile_logout_button"
-        style="@style/AppButtonStyle"
         android:layout_width="0dp"
         android:layout_height="64dp"
         android:layout_margin="@dimen/margin_16"
-        android:backgroundTint="@color/dark_blue"
+        android:backgroundTint="?attr/colorOnBackgroundSecondary"
         android:text="@string/logout"
-        android:textAppearance="@style/Text.ButtonText"
-        android:textColor="@color/purpure"
+        android:textColor="?attr/colorSecondary"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"/>

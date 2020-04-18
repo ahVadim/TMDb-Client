@@ -14,12 +14,11 @@
         android:label="@string/app_name"
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
-        android:theme="@style/AppTheme">
+        android:theme="@style/Theme.App">
         <activity
             android:name=".presentation.AppActivity"
             android:screenOrientation="portrait"
-            android:theme="@style/AppTheme.Launcher"
-            android:windowSoftInputMode="adjustResize"
+            android:theme="@style/Theme.App.Launcher"
             tools:ignore="LockedOrientationActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN"/>

@@ -1,6 +1,6 @@
 package com.example.feature_movieslist.data
 
-import com.example.feature_movieslist.domain.MovieEntity
+import com.example.core.domain.MovieEntity
 import com.example.feature_movieslist.mapper.MovieMapper
 import com.example.feature_movieslist.network.SearchApi
 import io.reactivex.Single

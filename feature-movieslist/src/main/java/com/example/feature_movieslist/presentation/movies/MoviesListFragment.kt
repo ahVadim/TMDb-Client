@@ -8,16 +8,27 @@ import android.view.ViewGroup
 import androidx.core.widget.doAfterTextChanged
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.ViewModelProvider
+import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.badoo.mvicore.modelWatcher
 import com.example.core.di.CoreComponentHolder
+import com.example.core.domain.MovieEntity
 import com.example.core.presentation.BaseFragment
+import com.example.core.presentation.statedelegate.ListStateDelegate
 import com.example.core.util.observe
 import com.example.feature_movieslist.databinding.FragmentMovieslistBinding
 import com.example.feature_movieslist.di.DaggerMoviesListComponent
-import com.example.feature_movieslist.presentation.list.MoviesAdapter
+import com.example.feature_movieslist.presentation.MovieItemGrid
+import com.example.feature_movieslist.presentation.MovieItemLine
+import com.xwray.groupie.GroupAdapter
+import com.xwray.groupie.GroupieViewHolder
 import javax.inject.Inject
 
 class MoviesListFragment : BaseFragment() {
+
+    companion object {
+        private const val GRID_SPAN_COUNT = 2
+    }
 
     @Inject
     internal lateinit var viewModelFactory: ViewModelProvider.Factory
@@ -26,7 +37,9 @@ class MoviesListFragment : BaseFragment() {
     private var _binding: FragmentMovieslistBinding? = null
     private val binding get() = _binding!!
 
-    lateinit var adapter: MoviesAdapter
+    private var isGridLayout = false
+
+    private val adapter = GroupAdapter<GroupieViewHolder>()
 
     override fun onAttach(context: Context) {
         DaggerMoviesListComponent.factory()
@@ -46,7 +59,6 @@ class MoviesListFragment : BaseFragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        adapter = MoviesAdapter(moviesListViewModel::onMovieClick)
         binding.moviesRecycler.adapter = adapter
         binding.moviesRecycler.layoutManager = LinearLayoutManager(context)
 
@@ -54,12 +66,46 @@ class MoviesListFragment : BaseFragment() {
             moviesListViewModel.onSearchInputTextChange(it?.toString())
         }
 
-        observe(moviesListViewModel.liveState, ::renderState)
+        binding.moviesGridSwitch.setOnClickListener {
+            moviesListViewModel.onSwitchGridClick()
+        }
+
+        observe(moviesListViewModel.liveState, stateWatcher::invoke)
         observe(moviesListViewModel.eventsQueue, ::onEvent)
     }
 
-    private fun renderState(state: MoviesListViewState) {
-        adapter.submitList(state.moviesList)
+    private val stateWatcher = modelWatcher<MoviesListViewState> {
+
+        watch(MoviesListViewState::isGridLayout) { isGrid ->
+            binding.moviesRecycler.layoutManager = if (isGrid) {
+                GridLayoutManager(context, GRID_SPAN_COUNT)
+            } else {
+                LinearLayoutManager(context)
+            }
+        }
+
+        watch({ it }) { viewState ->
+            getStateDelegate { movies -> renderMoviesList(movies, viewState.isGridLayout) }
+                .renderState(viewState.listState)
+        }
+    }
+
+    private fun getStateDelegate(showData: (List<MovieEntity>) -> Unit) = ListStateDelegate(
+        contentView = binding.moviesRecycler,
+        emptyStateView = binding.moviesEmpty,
+        loadingView = binding.moviesProgress,
+        shouldHideContentWhenLoading = false,
+        showData = showData
+    )
+
+    private fun renderMoviesList(movies: List<MovieEntity>, isGrid: Boolean) {
+        adapter.update(movies.map {
+            if (isGrid) {
+                MovieItemGrid(it, moviesListViewModel::onMovieClick)
+            } else {
+                MovieItemLine(it, moviesListViewModel::onMovieClick)
+            }
+        })
     }
 
     override fun onDestroyView() {

@@ -1,7 +1,9 @@
 package com.example.feature_movieslist.presentation.movies
 
-import com.example.feature_movieslist.domain.MovieEntity
+import com.example.core.domain.MovieEntity
+import com.example.core.presentation.statedelegate.ListViewState
 
 data class MoviesListViewState(
-    val moviesList: List<MovieEntity>
+    val listState: ListViewState<MovieEntity>,
+    val isGridLayout: Boolean
 )

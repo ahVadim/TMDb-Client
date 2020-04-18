@@ -5,7 +5,6 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/bg_black"
     android:fillViewport="true">
 
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -16,31 +15,31 @@
 
         <TextView
             android:id="@+id/auth_title"
-            style="@style/Text.H1"
+            android:textAppearance="@style/Text.H1"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="@dimen/auth_title_top_margin"
             android:text="@string/welcome"
-            android:textColor="@color/light"
+            android:textColor="?attr/colorOnPrimary"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"/>
 
         <TextView
             android:id="@+id/auth_subtitle"
-            style="@style/Text.Content1"
+            android:textAppearance="@style/Text.Content1"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="@dimen/margin_24"
             android:text="@string/authorization_subtitle"
-            android:textColor="@color/light"
+            android:textColor="?attr/colorOnPrimary"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/auth_title"/>
 
         <com.google.android.material.textfield.TextInputLayout
             android:id="@+id/auth_login_input_layout"
-            style="@style/AuthTextInputLayoutStyle"
+            style="@style/Widget.App.TextInputLayout.OutlinedBox"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="@dimen/margin_32"
@@ -51,39 +50,37 @@
 
             <com.google.android.material.textfield.TextInputEditText
                 android:id="@+id/auth_login_edit_text"
-                style="@style/Text.Content1"
+                android:textAppearance="@style/Text.Content1"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:imeOptions="actionNext"
                 android:inputType="text"
                 android:maxLines="1"
                 android:nextFocusForward="@id/auth_password_edit_text"
-                android:textColor="@color/light"/>
+                android:textColor="?attr/colorOnPrimary"/>
         </com.google.android.material.textfield.TextInputLayout>
 
         <com.google.android.material.textfield.TextInputLayout
             android:id="@+id/auth_password_input_layout"
-            style="@style/AuthTextInputLayoutStyle"
+            style="@style/Widget.App.TextInputLayout.OutlinedBox.Password"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="@dimen/margin_24"
             android:hint="@string/password"
-            app:endIconMode="password_toggle"
-            app:endIconTint="@color/gray"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/auth_login_input_layout">
 
             <com.google.android.material.textfield.TextInputEditText
                 android:id="@+id/auth_password_edit_text"
-                style="@style/Text.Content1"
+                android:textAppearance="@style/Text.Content1"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:imeOptions="actionNext"
                 android:inputType="textPassword"
                 android:maxLines="1"
                 android:nextFocusForward="@id/auth_login_button"
-                android:textColor="@color/light"/>
+                android:textColor="?attr/colorOnPrimary"/>
         </com.google.android.material.textfield.TextInputLayout>
 
         <TextView
@@ -92,7 +89,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="@dimen/margin_16"
-            android:textColor="@color/red"
+            android:textColor="?attr/colorError"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/auth_password_input_layout"
@@ -100,14 +97,11 @@
 
         <Button
             android:id="@+id/auth_login_button"
-            style="@style/AppButtonStyle"
-            android:backgroundTint="@color/auth_button_bg_color"
             android:layout_width="match_parent"
             android:layout_height="64dp"
             android:layout_marginTop="72dp"
             android:layout_marginBottom="@dimen/margin_12"
             android:text="@string/enter"
-            android:textAppearance="@style/Text.ButtonText"
             android:textColor="@color/auth_button_text"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"

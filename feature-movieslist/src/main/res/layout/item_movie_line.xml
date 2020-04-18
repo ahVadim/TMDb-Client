@@ -4,8 +4,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="wrap_content"
-    tools:background="@color/bg_black">
+    android:layout_height="wrap_content">
 
     <ImageView
         android:id="@+id/movie_poster"
@@ -17,7 +16,7 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        tools:src="@color/light"/>
+        tools:src="@drawable/movie_placeholder"/>
 
     <TextView
         android:id="@+id/movie_title"
@@ -28,7 +27,7 @@
         android:ellipsize="end"
         android:maxLines="1"
         android:textAppearance="@style/Text.H3"
-        android:textColor="@color/light"
+        android:textColor="?attr/colorOnPrimary"
         app:layout_constraintBottom_toTopOf="@id/movie_subtitle"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toEndOf="@id/movie_poster"
@@ -46,7 +45,7 @@
         android:ellipsize="end"
         android:maxLines="1"
         android:textAppearance="@style/Text.Caption2"
-        android:textColor="@color/gray"
+        android:textColor="?attr/colorOnSurface"
         app:layout_constraintBottom_toTopOf="@id/movie_genre"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toEndOf="@id/movie_poster"
@@ -63,7 +62,7 @@
         android:ellipsize="end"
         android:maxLines="1"
         android:textAppearance="@style/Text.Caption2"
-        android:textColor="@color/light"
+        android:textColor="?attr/colorOnPrimary"
         app:layout_constraintBottom_toTopOf="@id/movie_rating"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toEndOf="@id/movie_poster"
@@ -77,10 +76,8 @@
         android:layout_marginStart="@dimen/margin_16"
         android:layout_marginTop="6dp"
         android:layout_marginEnd="@dimen/margin_16"
-        android:fontFamily="sans-serif-medium"
-        android:lineSpacingExtra="8sp"
-        android:textColor="@color/light"
-        android:textSize="16sp"
+        android:textAppearance="@style/Text.H3"
+        android:textColor="?attr/colorOnPrimary"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toEndOf="@id/movie_poster"
         app:layout_constraintTop_toBottomOf="@id/movie_genre"
@@ -91,10 +88,8 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="4dp"
-        android:fontFamily="sans-serif"
-        android:lineSpacingExtra="8sp"
-        android:textColor="@color/gray"
-        android:textSize="12sp"
+        android:textAppearance="@style/Text.Caption2"
+        android:textColor="?attr/colorOnSurface"
         app:layout_constraintBottom_toBottomOf="@id/movie_rating"
         app:layout_constraintStart_toEndOf="@id/movie_rating"
         tools:text="59 286"/>
@@ -103,7 +98,7 @@
         android:layout_width="16dp"
         android:layout_height="16dp"
         android:layout_marginEnd="4dp"
-        android:src="@drawable/ic_duration_icon"
+        app:srcCompat="@drawable/ic_duration_icon"
         app:layout_constraintBottom_toBottomOf="@id/movie_duration"
         app:layout_constraintEnd_toStartOf="@id/movie_duration"
         app:layout_constraintTop_toTopOf="@id/movie_duration"/>
@@ -113,12 +108,10 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="36dp"
-        android:fontFamily="sans-serif-medium"
-        android:lineSpacingExtra="8sp"
-        android:textColor="@color/light"
-        android:textSize="12sp"
+        android:textAppearance="@style/Text.Caption2"
+        android:textColor="?attr/colorOnPrimary"
         app:layout_constraintBottom_toBottomOf="@id/movie_rating"
         app:layout_constraintStart_toEndOf="@id/movie_ratings_count"
-        tools:text="59 286"/>
+        tools:text="103 мин"/>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -1,8 +1,33 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 
-    <style name="AppButtonStyle" parent="Widget.MaterialComponents.Button">
-        <item name="rippleColor">@color/light</item>
+    <style name="Widget.App.Button" parent="Widget.MaterialComponents.Button">
         <item name="cornerRadius">8dp</item>
+        <item name="android:textAppearance">@style/Text.ButtonText</item>
+    </style>
+
+    <style name="ThemeOverlay.App.TextInputEditText.OutlinedBox" parent="ThemeOverlay.MaterialComponents.TextInputEditText.OutlinedBox">
+        <item name="colorControlActivated">?attr/colorOnPrimary</item>
+    </style>
+
+    <style name="Widget.App.TextInputLayout.OutlinedBox" parent="Widget.MaterialComponents.TextInputLayout.OutlinedBox">
+        <item name="materialThemeOverlay">@style/ThemeOverlay.App.TextInputEditText.OutlinedBox
+        </item>
+        <item name="boxStrokeColor">@color/text_input_box_stroke</item>
+        <item name="hintTextColor">?attr/colorOnSurface</item>
+        <item name="boxCornerRadiusBottomEnd">@dimen/input_layout_corner_radius</item>
+        <item name="boxCornerRadiusBottomStart">@dimen/input_layout_corner_radius</item>
+        <item name="boxCornerRadiusTopEnd">@dimen/input_layout_corner_radius</item>
+        <item name="boxCornerRadiusTopStart">@dimen/input_layout_corner_radius</item>
+    </style>
+
+    <style name="Widget.App.TextInputLayout.OutlinedBox.Password">
+        <item name="endIconMode">password_toggle</item>
+    </style>
+
+    <style name="Widget.App.BottomNavigationView" parent="Widget.MaterialComponents.BottomNavigationView">
+        <item name="itemIconTint">@color/bottom_nav_bar_colors</item>
+        <item name="itemTextColor">@color/bottom_nav_bar_colors</item>
+        <item name="android:background">@color/bottom_bar_bg</item>
     </style>
 </resources>

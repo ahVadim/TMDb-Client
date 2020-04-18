@@ -12,7 +12,8 @@ dependencies {
 
             project(':core'),
             project(':feature-profile'),
-            project(':feature-movieslist')
+            project(':feature-movieslist'),
+            project(':feature-moviedetail')
     )
 
     testImplementation(testDependencies)

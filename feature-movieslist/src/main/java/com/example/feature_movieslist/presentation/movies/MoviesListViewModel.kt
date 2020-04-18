@@ -1,12 +1,13 @@
 package com.example.feature_movieslist.presentation.movies
 
 import androidx.lifecycle.MutableLiveData
+import com.example.core.domain.MovieEntity
 import com.example.core.presentation.BaseViewModel
+import com.example.core.presentation.statedelegate.ListViewState
 import com.example.core.rxjava.SchedulersProvider
+import com.example.core.util.delegate
 import com.example.core.util.ioToMain
-import com.example.core.util.onNext
 import com.example.feature_movieslist.data.MoviesSearchRepository
-import com.example.feature_movieslist.domain.MovieEntity
 import io.reactivex.Observable
 import io.reactivex.Single
 import io.reactivex.disposables.Disposables
@@ -23,15 +24,15 @@ class MoviesListViewModel @Inject constructor(
         private const val SEARCH_DEBOUNCE_DELAY_MS = 300L
     }
 
-    var liveState = MutableLiveData<MoviesListViewState>(createInitialState())
+    val liveState = MutableLiveData<MoviesListViewState>(createInitialData())
+    private var state by liveState.delegate()
+
+    private fun createInitialData() = MoviesListViewState(
+        listState = ListViewState.Data(emptyList()),
+        isGridLayout = false
+    )
 
     private var searchDisposable = Disposables.disposed()
-
-    private fun createInitialState(): MoviesListViewState {
-        return MoviesListViewState(
-            emptyList()
-        )
-    }
 
     fun onSearchInputTextChange(text: String?) {
         searchDisposable.dispose()
@@ -44,10 +45,13 @@ class MoviesListViewModel @Inject constructor(
                 }
             }
             .ioToMain(schedulersProvider)
-            .subscribe({ movies ->
-                           liveState.onNext(MoviesListViewState(movies))
+            .map { ListViewState.Data(it) as ListViewState<MovieEntity> }
+            .startWith(ListViewState.Loading())
+            .subscribe({ listState ->
+                           state = state.copy(listState = listState)
                        }, { error ->
                            Timber.e(error)
+                           state = state.copy(listState = ListViewState.Data(emptyList()))
                        })
             .also { addDisposable(it) }
     }
@@ -55,7 +59,11 @@ class MoviesListViewModel @Inject constructor(
     fun onMovieClick(movie: MovieEntity) {
         navigateTo(
             MoviesListFragmentDirections
-                .actionMoviesListFragmentToMovieDetailsFragment(movie.title)
+                .actionMoviesListFragmentToMovieDetailsFragment(movie)
         )
+    }
+
+    fun onSwitchGridClick() {
+        state = state.copy(isGridLayout = !state.isGridLayout)
     }
 }

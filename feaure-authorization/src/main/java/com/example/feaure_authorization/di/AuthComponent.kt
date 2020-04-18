@@ -1,11 +1,12 @@
 package com.example.feaure_authorization.di
 
 import com.example.core.di.CoreComponent
+import com.example.core.di.FeatureScope
 import com.example.feaure_authorization.presentation.AuthFragment
 import dagger.Component
 
 @Component(dependencies = [CoreComponent::class], modules = [AuthModule::class])
-@AuthScope
+@FeatureScope
 interface AuthComponent {
 
     @Component.Factory

@@ -5,24 +5,25 @@ import com.example.core.data.account.AccountRepository
 import com.example.core.data.movies.MoviesRepository
 import com.example.core.domain.MovieEntity
 import com.example.core.presentation.BaseViewModel
+import com.squareup.inject.assisted.Assisted
+import com.squareup.inject.assisted.AssistedInject
 import com.example.core.rxjava.SchedulersProvider
 import com.example.core.util.delegate
 import com.example.core.util.ioToMain
 import io.reactivex.rxkotlin.subscribeBy
 import timber.log.Timber
-import javax.inject.Inject
 
-class MovieDetailsViewModel @Inject constructor(
+class MovieDetailsViewModel @AssistedInject constructor(
     private val moviesRepository: MoviesRepository,
     private val accountRepository: AccountRepository,
-    private val schedulersProvider: SchedulersProvider
+    private val schedulersProvider: SchedulersProvider,
+    @Assisted private val movie: MovieEntity
 ) : BaseViewModel() {
 
-    val liveState = MutableLiveData<MovieDetailsViewState>()
+    val liveState = MutableLiveData(MovieDetailsViewState(movie = movie, isFavorite = false))
     private var state by liveState.delegate()
 
-    fun setMovie(movie: MovieEntity) {
-        state = MovieDetailsViewState(movie = movie, isFavorite = false)
+    init {
         moviesRepository.isMovieFavorite(movie.id)
             .ioToMain(schedulersProvider)
             .subscribeBy(
@@ -47,5 +48,11 @@ class MovieDetailsViewModel @Inject constructor(
                 }
             )
             .let(this::addDisposable)
+    }
+
+    @AssistedInject.Factory
+    interface Factory {
+
+        fun create(movie: MovieEntity): MovieDetailsViewModel
     }
 }

@@ -109,6 +109,18 @@ class PincodeViewModel @Inject constructor(
         }
     }
 
+    fun onBackClick() {
+        when (state.screenState) {
+            ScreenState.NewPinCode -> eventsQueue.offer(Exit)
+            is ScreenState.RepeatPinCode -> state = state.copy(
+                screenState = ScreenState.NewPinCode,
+                currentPincode = "",
+                isPincodeErrorVisible = false
+            )
+            is ScreenState.AuthPinCode -> eventsQueue.offer(Exit)
+        }
+    }
+
     fun onBiometricsAuthenticationFailed() {
         eventsQueue.offer(ShowSnackbarResId(R.string.biometrics_failed_error_text))
     }

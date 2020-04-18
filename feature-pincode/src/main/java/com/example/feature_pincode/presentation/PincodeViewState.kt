@@ -9,12 +9,12 @@ data class PincodeViewState(
     val pincodeItems: List<Item<*>>
 )
 
-sealed class ScreenState {
+sealed class ScreenState(val isBackVisible: Boolean) {
 
-    object NewPinCode : ScreenState()
+    object NewPinCode : ScreenState(isBackVisible = true)
 
-    class RepeatPinCode(val previousPincode: String) : ScreenState()
+    class RepeatPinCode(val previousPincode: String) : ScreenState(isBackVisible = true)
 
-    class AuthPinCode(val userName: String?) : ScreenState()
+    class AuthPinCode(val userName: String?) : ScreenState(isBackVisible = false)
 }
 

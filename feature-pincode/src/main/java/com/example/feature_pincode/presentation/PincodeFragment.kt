@@ -56,6 +56,7 @@ class PincodeFragment: BaseFragment() {
             pincodeViewModel.onItemClick(item)
         }
         binding.pincodeButtons.adapter = adapter
+        binding.backButton.setOnClickListener { pincodeViewModel.onBackClick() }
         observe(pincodeViewModel.liveState, ::renderState)
         observe(pincodeViewModel.eventsQueue, ::onEvent)
     }
@@ -68,6 +69,7 @@ class PincodeFragment: BaseFragment() {
             is ScreenState.RepeatPinCode -> binding.profileName.setText(R.string.repeat_pincode_title)
             is ScreenState.AuthPinCode -> binding.profileName.text = state.screenState.userName
         }
+        binding.backButton.isVisible = state.screenState.isBackVisible
         binding.profileName.isVisible = !binding.profileName.text.isNullOrBlank()
         binding.profileAvatar.isVisible = state.screenState is ScreenState.AuthPinCode
 

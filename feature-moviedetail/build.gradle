@@ -11,11 +11,13 @@ dependencies {
             fileTree(dir: 'libs', include: ['*.jar']),
             project(':core'),
 
-            deps.dagger.dagger
+            deps.dagger.dagger,
+            deps.assistedinject.assistedinject
     )
 
     kapt(
             deps.dagger.processor,
+            deps.assistedinject.processor,
             deps.moshi.codegen
     )
 

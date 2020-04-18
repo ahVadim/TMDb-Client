@@ -3,15 +3,18 @@ package com.example.feature_moviedetail.presentation
 import androidx.lifecycle.MutableLiveData
 import com.example.core.domain.MovieEntity
 import com.example.core.presentation.BaseViewModel
-import com.example.core.util.delegate
-import javax.inject.Inject
+import com.squareup.inject.assisted.Assisted
+import com.squareup.inject.assisted.AssistedInject
 
-class MovieDetailsViewModel @Inject constructor() : BaseViewModel() {
+class MovieDetailsViewModel @AssistedInject constructor(
+    @Assisted private val movie: MovieEntity
+) : BaseViewModel() {
 
-    val liveState = MutableLiveData<MovieDetailsViewState>()
-    private var state by liveState.delegate()
+    val liveState = MutableLiveData(MovieDetailsViewState(movie))
 
-    fun setMovie(movie: MovieEntity) {
-        state = MovieDetailsViewState(movie)
+    @AssistedInject.Factory
+    interface Factory {
+
+        fun create(movie: MovieEntity): MovieDetailsViewModel
     }
 }

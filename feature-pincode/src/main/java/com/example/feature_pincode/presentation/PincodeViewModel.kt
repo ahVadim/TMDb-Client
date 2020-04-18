@@ -1,6 +1,7 @@
 package com.example.feature_pincode.presentation
 
 import android.content.Context
+import androidx.biometric.BiometricManager
 import androidx.lifecycle.MutableLiveData
 import com.example.core.prefs.UserPrefs
 import com.example.core.presentation.BaseViewModel
@@ -18,7 +19,7 @@ import javax.inject.Inject
 
 class PincodeViewModel @Inject constructor(
     private val userPrefs: UserPrefs,
-    context: Context
+    private val context: Context
 ) : BaseViewModel() {
 
     private val pincodeSize = context.resources.getInteger(R.integer.pincode_size)
@@ -33,9 +34,18 @@ class PincodeViewModel @Inject constructor(
             ScreenState.AuthPinCode(userPrefs.userName ?: userPrefs.userLogin)
         }
 
+        val isBiometricAvailable = BiometricManager.from(context)
+            .canAuthenticate() == BiometricManager.BIOMETRIC_SUCCESS
+
         val items = mutableListOf<Item<*>>()
         items.addAll((1..9).map { NumberItem(it) })
-        items.add(if (screenState is ScreenState.AuthPinCode) FingerprintItem() else ExitItem())
+        items.add(
+            if (screenState is ScreenState.AuthPinCode) {
+                FingerprintItem(isBiometricAvailable)
+            } else {
+                ExitItem()
+            }
+        )
         items.add(NumberItem(0))
         items.add(DeleteItem())
 

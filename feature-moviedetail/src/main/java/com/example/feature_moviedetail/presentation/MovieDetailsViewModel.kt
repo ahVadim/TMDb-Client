@@ -5,16 +5,16 @@ import com.example.core.data.account.AccountRepository
 import com.example.core.data.movies.MoviesRepository
 import com.example.core.domain.MovieEntity
 import com.example.core.presentation.BaseViewModel
-import com.squareup.inject.assisted.Assisted
-import com.squareup.inject.assisted.AssistedInject
 import com.example.core.rxjava.SchedulersProvider
 import com.example.core.util.delegate
 import com.example.core.util.ioToMain
+import com.squareup.inject.assisted.Assisted
+import com.squareup.inject.assisted.AssistedInject
 import io.reactivex.rxkotlin.subscribeBy
 import timber.log.Timber
 
 class MovieDetailsViewModel @AssistedInject constructor(
-    private val moviesRepository: MoviesRepository,
+    moviesRepository: MoviesRepository,
     private val accountRepository: AccountRepository,
     private val schedulersProvider: SchedulersProvider,
     @Assisted private val movie: MovieEntity

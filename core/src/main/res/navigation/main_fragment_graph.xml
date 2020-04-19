@@ -4,10 +4,12 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:id="@+id/main_fragment_graph"
     app:startDestination="@id/moviesListFragment">
+
     <fragment
         android:id="@+id/profileFragment"
         android:name="com.example.feature_profile.presentation.ProfileFragment"
         android:label="ProfileFragment"/>
+
     <fragment
         android:id="@+id/moviesListFragment"
         android:name="com.example.feature_movieslist.presentation.movies.MoviesListFragment"
@@ -16,10 +18,16 @@
             android:id="@+id/action_moviesListFragment_to_movieDetailsFragment"
             app:destination="@id/movieDetailsFragment"/>
     </fragment>
+
     <fragment
         android:id="@+id/favoritesListFragment"
         android:name="com.example.feature_movieslist.presentation.favorites.FavoritesListFragment"
-        android:label="FavoritesListFragment"/>
+        android:label="FavoritesListFragment">
+        <action
+            android:id="@+id/action_favoritesListFragment_to_movieDetailsFragment"
+            app:destination="@id/movieDetailsFragment"/>
+    </fragment>
+
     <fragment
         android:id="@+id/movieDetailsFragment"
         android:name="com.example.feature_moviedetail.presentation.MovieDetailsFragment"

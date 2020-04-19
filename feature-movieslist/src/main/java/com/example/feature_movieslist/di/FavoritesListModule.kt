@@ -4,7 +4,7 @@ import androidx.lifecycle.ViewModel
 import com.example.core.di.FeatureScope
 import com.example.core.di.viewmodel.ViewModelKey
 import com.example.core.di.viewmodel.ViewModelModule
-import com.example.feature_movieslist.network.FavoritesApi
+import com.example.feature_movieslist.data.network.FavoritesApi
 import com.example.feature_movieslist.presentation.favorites.FavoritesListViewModel
 import dagger.Binds
 import dagger.Module

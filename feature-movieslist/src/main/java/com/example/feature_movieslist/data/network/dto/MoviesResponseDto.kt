@@ -1,4 +1,4 @@
-package com.example.feature_movieslist.data.dto
+package com.example.feature_movieslist.data.network.dto
 
 import com.squareup.moshi.Json
 import com.squareup.moshi.JsonClass

@@ -11,12 +11,15 @@ dependencies {
             fileTree(dir: 'libs', include: ['*.jar']),
             project(':core'),
 
-            deps.dagger.dagger
+            deps.dagger.dagger,
+            deps.room.room,
+            deps.room.rxjava
     )
 
     kapt(
             deps.dagger.processor,
-            deps.moshi.codegen
+            deps.moshi.codegen,
+            deps.room.compiler
     )
 
     testImplementation(testDependencies)

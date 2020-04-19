@@ -2,11 +2,16 @@ package com.example.feature_movieslist.data.db
 
 import androidx.room.Dao
 import androidx.room.Insert
-import io.reactivex.Completable
+import androidx.room.OnConflictStrategy
+import androidx.room.Query
+import io.reactivex.Observable
 
 @Dao
 interface FavoriteMoviesDao {
 
-    @Insert
-    fun insertAll(movies: List<MovieDb>): Completable
+    @Insert(onConflict = OnConflictStrategy.REPLACE)
+    fun insertAll(movies: List<MovieDb>)
+
+    @Query("SELECT * FROM movie")
+    fun getAll(): Observable<List<MovieDb>>
 }

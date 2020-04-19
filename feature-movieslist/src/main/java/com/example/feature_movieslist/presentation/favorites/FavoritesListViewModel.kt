@@ -29,7 +29,7 @@ class FavoritesListViewModel @Inject constructor(
         favoritesInteractor.getFavorites()
             .ioToMain(schedulersProvider)
             .subscribeBy(
-                onSuccess = { state = state.copy(listState = ListViewState.Data(it)) },
+                onNext = { state = state.copy(listState = ListViewState.Data(it)) },
                 onError = { error ->
                     Timber.e(error)
                     state = state.copy(listState = ListViewState.Data(emptyList()))

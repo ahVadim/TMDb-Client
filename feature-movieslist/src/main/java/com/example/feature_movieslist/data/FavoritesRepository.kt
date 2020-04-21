@@ -23,8 +23,7 @@ class FavoritesRepository @Inject constructor(
     private fun getMoviesFromNetwork(accountId: Int): Completable {
         return favoritesApi.getFavorites(accountId)
             .map { it.results.map(movieMapper::map) }
-            .doOnSuccess { favoriteMoviesDao.insertAll(it.map(movieDbMapper::map)) }
-            .ignoreElement()
+            .flatMapCompletable { favoriteMoviesDao.insertAll(it.map(movieDbMapper::map)) }
             .onErrorComplete()
     }
 

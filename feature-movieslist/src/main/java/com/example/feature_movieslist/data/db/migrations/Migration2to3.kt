@@ -26,7 +26,7 @@ class Migration2to3 : Migration(Migrations.VERSION_2, Migrations.VERSION_3) {
         database.execSQL(
             """
             INSERT INTO new_movie (id, poster_url, title, origin_title, description, genre, rating, rating_count, duration, is_worth_watching)
-            SELECT id, poster_url, title, origin_title, description, genre, rating, rating_count, duration, is_watched FROM ${MovieDb.TABLE_NAME}
+            SELECT id, poster_url, title, origin_title, description, genre, rating, rating_count, duration, rating > 7 FROM ${MovieDb.TABLE_NAME}
         """
         )
 

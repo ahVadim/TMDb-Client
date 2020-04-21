@@ -24,23 +24,28 @@ class FavoritesDbMigrationTest {
         private val MOVIE_ORIGIN_TITLE = "origin_title" to "movie_origin_title"
         private val MOVIE_DESCRIPTION = "description" to "movie_description"
         private val MOVIE_GENRE = "genre" to "movie_genre"
-        private val MOVIE_RATING = "rating" to 4.4
+
+        private const val MOVIE_RATING_LOW_COLUMN_NAME = "rating"
+        private const val MOVIE_RATING_LOW_VALUE = 4.4
+        private const val MOVIE_RATING_HIGH_VALUE = 8.5
+
         private val MOVIE_RATING_COUNT = "rating_count" to 5432
         private val MOVIE_DURATION = "duration" to "movie_duration"
         private val MOVIE_IS_WATCHED_V2 = "is_watched" to false
-        private val MOVIE_IS_WATCHED_V3 = "is_worth_watching" to MOVIE_IS_WATCHED_V2.second
+    }
 
-        private val expectedMovieDb = MovieDb(
+    private fun getExpectedMovieDb(rating: Double): MovieDb {
+        return MovieDb(
             id = MOVIE_ID.second,
             posterUrl = MOVIE_POSTER_URL.second,
             title = MOVIE_TITLE.second,
             originTitle = MOVIE_ORIGIN_TITLE.second,
             description = MOVIE_DESCRIPTION.second,
             genre = MOVIE_GENRE.second,
-            rating = MOVIE_RATING.second,
+            rating = rating,
             ratingCount = MOVIE_RATING_COUNT.second,
             duration = MOVIE_DURATION.second,
-            isWorthWatching = MOVIE_IS_WATCHED_V3.second
+            isWorthWatching = rating > 7.0
         )
     }
 
@@ -52,25 +57,63 @@ class FavoritesDbMigrationTest {
     )
 
     @Test
-    fun testMigrationFromV1() {
+    fun testMigrationFromV1LowRating() {
         val db = helper.createDatabase(TEST_DB, Migrations.VERSION_1)
-        db.insert(MovieDb.TABLE_NAME, SQLiteDatabase.CONFLICT_REPLACE, getV1MovieContentValues())
+        db.insert(
+            MovieDb.TABLE_NAME,
+            SQLiteDatabase.CONFLICT_REPLACE,
+            getV1MovieContentValues(MOVIE_RATING_LOW_VALUE)
+        )
         db.close()
 
         val migratedDatabase = getMigratedRoomDatabase()
         val movieFromDb = migratedDatabase.favoriteMoviesDao().getAll().blockingFirst().first()
-        Assert.assertEquals(expectedMovieDb, movieFromDb)
+        Assert.assertEquals(getExpectedMovieDb(MOVIE_RATING_LOW_VALUE), movieFromDb)
     }
 
     @Test
-    fun testMigrationFromV2() {
-        val db = helper.createDatabase(TEST_DB, Migrations.VERSION_2)
-        db.insert(MovieDb.TABLE_NAME, SQLiteDatabase.CONFLICT_REPLACE, getV2MovieContentValues())
+    fun testMigrationFromV1HighRating() {
+        val db = helper.createDatabase(TEST_DB, Migrations.VERSION_1)
+        db.insert(
+            MovieDb.TABLE_NAME,
+            SQLiteDatabase.CONFLICT_REPLACE,
+            getV1MovieContentValues(MOVIE_RATING_HIGH_VALUE)
+        )
         db.close()
 
         val migratedDatabase = getMigratedRoomDatabase()
         val movieFromDb = migratedDatabase.favoriteMoviesDao().getAll().blockingFirst().first()
-        Assert.assertEquals(expectedMovieDb, movieFromDb)
+        Assert.assertEquals(getExpectedMovieDb(MOVIE_RATING_HIGH_VALUE), movieFromDb)
+    }
+
+    @Test
+    fun testMigrationFromV2LowRating() {
+        val db = helper.createDatabase(TEST_DB, Migrations.VERSION_2)
+        db.insert(
+            MovieDb.TABLE_NAME,
+            SQLiteDatabase.CONFLICT_REPLACE,
+            getV2MovieContentValues(MOVIE_RATING_LOW_VALUE)
+        )
+        db.close()
+
+        val migratedDatabase = getMigratedRoomDatabase()
+        val movieFromDb = migratedDatabase.favoriteMoviesDao().getAll().blockingFirst().first()
+        Assert.assertEquals(getExpectedMovieDb(MOVIE_RATING_LOW_VALUE), movieFromDb)
+    }
+
+    @Test
+    fun testMigrationFromV2HighRating() {
+        val db = helper.createDatabase(TEST_DB, Migrations.VERSION_2)
+        db.insert(
+            MovieDb.TABLE_NAME,
+            SQLiteDatabase.CONFLICT_REPLACE,
+            getV2MovieContentValues(MOVIE_RATING_HIGH_VALUE)
+        )
+        db.close()
+
+        val migratedDatabase = getMigratedRoomDatabase()
+        val movieFromDb = migratedDatabase.favoriteMoviesDao().getAll().blockingFirst().first()
+        Assert.assertEquals(getExpectedMovieDb(MOVIE_RATING_HIGH_VALUE), movieFromDb)
     }
 
     private fun getMigratedRoomDatabase(): FavoriteMoviesDb {
@@ -84,7 +127,7 @@ class FavoritesDbMigrationTest {
         return database
     }
 
-    private fun getV1MovieContentValues(): ContentValues {
+    private fun getV1MovieContentValues(rating: Double): ContentValues {
         return ContentValues().apply {
             put(MOVIE_ID.first, MOVIE_ID.second)
             put(MOVIE_POSTER_URL.first, MOVIE_POSTER_URL.second)
@@ -92,14 +135,14 @@ class FavoritesDbMigrationTest {
             put(MOVIE_ORIGIN_TITLE.first, MOVIE_ORIGIN_TITLE.second)
             put(MOVIE_DESCRIPTION.first, MOVIE_DESCRIPTION.second)
             put(MOVIE_GENRE.first, MOVIE_GENRE.second)
-            put(MOVIE_RATING.first, MOVIE_RATING.second)
+            put(MOVIE_RATING_LOW_COLUMN_NAME, rating)
             put(MOVIE_RATING_COUNT.first, MOVIE_RATING_COUNT.second)
             put(MOVIE_DURATION.first, MOVIE_DURATION.second)
         }
     }
 
-    private fun getV2MovieContentValues(): ContentValues {
-        return getV1MovieContentValues().apply {
+    private fun getV2MovieContentValues(rating: Double): ContentValues {
+        return getV1MovieContentValues(rating).apply {
             put(MOVIE_IS_WATCHED_V2.first, MOVIE_IS_WATCHED_V2.second)
         }
     }

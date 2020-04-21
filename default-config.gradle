@@ -15,6 +15,16 @@ android {
         buildConfigField "String", "API_TOKEN", api_token
         buildConfigField "String", "HOST_PATTERN", host_pattern
         buildConfigField "String", "SSL_KEY", ssl_key
+
+        javaCompileOptions {
+            annotationProcessorOptions {
+                arguments = ["room.schemaLocation":
+                                     "$projectDir/schemas".toString()]
+            }
+        }
+        sourceSets {
+            androidTest.assets.srcDirs += files("$projectDir/schemas".toString())
+        }
     }
 
     viewBinding {

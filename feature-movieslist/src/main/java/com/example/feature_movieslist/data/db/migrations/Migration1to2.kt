@@ -9,7 +9,7 @@ class Migration1to2 : Migration(Migrations.VERSION_1, Migrations.VERSION_2) {
         database.execSQL(
             """
                     ALTER TABLE ${MovieDb.TABLE_NAME} 
-                    ADD COLUMN ${MovieDb.NEW_FIELD_IS_WATCHED_NAME} INTEGER DEFAULT 0 NOT NULL
+                    ADD COLUMN is_watched INTEGER DEFAULT 0 NOT NULL
                     """
         )
     }

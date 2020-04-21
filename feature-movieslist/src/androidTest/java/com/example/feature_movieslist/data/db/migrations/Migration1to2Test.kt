@@ -13,7 +13,7 @@ import org.junit.Assert
 import org.junit.Rule
 import org.junit.Test
 
-class Migration1to2Test {
+class FavoritesDbMigrationTest {
 
     companion object {
         private const val TEST_DB = "migration-test"
@@ -27,7 +27,8 @@ class Migration1to2Test {
         private val MOVIE_RATING = "rating" to 4.4
         private val MOVIE_RATING_COUNT = "rating_count" to 5432
         private val MOVIE_DURATION = "duration" to "movie_duration"
-        private val MOVIE_IS_WATCHED_DEFAULT = MovieDb.NEW_FIELD_IS_WATCHED_NAME to false
+        private val MOVIE_IS_WATCHED_V2 = "is_watched" to false
+        private val MOVIE_IS_WATCHED_V3 = "is_worth_watching" to MOVIE_IS_WATCHED_V2.second
 
         private val expectedMovieDb = MovieDb(
             id = MOVIE_ID.second,
@@ -39,7 +40,7 @@ class Migration1to2Test {
             rating = MOVIE_RATING.second,
             ratingCount = MOVIE_RATING_COUNT.second,
             duration = MOVIE_DURATION.second,
-            isWatched = MOVIE_IS_WATCHED_DEFAULT.second
+            isWorthWatching = MOVIE_IS_WATCHED_V3.second
         )
     }
 
@@ -61,12 +62,23 @@ class Migration1to2Test {
         Assert.assertEquals(expectedMovieDb, movieFromDb)
     }
 
+    @Test
+    fun testMigrationFromV2() {
+        val db = helper.createDatabase(TEST_DB, Migrations.VERSION_2)
+        db.insert(MovieDb.TABLE_NAME, SQLiteDatabase.CONFLICT_REPLACE, getV2MovieContentValues())
+        db.close()
+
+        val migratedDatabase = getMigratedRoomDatabase()
+        val movieFromDb = migratedDatabase.favoriteMoviesDao().getAll().blockingFirst().first()
+        Assert.assertEquals(expectedMovieDb, movieFromDb)
+    }
+
     private fun getMigratedRoomDatabase(): FavoriteMoviesDb {
         val database: FavoriteMoviesDb = Room.databaseBuilder(
             ApplicationProvider.getApplicationContext(),
             FavoriteMoviesDb::class.java, TEST_DB
         )
-            .addMigrations(Migration1to2())
+            .addMigrations(Migration1to2(), Migration2to3())
             .build()
         helper.closeWhenFinished(database)
         return database
@@ -83,6 +95,12 @@ class Migration1to2Test {
             put(MOVIE_RATING.first, MOVIE_RATING.second)
             put(MOVIE_RATING_COUNT.first, MOVIE_RATING_COUNT.second)
             put(MOVIE_DURATION.first, MOVIE_DURATION.second)
+        }
+    }
+
+    private fun getV2MovieContentValues(): ContentValues {
+        return getV1MovieContentValues().apply {
+            put(MOVIE_IS_WATCHED_V2.first, MOVIE_IS_WATCHED_V2.second)
         }
     }
 }

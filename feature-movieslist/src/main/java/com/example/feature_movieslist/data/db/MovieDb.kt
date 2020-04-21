@@ -16,11 +16,10 @@ data class MovieDb(
     @ColumnInfo(name = "rating") val rating: Double,
     @ColumnInfo(name = "rating_count") val ratingCount: Int,
     @ColumnInfo(name = "duration") val duration: String?,
-    @ColumnInfo(name = NEW_FIELD_IS_WATCHED_NAME) val isWatched: Boolean = false
+    @ColumnInfo(name = "is_worth_watching") val isWorthWatching: Boolean = false
 ) {
 
     companion object {
         const val TABLE_NAME = "movie"
-        const val NEW_FIELD_IS_WATCHED_NAME = "is_watched"
     }
 }

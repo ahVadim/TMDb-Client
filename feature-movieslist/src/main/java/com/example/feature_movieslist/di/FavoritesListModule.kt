@@ -9,6 +9,7 @@ import com.example.core.di.viewmodel.ViewModelModule
 import com.example.feature_movieslist.data.db.FavoriteMoviesDao
 import com.example.feature_movieslist.data.db.FavoriteMoviesDb
 import com.example.feature_movieslist.data.db.migrations.Migration1to2
+import com.example.feature_movieslist.data.db.migrations.Migration2to3
 import com.example.feature_movieslist.data.network.FavoritesApi
 import com.example.feature_movieslist.presentation.favorites.FavoritesListViewModel
 import dagger.Binds
@@ -39,7 +40,7 @@ abstract class FavoritesListModule {
                 FavoriteMoviesDb::class.java,
                 "favorites-movies-db"
             )
-                .addMigrations(Migration1to2())
+                .addMigrations(Migration1to2(), Migration2to3())
                 .build()
                 .favoriteMoviesDao()
         }

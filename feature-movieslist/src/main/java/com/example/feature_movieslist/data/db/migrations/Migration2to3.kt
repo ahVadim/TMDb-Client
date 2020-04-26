@@ -2,6 +2,7 @@ package com.example.feature_movieslist.data.db.migrations
 
 import androidx.room.migration.Migration
 import androidx.sqlite.db.SupportSQLiteDatabase
+import com.example.core.consts.MIN_RATING_FOR_WORTH_WATCHING
 import com.example.feature_movieslist.data.db.MovieDb
 
 class Migration2to3 : Migration(Migrations.VERSION_2, Migrations.VERSION_3) {
@@ -26,7 +27,7 @@ class Migration2to3 : Migration(Migrations.VERSION_2, Migrations.VERSION_3) {
         database.execSQL(
             """
             INSERT INTO new_movie (id, poster_url, title, origin_title, description, genre, rating, rating_count, duration, is_worth_watching)
-            SELECT id, poster_url, title, origin_title, description, genre, rating, rating_count, duration, rating > 7 FROM ${MovieDb.TABLE_NAME}
+            SELECT id, poster_url, title, origin_title, description, genre, rating, rating_count, duration, rating > $MIN_RATING_FOR_WORTH_WATCHING FROM ${MovieDb.TABLE_NAME}
         """
         )
 

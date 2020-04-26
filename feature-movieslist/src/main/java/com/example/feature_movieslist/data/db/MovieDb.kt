@@ -16,7 +16,7 @@ data class MovieDb(
     @ColumnInfo(name = "rating") val rating: Double,
     @ColumnInfo(name = "rating_count") val ratingCount: Int,
     @ColumnInfo(name = "duration") val duration: String?,
-    @ColumnInfo(name = "is_worth_watching") val isWorthWatching: Boolean = false
+    @ColumnInfo(name = "is_worth_watching") val isWorthWatching: Boolean
 ) {
 
     companion object {

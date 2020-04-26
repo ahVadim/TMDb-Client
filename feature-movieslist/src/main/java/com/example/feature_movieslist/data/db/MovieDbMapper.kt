@@ -15,7 +15,8 @@ class MovieDbMapper @Inject constructor() {
             genre = movieEntity.genre,
             rating = movieEntity.rating,
             ratingCount = movieEntity.ratingCount,
-            duration = movieEntity.duration
+            duration = movieEntity.duration,
+            isWorthWatching = movieEntity.isWorthWatching
         )
     }
 
@@ -29,7 +30,8 @@ class MovieDbMapper @Inject constructor() {
             genre = movieDb.genre,
             rating = movieDb.rating,
             ratingCount = movieDb.ratingCount,
-            duration = movieDb.duration
+            duration = movieDb.duration,
+            isWorthWatching = movieDb.isWorthWatching
         )
     }
 }

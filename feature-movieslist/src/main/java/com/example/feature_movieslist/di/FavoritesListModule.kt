@@ -38,7 +38,7 @@ abstract class FavoritesListModule {
             return Room.databaseBuilder(
                 context,
                 FavoriteMoviesDb::class.java,
-                "favorites-movies-db"
+                FavoriteMoviesDb.DATABASE_NAME
             )
                 .addMigrations(Migration1to2(), Migration2to3())
                 .build()

@@ -57,7 +57,21 @@ class FavoritesDbMigrationTest {
     )
 
     @Test
-    fun testMigrationFromV1LowRating() {
+    fun whenMigrateFromV1toLatestVersionThenDbSchemeIsValid() {
+        var db = helper.createDatabase(TEST_DB, Migrations.VERSION_1)
+        db.close()
+        db = helper.runMigrationsAndValidate(
+            TEST_DB,
+            Migrations.VERSION_3,
+            true,
+            Migration1to2(),
+            Migration2to3()
+        )
+        db.close()
+    }
+
+    @Test
+    fun whenMigrateFromV1toLatestVersionThenLowRatingMovieChangesAsExpected() {
         val db = helper.createDatabase(TEST_DB, Migrations.VERSION_1)
         db.insert(
             MovieDb.TABLE_NAME,
@@ -72,7 +86,7 @@ class FavoritesDbMigrationTest {
     }
 
     @Test
-    fun testMigrationFromV1HighRating() {
+    fun whenMigrateFromV1toLatestVersionThenHighRatingMovieChangesAsExpected() {
         val db = helper.createDatabase(TEST_DB, Migrations.VERSION_1)
         db.insert(
             MovieDb.TABLE_NAME,
@@ -87,7 +101,15 @@ class FavoritesDbMigrationTest {
     }
 
     @Test
-    fun testMigrationFromV2LowRating() {
+    fun whenMigrateFromV2toLatestVersionThenDbSchemeIsValid() {
+        var db = helper.createDatabase(TEST_DB, Migrations.VERSION_2)
+        db.close()
+        db = helper.runMigrationsAndValidate(TEST_DB, Migrations.VERSION_3, true, Migration2to3())
+        db.close()
+    }
+
+    @Test
+    fun whenMigrateFromV2toLatestVersionThenLowRatingMovieChangesAsExpected() {
         val db = helper.createDatabase(TEST_DB, Migrations.VERSION_2)
         db.insert(
             MovieDb.TABLE_NAME,
@@ -102,7 +124,7 @@ class FavoritesDbMigrationTest {
     }
 
     @Test
-    fun testMigrationFromV2HighRating() {
+    fun whenMigrateFromV2toLatestVersionThenHighRatingMovieChangesAsExpected() {
         val db = helper.createDatabase(TEST_DB, Migrations.VERSION_2)
         db.insert(
             MovieDb.TABLE_NAME,

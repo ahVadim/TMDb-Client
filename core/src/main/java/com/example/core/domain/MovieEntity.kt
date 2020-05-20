@@ -15,5 +15,6 @@ data class MovieEntity(
     val genre: String,
     val rating: Double,
     val ratingCount: Int,
-    val duration: String?
+    val duration: String?,
+    val isWorthWatching: Boolean
 ) : Parcelable

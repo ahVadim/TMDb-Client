@@ -2,6 +2,7 @@ package com.example.core.prefs
 
 import android.content.Context
 import android.content.SharedPreferences
+import com.example.core.BuildConfig
 import com.example.core.di.AppScope
 import com.example.core.prefs.delegates.IntPreference
 import com.example.core.prefs.delegates.StringPreference
@@ -14,11 +15,15 @@ class UserPrefs constructor(
     context: Context,
     aead: Aead,
     daead: DeterministicAead
-) : SharedPreferences by BinaryPreferencesBuilder(context)
-    .keyEncryption(TinkKeyEncryption(daead))
-    .valueEncryption(TinkValueEncryption(aead))
-    .name("user_prefs")
-    .build() {
+) : SharedPreferences by if (BuildConfig.DEBUG) {
+    context.getSharedPreferences("user_prefs", Context.MODE_PRIVATE)
+} else {
+    BinaryPreferencesBuilder(context)
+        .keyEncryption(TinkKeyEncryption(daead))
+        .valueEncryption(TinkValueEncryption(aead))
+        .name("user_prefs")
+        .build()
+} {
 
     var sessionId by StringPreference(
         key = "sessionId",

@@ -4,7 +4,7 @@ import androidx.lifecycle.ViewModel
 import com.example.core.di.FeatureScope
 import com.example.core.di.viewmodel.ViewModelKey
 import com.example.core.di.viewmodel.ViewModelModule
-import com.example.feature_movieslist.network.SearchApi
+import com.example.feature_movieslist.data.network.SearchApi
 import com.example.feature_movieslist.presentation.movies.MoviesListViewModel
 import dagger.Binds
 import dagger.Module

@@ -22,6 +22,10 @@ versions.glide = "4.11.0"
 versions.groupie = "2.8.0"
 versions.lottie = "3.4.0"
 versions.mvicorediff = "1.2.4"
+versions.rxkotlin = "2.4.0"
+versions.biometric = "1.0.1"
+versions.binaryprefs = "1.0.1"
+versions.tink = "1.3.0"
 
 deps.appcompat = "androidx.appcompat:appcompat:$versions.appcompat"
 deps.material = "com.google.android.material:material:$versions.material"
@@ -35,6 +39,10 @@ deps.logging_interceptor = "com.squareup.okhttp3:logging-interceptor:$versions.l
 deps.glide = "com.github.bumptech.glide:glide:$versions.glide"
 deps.lottie = "com.airbnb.android:lottie:$versions.lottie"
 deps.mvicorediff = "com.github.badoo.mvicore:mvicore-diff:$versions.mvicorediff"
+deps.rxkotlin = "io.reactivex.rxjava2:rxkotlin:$versions.rxkotlin"
+deps.biometric = "androidx.biometric:biometric:$versions.biometric"
+deps.binaryprefs = "com.github.yandextaxitech:binaryprefs:$versions.binaryprefs"
+deps.tink = "com.google.crypto.tink:tink-android:$versions.tink"
 
 def kotlin = [:]
 kotlin.stdlib = "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$versions.kotlin"

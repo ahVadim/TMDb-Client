@@ -1,162 +1,192 @@
 <?xml version="1.0" encoding="utf-8"?>
-<ScrollView
+<LinearLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    android:orientation="vertical">
 
-    <androidx.constraintlayout.widget.ConstraintLayout
+    <FrameLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        android:layout_height="56dp">
 
         <ImageView
-            android:id="@+id/movie_poster"
-            android:layout_width="64dp"
-            android:layout_height="96dp"
-            android:layout_marginStart="@dimen/margin_16"
-            android:layout_marginTop="@dimen/margin_12"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            tools:src="?attr/colorOnPrimary"/>
-
-        <TextView
-            android:id="@+id/movie_title"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="@dimen/margin_16"
-            android:layout_marginEnd="@dimen/margin_16"
-            android:ellipsize="end"
-            android:maxLines="2"
-            android:textAppearance="@style/Text.H3"
-            android:textColor="?attr/colorOnPrimary"
-            app:layout_constraintBottom_toTopOf="@id/movie_subtitle"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toEndOf="@id/movie_poster"
-            app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintVertical_chainStyle="packed"
-            tools:text="Удивительное путешествие доктора Дулиттла"/>
-
-        <TextView
-            android:id="@+id/movie_subtitle"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="@dimen/margin_16"
-            android:layout_marginTop="4dp"
-            android:layout_marginEnd="@dimen/margin_16"
-            android:ellipsize="end"
-            android:maxLines="1"
-            android:textAppearance="@style/Text.Caption2"
-            android:textColor="?attr/colorOnSurface"
-            app:layout_constraintBottom_toTopOf="@id/movie_genre"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toEndOf="@id/movie_poster"
-            app:layout_constraintTop_toBottomOf="@id/movie_title"
-            tools:text="Dolittle (2020)"/>
-
-        <TextView
-            android:id="@+id/movie_genre"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="@dimen/margin_16"
-            android:layout_marginTop="4dp"
-            android:layout_marginEnd="@dimen/margin_16"
-            android:ellipsize="end"
-            android:maxLines="1"
-            android:textAppearance="@style/Text.Caption2"
-            android:textColor="?attr/colorOnPrimary"
-            app:layout_constraintBottom_toBottomOf="@id/movie_poster"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toEndOf="@id/movie_poster"
-            app:layout_constraintTop_toBottomOf="@id/movie_subtitle"
-            tools:text="фэнтези, боевик, комедия"/>
-
-        <TextView
-            android:id="@+id/movie_duration_title"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:id="@+id/back_button"
+            android:layout_width="24dp"
+            android:layout_height="24dp"
+            android:layout_gravity="start"
+            android:layout_marginStart="@dimen/margin_24"
             android:layout_marginTop="@dimen/margin_16"
-            android:text="@string/time"
-            android:textAppearance="@style/Text.Caption2"
-            android:textColor="?attr/colorOnSurface"
-            app:layout_constraintStart_toStartOf="@id/movie_poster"
-            app:layout_constraintTop_toBottomOf="@id/movie_poster"/>
+            android:layout_marginBottom="@dimen/margin_16"
+            app:srcCompat="@drawable/ic_arrow_back"/>
 
-        <TextView
-            android:id="@+id/movie_duration"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:textAppearance="@style/Text.H3"
-            android:textColor="?attr/colorOnPrimary"
-            app:layout_constraintStart_toStartOf="@id/movie_duration_title"
-            app:layout_constraintTop_toBottomOf="@id/movie_duration_title"
-            tools:text="91 мин"/>
-
-        <androidx.constraintlayout.widget.Barrier
-            android:id="@+id/duration_barrier"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            app:barrierDirection="end"
-            app:constraint_referenced_ids="movie_duration_title,movie_duration"/>
-
-        <TextView
-            android:id="@+id/movie_rating_title"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="@dimen/margin_36"
+        <ImageView
+            android:id="@+id/add_favorite_button"
+            android:layout_width="24dp"
+            android:layout_height="24dp"
+            android:layout_gravity="end"
             android:layout_marginTop="@dimen/margin_16"
-            android:text="@string/movie_rating"
-            android:textAppearance="@style/Text.Caption2"
-            android:textColor="?attr/colorOnSurface"
-            app:layout_constraintStart_toEndOf="@id/duration_barrier"
-            app:layout_constraintTop_toBottomOf="@id/movie_poster"/>
+            android:layout_marginEnd="@dimen/margin_24"
+            android:layout_marginBottom="@dimen/margin_16"
+            app:srcCompat="@drawable/favorite_icon"/>
+    </FrameLayout>
 
-        <TextView
-            android:id="@+id/movie_rating"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:textAppearance="@style/Text.H3"
-            android:textColor="?attr/colorOnPrimary"
-            app:layout_constraintStart_toStartOf="@id/movie_rating_title"
-            app:layout_constraintTop_toBottomOf="@id/movie_rating_title"
-            tools:text="6.1"/>
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1">
 
-        <TextView
-            android:id="@+id/movie_ratings_count"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="@dimen/margin_4"
-            android:textAppearance="@style/Text.Caption2"
-            android:textColor="?attr/colorOnSurface"
-            app:layout_constraintBottom_toBottomOf="@id/movie_rating"
-            app:layout_constraintStart_toEndOf="@id/movie_rating"
-            tools:text="59 286"/>
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
 
-        <View
-            android:id="@+id/movie_divider"
-            android:layout_width="0dp"
-            android:layout_height="1dp"
-            android:layout_marginTop="@dimen/margin_16"
-            android:background="?attr/colorOnBackgroundSecondary"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/movie_duration"/>
+            <ImageView
+                android:id="@+id/movie_poster"
+                android:layout_width="64dp"
+                android:layout_height="96dp"
+                android:layout_marginStart="@dimen/margin_16"
+                android:layout_marginTop="@dimen/margin_12"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                tools:src="?attr/colorOnPrimary"/>
 
-        <TextView
-            android:id="@+id/movie_description"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="@dimen/margin_16"
-            android:layout_marginTop="@dimen/margin_16"
-            android:layout_marginEnd="@dimen/margin_16"
-            android:textAppearance="@style/Text.Content1"
-            android:textColor="?attr/colorOnPrimary"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/movie_divider"
-            tools:text="Семь лет назад доктор Дулиттл, прославленный врач-ветеринар, живущий в викторианской Англии, потерял свою жену."/>
+            <TextView
+                android:id="@+id/movie_title"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/margin_16"
+                android:layout_marginEnd="@dimen/margin_16"
+                android:ellipsize="end"
+                android:maxLines="2"
+                android:textAppearance="@style/Text.H3"
+                android:textColor="?attr/colorOnPrimary"
+                app:layout_constraintBottom_toTopOf="@id/movie_subtitle"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toEndOf="@id/movie_poster"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintVertical_chainStyle="packed"
+                tools:text="Удивительное путешествие доктора Дулиттла"/>
 
-    </androidx.constraintlayout.widget.ConstraintLayout>
-</ScrollView>
+            <TextView
+                android:id="@+id/movie_subtitle"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/margin_16"
+                android:layout_marginTop="4dp"
+                android:layout_marginEnd="@dimen/margin_16"
+                android:ellipsize="end"
+                android:maxLines="1"
+                android:textAppearance="@style/Text.Caption2"
+                android:textColor="?attr/colorOnSurface"
+                app:layout_constraintBottom_toTopOf="@id/movie_genre"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toEndOf="@id/movie_poster"
+                app:layout_constraintTop_toBottomOf="@id/movie_title"
+                tools:text="Dolittle (2020)"/>
 
+            <TextView
+                android:id="@+id/movie_genre"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/margin_16"
+                android:layout_marginTop="4dp"
+                android:layout_marginEnd="@dimen/margin_16"
+                android:ellipsize="end"
+                android:maxLines="1"
+                android:textAppearance="@style/Text.Caption2"
+                android:textColor="?attr/colorOnPrimary"
+                app:layout_constraintBottom_toBottomOf="@id/movie_poster"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toEndOf="@id/movie_poster"
+                app:layout_constraintTop_toBottomOf="@id/movie_subtitle"
+                tools:text="фэнтези, боевик, комедия"/>
 
+            <TextView
+                android:id="@+id/movie_duration_title"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/margin_16"
+                android:text="@string/time"
+                android:textAppearance="@style/Text.Caption2"
+                android:textColor="?attr/colorOnSurface"
+                app:layout_constraintStart_toStartOf="@id/movie_poster"
+                app:layout_constraintTop_toBottomOf="@id/movie_poster"/>
+
+            <TextView
+                android:id="@+id/movie_duration"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textAppearance="@style/Text.H3"
+                android:textColor="?attr/colorOnPrimary"
+                app:layout_constraintStart_toStartOf="@id/movie_duration_title"
+                app:layout_constraintTop_toBottomOf="@id/movie_duration_title"
+                tools:text="91 мин"/>
+
+            <androidx.constraintlayout.widget.Barrier
+                android:id="@+id/duration_barrier"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                app:barrierDirection="end"
+                app:constraint_referenced_ids="movie_duration_title,movie_duration"/>
+
+            <TextView
+                android:id="@+id/movie_rating_title"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/margin_36"
+                android:layout_marginTop="@dimen/margin_16"
+                android:text="@string/movie_rating"
+                android:textAppearance="@style/Text.Caption2"
+                android:textColor="?attr/colorOnSurface"
+                app:layout_constraintStart_toEndOf="@id/duration_barrier"
+                app:layout_constraintTop_toBottomOf="@id/movie_poster"/>
+
+            <TextView
+                android:id="@+id/movie_rating"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textAppearance="@style/Text.H3"
+                android:textColor="?attr/colorOnPrimary"
+                app:layout_constraintStart_toStartOf="@id/movie_rating_title"
+                app:layout_constraintTop_toBottomOf="@id/movie_rating_title"
+                tools:text="6.1"/>
+
+            <TextView
+                android:id="@+id/movie_ratings_count"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/margin_4"
+                android:textAppearance="@style/Text.Caption2"
+                android:textColor="?attr/colorOnSurface"
+                app:layout_constraintBottom_toBottomOf="@id/movie_rating"
+                app:layout_constraintStart_toEndOf="@id/movie_rating"
+                tools:text="59 286"/>
+
+            <View
+                android:id="@+id/movie_divider"
+                android:layout_width="0dp"
+                android:layout_height="1dp"
+                android:layout_marginTop="@dimen/margin_16"
+                android:background="?attr/colorOnBackgroundSecondary"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/movie_duration"/>
+
+            <TextView
+                android:id="@+id/movie_description"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/margin_16"
+                android:layout_marginTop="@dimen/margin_16"
+                android:layout_marginEnd="@dimen/margin_16"
+                android:textAppearance="@style/Text.Content1"
+                android:textColor="?attr/colorOnPrimary"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/movie_divider"
+                tools:text="Семь лет назад доктор Дулиттл, прославленный врач-ветеринар, живущий в викторианской Англии, потерял свою жену."/>
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+    </ScrollView>
+</LinearLayout>

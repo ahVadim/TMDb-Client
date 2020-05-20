@@ -1,7 +1,7 @@
 package com.example.feaure_authorization
 
 import com.example.core.data.session.SessionRepository
-import com.example.core.network.refreshsession.SessionApi
+import com.example.core.network.api.SessionApi
 import com.example.core.prefs.UserPrefs
 import com.example.feaure_authorization.domain.AuthInteractor
 import com.example.feaure_authorization.network.AuthMockDispatcher

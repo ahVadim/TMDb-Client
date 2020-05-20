@@ -14,7 +14,8 @@ dependencies {
             deps.dagger.dagger,
 
             deps.moshi.moshi,
-            deps.logging_interceptor
+            deps.logging_interceptor,
+            deps.binaryprefs
     )
 
     api(
@@ -43,7 +44,9 @@ dependencies {
             deps.groupie.viewbinding,
 
             deps.lottie,
-            deps.mvicorediff
+            deps.mvicorediff,
+            deps.rxkotlin,
+            deps.tink
     )
 
     kapt(

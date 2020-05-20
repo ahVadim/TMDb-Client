@@ -11,6 +11,10 @@ android {
         versionName "1.0"
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
         vectorDrawables.useSupportLibrary = true
+        buildConfigField "String", "BASE_URL", server_url
+        buildConfigField "String", "API_TOKEN", api_token
+        buildConfigField "String", "HOST_PATTERN", host_pattern
+        buildConfigField "String", "SSL_KEY", ssl_key
     }
 
     viewBinding {
@@ -28,15 +32,10 @@ android {
 
     buildTypes {
         release {
-            minifyEnabled false
+            minifyEnabled true
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
-            buildConfigField "String", "BASE_URL", server_url
-            buildConfigField "String", "API_TOKEN", api_token
         }
 
-        debug {
-            buildConfigField "String", "BASE_URL", server_url
-            buildConfigField "String", "API_TOKEN", api_token
-        }
+        debug
     }
 }

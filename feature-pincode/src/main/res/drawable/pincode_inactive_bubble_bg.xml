@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<shape
+    xmlns:android="http://schemas.android.com/apk/res/android">
+    <size
+        android:width="@dimen/pincode_bubble_size"
+        android:height="@dimen/pincode_bubble_size"/>
+    <solid android:color="?attr/colorOnBackgroundSecondary"/>
+    <corners android:radius="@dimen/pincode_bubble_size"/>
+</shape>

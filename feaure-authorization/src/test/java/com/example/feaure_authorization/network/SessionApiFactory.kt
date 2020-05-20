@@ -3,7 +3,7 @@ package com.example.feaure_authorization.network
 import android.net.ConnectivityManager
 import android.net.NetworkInfo
 import com.example.core.network.NetworkErrorInterceptor
-import com.example.core.network.refreshsession.SessionApi
+import com.example.core.network.api.SessionApi
 import com.nhaarman.mockitokotlin2.doReturn
 import com.nhaarman.mockitokotlin2.mock
 import okhttp3.HttpUrl

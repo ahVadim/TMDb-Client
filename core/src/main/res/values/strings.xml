@@ -8,4 +8,5 @@
     <string name="error_incorrect_auth_data">Неверный логин или пароль</string>
     <string name="enter">Войти</string>
     <string name="movies_search">Поиск фильмов</string>
+    <string name="user_avatar_description">Аватар пользователя</string>
 </resources>

@@ -16,7 +16,7 @@ class AuthViewModel @Inject constructor(
     private val schedulers: SchedulersProvider
 ) : BaseViewModel() {
 
-    var liveState = MutableLiveData<AuthViewState>(createInitialState())
+    val liveState = MutableLiveData<AuthViewState>(createInitialState())
     private var state by liveState.delegate()
 
     private fun createInitialState(): AuthViewState {
@@ -50,7 +50,7 @@ class AuthViewModel @Inject constructor(
             .subscribe({
                            state = state.copy(errorState = AuthErrorState.None)
                            eventsQueue.offer(HideKeyboard)
-                           navigateTo(AuthFragmentDirections.actionAuthToMainScreen())
+                           navigateTo(AuthFragmentDirections.actionAuthToPincode())
                        }, { error ->
                            Timber.e(error)
                            state = when (error) {

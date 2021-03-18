@@ -5,7 +5,6 @@ import com.example.core.data.account.AccountRepository
 import com.example.core.data.movies.MoviesRepository
 import com.example.core.data.session.SessionRepository
 import com.example.core.prefs.UserPrefs
-import com.example.core.util.ResourceUtil
 import dagger.BindsInstance
 import dagger.Component
 import retrofit2.Retrofit
@@ -21,8 +20,6 @@ interface CoreComponent {
     }
 
     fun provideContext(): Context
-
-    fun provideResourceUtil(): ResourceUtil
 
     fun provideRetrofit(): Retrofit
 

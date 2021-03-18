@@ -50,7 +50,9 @@ class MovieDetailsFragment : BaseFragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         binding.addFavoriteButton.setOnClickListener{ movieDetailsViewModel.onAddFavoriteButtonClick() }
+        binding.backButton.setOnClickListener { movieDetailsViewModel.onBackClick() }
         observe(movieDetailsViewModel.liveState, stateWatcher::invoke)
+        observe(movieDetailsViewModel.eventsQueue, this::onEvent)
     }
 
     private val stateWatcher = modelWatcher<MovieDetailsViewState> {

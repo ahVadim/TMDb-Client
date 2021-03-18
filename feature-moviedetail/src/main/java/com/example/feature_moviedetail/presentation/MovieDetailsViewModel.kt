@@ -7,12 +7,11 @@ import com.example.core.data.movies.MoviesRepository
 import com.example.core.domain.MovieEntity
 import com.example.core.presentation.AssistedViewModelFactory
 import com.example.core.presentation.BaseViewModel
+import com.example.core.presentation.events.PopBackStack
 import com.example.core.rxjava.SchedulersProvider
-import com.example.core.util.ResourceUtil
 import com.example.core.util.delegate
 import com.example.core.util.delegateArgument
 import com.example.core.util.ioToMain
-import com.example.feature_moviedetail.R
 import dagger.assisted.Assisted
 import dagger.assisted.AssistedFactory
 import dagger.assisted.AssistedInject
@@ -25,7 +24,6 @@ interface MoviesDetailsAssistedFactory : AssistedViewModelFactory<MovieDetailsVi
 class MovieDetailsViewModel @AssistedInject constructor(
     @Assisted handle: SavedStateHandle,
     moviesRepository: MoviesRepository,
-    resourceUtil: ResourceUtil,
     private val accountRepository: AccountRepository,
     private val schedulersProvider: SchedulersProvider
 ) : BaseViewModel() {
@@ -60,5 +58,9 @@ class MovieDetailsViewModel @AssistedInject constructor(
                 }
             )
             .let(this::addDisposable)
+    }
+
+    fun onBackClick() {
+        eventsQueue.offer(PopBackStack)
     }
 }

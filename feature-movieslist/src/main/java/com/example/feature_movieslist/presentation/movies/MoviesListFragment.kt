@@ -58,7 +58,6 @@ class MoviesListFragment : BaseFragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         binding.moviesRecycler.adapter = adapter
-        binding.moviesRecycler.layoutManager = LinearLayoutManager(context)
 
         binding.searchInputText.doAfterTextChanged {
             moviesListViewModel.onSearchInputTextChange(it?.toString())
@@ -108,6 +107,7 @@ class MoviesListFragment : BaseFragment() {
 
     override fun onDestroyView() {
         _binding = null
+        stateWatcher.clear()
         super.onDestroyView()
     }
 }

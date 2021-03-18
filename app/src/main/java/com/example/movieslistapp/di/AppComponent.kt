@@ -5,7 +5,7 @@ import com.example.movieslistapp.presentation.AppActivity
 import com.example.movieslistapp.presentation.splash.SplashFragment
 import dagger.Component
 
-@Component(dependencies = [CoreComponent::class], modules = [SplashModule::class])
+@Component(dependencies = [CoreComponent::class])
 @MainActivityScope
 interface AppComponent {
 

@@ -14,16 +14,18 @@ import com.example.core.di.CoreComponentHolder
 import com.example.core.presentation.BaseFragment
 import com.example.core.util.changedText
 import com.example.core.util.observe
+import com.example.core.util.viewModelFromProvider
 import com.example.feaure_authorization.R
 import com.example.feaure_authorization.databinding.FragmentAuthorizationBinding
 import com.example.feaure_authorization.di.DaggerAuthComponent
 import javax.inject.Inject
+import javax.inject.Provider
 
 class AuthFragment : BaseFragment() {
 
     @Inject
-    internal lateinit var viewModelFactory: ViewModelProvider.Factory
-    private val authViewModel: AuthViewModel by viewModels { viewModelFactory }
+    internal lateinit var viewModelProvider: Provider<AuthViewModel>
+    private val authViewModel: AuthViewModel by viewModelFromProvider { viewModelProvider }
 
     private var _binding: FragmentAuthorizationBinding? = null
     private val binding get() = _binding!!

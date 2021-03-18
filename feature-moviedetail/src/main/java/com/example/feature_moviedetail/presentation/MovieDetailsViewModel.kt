@@ -30,7 +30,7 @@ class MovieDetailsViewModel @AssistedInject constructor(
     private val schedulersProvider: SchedulersProvider
 ) : BaseViewModel() {
 
-    private val movie: MovieEntity by handle.delegateArgument(resourceUtil.getString(R.string.movie_arg))
+    private val movie: MovieEntity by handle.delegateArgument("movie_arg")
 
     val liveState = MutableLiveData(MovieDetailsViewState(movie = movie, isFavorite = false))
     private var state by liveState.delegate()

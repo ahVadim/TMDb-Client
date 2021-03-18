@@ -5,20 +5,20 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.fragment.app.viewModels
-import androidx.lifecycle.ViewModelProvider
 import com.example.core.di.CoreComponentHolder
 import com.example.core.presentation.BaseFragment
 import com.example.core.util.observe
+import com.example.core.util.viewModelFromProvider
 import com.example.movieslistapp.R
 import com.example.movieslistapp.di.DaggerAppComponent
 import javax.inject.Inject
+import javax.inject.Provider
 
 class SplashFragment : BaseFragment() {
 
     @Inject
-    internal lateinit var viewModelFactory: ViewModelProvider.Factory
-    private val splashViewModel: SplashViewModel by viewModels { viewModelFactory }
+    internal lateinit var viewModelProvider: Provider<SplashViewModel>
+    private val splashViewModel: SplashViewModel by viewModelFromProvider { viewModelProvider }
 
     override fun onAttach(context: Context) {
         DaggerAppComponent.factory()

@@ -15,6 +15,7 @@ import com.example.core.di.CoreComponentHolder
 import com.example.core.presentation.BaseFragment
 import com.example.core.presentation.Event
 import com.example.core.util.observe
+import com.example.core.util.viewModelFromProvider
 import com.example.feature_pincode.R
 import com.example.feature_pincode.databinding.FragmentPincodeBinding
 import com.example.feature_pincode.di.DaggerPincodeComponent
@@ -22,12 +23,13 @@ import com.example.feature_pincode.presentation.events.OpenBiometrics
 import com.xwray.groupie.GroupAdapter
 import com.xwray.groupie.GroupieViewHolder
 import javax.inject.Inject
+import javax.inject.Provider
 
 class PincodeFragment: BaseFragment() {
 
     @Inject
-    internal lateinit var viewModelFactory: ViewModelProvider.Factory
-    private val pincodeViewModel: PincodeViewModel by viewModels { viewModelFactory }
+    internal lateinit var viewModelProvider: Provider<PincodeViewModel>
+    private val pincodeViewModel: PincodeViewModel by viewModelFromProvider { viewModelProvider }
 
     private var _binding: FragmentPincodeBinding? = null
     private val binding get() = _binding!!

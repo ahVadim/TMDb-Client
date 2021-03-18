@@ -12,12 +12,10 @@ dependencies {
             project(':core'),
 
             deps.dagger.dagger,
-            deps.assistedinject.assistedinject
     )
 
     kapt(
             deps.dagger.processor,
-            deps.assistedinject.processor,
             deps.moshi.codegen
     )
 

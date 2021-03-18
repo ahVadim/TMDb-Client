@@ -5,7 +5,7 @@ import com.example.core.di.FeatureScope
 import com.example.feature_pincode.presentation.PincodeFragment
 import dagger.Component
 
-@Component(dependencies = [CoreComponent::class], modules = [PincodeModule::class])
+@Component(dependencies = [CoreComponent::class])
 @FeatureScope
 interface PincodeComponent {
 

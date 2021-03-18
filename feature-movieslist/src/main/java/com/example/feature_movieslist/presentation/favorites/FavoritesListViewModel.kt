@@ -13,8 +13,8 @@ import timber.log.Timber
 import javax.inject.Inject
 
 class FavoritesListViewModel @Inject constructor(
-    private val favoritesInteractor: FavoritesInteractor,
-    private val schedulersProvider: SchedulersProvider
+    favoritesInteractor: FavoritesInteractor,
+    schedulersProvider: SchedulersProvider
 ) : BaseViewModel() {
 
     val liveState = MutableLiveData(createInitialData())

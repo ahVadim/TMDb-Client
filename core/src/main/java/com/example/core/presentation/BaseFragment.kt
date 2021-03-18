@@ -2,6 +2,7 @@ package com.example.core.presentation
 
 import android.widget.Toast
 import androidx.annotation.CallSuper
+import androidx.annotation.LayoutRes
 import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
 import com.example.core.presentation.events.*
@@ -10,7 +11,7 @@ import com.example.core.presentation.events.ParentNavEvent
 import com.google.android.material.snackbar.Snackbar
 import com.example.core.util.hideKeyboard
 
-open class BaseFragment : Fragment() {
+open class BaseFragment(@LayoutRes contentLayoutId: Int) : Fragment(contentLayoutId) {
 
     @CallSuper
     protected open fun onEvent(event: Event) {

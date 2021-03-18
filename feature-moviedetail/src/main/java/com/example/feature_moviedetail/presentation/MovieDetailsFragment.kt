@@ -15,12 +15,13 @@ import com.example.core.domain.MovieEntity
 import com.example.core.presentation.BaseFragment
 import com.example.core.presentation.toSavedStateViewModelFactory
 import com.example.core.util.observe
+import com.example.core.util.viewBindings
 import com.example.feature_moviedetail.R
 import com.example.feature_moviedetail.databinding.FragmentMoviedetailsBinding
 import com.example.feature_moviedetail.di.DaggerMoviesDetailsComponent
 import javax.inject.Inject
 
-class MovieDetailsFragment : BaseFragment() {
+class MovieDetailsFragment : BaseFragment(R.layout.fragment_moviedetails) {
 
     @Inject
     lateinit var viewModelFactory: MoviesDetailsAssistedFactory
@@ -28,23 +29,13 @@ class MovieDetailsFragment : BaseFragment() {
         viewModelFactory.toSavedStateViewModelFactory(this, arguments)
     }
 
-    private var _binding: FragmentMoviedetailsBinding? = null
-    private val binding get() = _binding!!
+    private val binding by viewBindings(FragmentMoviedetailsBinding::bind)
 
     override fun onAttach(context: Context) {
         DaggerMoviesDetailsComponent.factory()
             .create(CoreComponentHolder.coreComponent)
             .inject(this)
         super.onAttach(context)
-    }
-
-    override fun onCreateView(
-        inflater: LayoutInflater,
-        container: ViewGroup?,
-        savedInstanceState: Bundle?
-    ): View? {
-        _binding = FragmentMoviedetailsBinding.inflate(inflater, container, false)
-        return binding.root
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -80,10 +71,5 @@ class MovieDetailsFragment : BaseFragment() {
                 )
                 .into(moviePoster)
         }
-    }
-
-    override fun onDestroyView() {
-        _binding = null
-        super.onDestroyView()
     }
 }

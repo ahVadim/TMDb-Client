@@ -14,7 +14,7 @@ import com.example.movieslistapp.di.DaggerAppComponent
 import javax.inject.Inject
 import javax.inject.Provider
 
-class SplashFragment : BaseFragment() {
+class SplashFragment : BaseFragment(R.layout.fragment_splash) {
 
     @Inject
     internal lateinit var viewModelProvider: Provider<SplashViewModel>
@@ -25,14 +25,6 @@ class SplashFragment : BaseFragment() {
             .create(CoreComponentHolder.coreComponent)
             .inject(this)
         super.onAttach(context)
-    }
-
-    override fun onCreateView(
-        inflater: LayoutInflater,
-        container: ViewGroup?,
-        savedInstanceState: Bundle?
-    ): View? {
-        return inflater.inflate(R.layout.fragment_splash, container, false)
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {

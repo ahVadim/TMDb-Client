@@ -13,6 +13,7 @@ import com.example.core.di.CoreComponentHolder
 import com.example.core.presentation.BaseFragment
 import com.example.core.presentation.Event
 import com.example.core.util.observe
+import com.example.core.util.viewBindings
 import com.example.core.util.viewModelFromProvider
 import com.example.feature_pincode.R
 import com.example.feature_pincode.databinding.FragmentPincodeBinding
@@ -23,14 +24,13 @@ import com.xwray.groupie.GroupieViewHolder
 import javax.inject.Inject
 import javax.inject.Provider
 
-class PincodeFragment: BaseFragment() {
+class PincodeFragment: BaseFragment(R.layout.fragment_pincode) {
 
     @Inject
     internal lateinit var viewModelProvider: Provider<PincodeViewModel>
     private val pincodeViewModel: PincodeViewModel by viewModelFromProvider { viewModelProvider }
 
-    private var _binding: FragmentPincodeBinding? = null
-    private val binding get() = _binding!!
+    private val binding by viewBindings(FragmentPincodeBinding::bind)
 
     private val adapter = GroupAdapter<GroupieViewHolder>()
 
@@ -39,15 +39,6 @@ class PincodeFragment: BaseFragment() {
             .create(CoreComponentHolder.coreComponent)
             .inject(this)
         super.onAttach(context)
-    }
-
-    override fun onCreateView(
-        inflater: LayoutInflater,
-        container: ViewGroup?,
-        savedInstanceState: Bundle?
-    ): View? {
-        _binding = FragmentPincodeBinding.inflate(inflater, container, false)
-        return binding.root
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {

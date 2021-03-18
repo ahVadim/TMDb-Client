@@ -14,6 +14,7 @@ import com.example.core.di.CoreComponentHolder
 import com.example.core.presentation.BaseFragment
 import com.example.core.util.changedText
 import com.example.core.util.observe
+import com.example.core.util.viewBindings
 import com.example.core.util.viewModelFromProvider
 import com.example.feaure_authorization.R
 import com.example.feaure_authorization.databinding.FragmentAuthorizationBinding
@@ -21,14 +22,13 @@ import com.example.feaure_authorization.di.DaggerAuthComponent
 import javax.inject.Inject
 import javax.inject.Provider
 
-class AuthFragment : BaseFragment() {
+class AuthFragment : BaseFragment(R.layout.fragment_authorization) {
 
     @Inject
     internal lateinit var viewModelProvider: Provider<AuthViewModel>
     private val authViewModel: AuthViewModel by viewModelFromProvider { viewModelProvider }
 
-    private var _binding: FragmentAuthorizationBinding? = null
-    private val binding get() = _binding!!
+    private val binding by viewBindings(FragmentAuthorizationBinding::bind)
 
     override fun onAttach(context: Context) {
         DaggerAuthComponent.factory()
@@ -36,15 +36,6 @@ class AuthFragment : BaseFragment() {
             .inject(this)
         super.onAttach(context)
         activity?.window?.setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_ADJUST_RESIZE)
-    }
-
-    override fun onCreateView(
-        inflater: LayoutInflater,
-        container: ViewGroup?,
-        savedInstanceState: Bundle?
-    ): View? {
-        _binding = FragmentAuthorizationBinding.inflate(inflater, container, false)
-        return binding.root
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -67,11 +58,6 @@ class AuthFragment : BaseFragment() {
                 authViewModel.onLoginButtonClick(login, password)
             }
         }
-    }
-
-    override fun onDestroyView() {
-        _binding = null
-        super.onDestroyView()
     }
 
     private fun renderState(state: AuthViewState) {

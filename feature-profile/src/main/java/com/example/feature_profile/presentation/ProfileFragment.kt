@@ -8,35 +8,27 @@ import android.view.ViewGroup
 import com.example.core.di.CoreComponentHolder
 import com.example.core.presentation.BaseFragment
 import com.example.core.util.observe
+import com.example.core.util.viewBindings
 import com.example.core.util.viewModelFromProvider
+import com.example.feature_profile.R
 import com.example.feature_profile.databinding.FragmentProfileBinding
 import com.example.feature_profile.di.DaggerProfileComponent
 import javax.inject.Inject
 import javax.inject.Provider
 
-class ProfileFragment : BaseFragment() {
+class ProfileFragment : BaseFragment(R.layout.fragment_profile) {
 
     @Inject
     internal lateinit var viewModelProvider: Provider<ProfileViewModel>
     private val profileViewModel: ProfileViewModel by viewModelFromProvider { viewModelProvider }
 
-    private var _binding: FragmentProfileBinding? = null
-    private val binding get() = _binding!!
+    private val binding by viewBindings(FragmentProfileBinding::bind)
 
     override fun onAttach(context: Context) {
         DaggerProfileComponent.factory()
             .create(CoreComponentHolder.coreComponent)
             .inject(this)
         super.onAttach(context)
-    }
-
-    override fun onCreateView(
-        inflater: LayoutInflater,
-        container: ViewGroup?,
-        savedInstanceState: Bundle?
-    ): View? {
-        _binding = FragmentProfileBinding.inflate(inflater, container, false)
-        return binding.root
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -49,10 +41,5 @@ class ProfileFragment : BaseFragment() {
     private fun renderState(state: ProfileViewState) {
         binding.profileName.text = state.userName
         binding.profileMail.text = state.userMail
-    }
-
-    override fun onDestroyView() {
-        _binding = null
-        super.onDestroyView()
     }
 }

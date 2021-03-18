@@ -14,7 +14,9 @@ import com.example.core.domain.MovieEntity
 import com.example.core.presentation.BaseFragment
 import com.example.core.presentation.statedelegate.ListStateDelegate
 import com.example.core.util.observe
+import com.example.core.util.viewBindings
 import com.example.core.util.viewModelFromProvider
+import com.example.feature_movieslist.R
 import com.example.feature_movieslist.databinding.FragmentMovieslistBinding
 import com.example.feature_movieslist.di.DaggerMoviesListComponent
 import com.example.feature_movieslist.presentation.MovieItemGrid
@@ -24,7 +26,7 @@ import com.xwray.groupie.GroupieViewHolder
 import javax.inject.Inject
 import javax.inject.Provider
 
-class MoviesListFragment : BaseFragment() {
+class MoviesListFragment : BaseFragment(R.layout.fragment_movieslist) {
 
     companion object {
         private const val GRID_SPAN_COUNT = 2
@@ -34,8 +36,7 @@ class MoviesListFragment : BaseFragment() {
     internal lateinit var viewModelProvider: Provider<MoviesListViewModel>
     private val moviesListViewModel: MoviesListViewModel by viewModelFromProvider { viewModelProvider }
 
-    private var _binding: FragmentMovieslistBinding? = null
-    private val binding get() = _binding!!
+    private val binding by viewBindings(FragmentMovieslistBinding::bind)
 
     private val adapter = GroupAdapter<GroupieViewHolder>()
 
@@ -44,15 +45,6 @@ class MoviesListFragment : BaseFragment() {
             .create(CoreComponentHolder.coreComponent)
             .inject(this)
         super.onAttach(context)
-    }
-
-    override fun onCreateView(
-        inflater: LayoutInflater,
-        container: ViewGroup?,
-        savedInstanceState: Bundle?
-    ): View? {
-        _binding = FragmentMovieslistBinding.inflate(inflater, container, false)
-        return binding.root
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -106,7 +98,6 @@ class MoviesListFragment : BaseFragment() {
     }
 
     override fun onDestroyView() {
-        _binding = null
         stateWatcher.clear()
         super.onDestroyView()
     }

@@ -5,7 +5,7 @@ import com.example.core.di.FeatureScope
 import com.example.feature_moviedetail.presentation.MovieDetailsFragment
 import dagger.Component
 
-@Component(dependencies = [CoreComponent::class], modules = [MovieDetailsModule::class])
+@Component(dependencies = [CoreComponent::class])
 @FeatureScope
 interface MoviesDetailsComponent {
 

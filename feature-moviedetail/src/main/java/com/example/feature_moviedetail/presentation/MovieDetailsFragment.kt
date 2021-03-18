@@ -5,7 +5,7 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.navigation.fragment.navArgs
+import androidx.fragment.app.viewModels
 import com.badoo.mvicore.modelWatcher
 import com.bumptech.glide.Glide
 import com.bumptech.glide.load.resource.bitmap.RoundedCorners
@@ -13,8 +13,8 @@ import com.bumptech.glide.request.RequestOptions
 import com.example.core.di.CoreComponentHolder
 import com.example.core.domain.MovieEntity
 import com.example.core.presentation.BaseFragment
+import com.example.core.presentation.toSavedStateViewModelFactory
 import com.example.core.util.observe
-import com.example.core.util.viewModel
 import com.example.feature_moviedetail.R
 import com.example.feature_moviedetail.databinding.FragmentMoviedetailsBinding
 import com.example.feature_moviedetail.di.DaggerMoviesDetailsComponent
@@ -22,12 +22,10 @@ import javax.inject.Inject
 
 class MovieDetailsFragment : BaseFragment() {
 
-    private val args: MovieDetailsFragmentArgs by navArgs()
-
     @Inject
-    lateinit var viewModelFactory: MovieDetailsViewModel.Factory
-    private val movieDetailsViewModel: MovieDetailsViewModel by viewModel {
-        viewModelFactory.create(args.movieEntity)
+    lateinit var viewModelFactory: MoviesDetailsAssistedFactory
+    private val movieDetailsViewModel: MovieDetailsViewModel by viewModels {
+        viewModelFactory.toSavedStateViewModelFactory(this, arguments)
     }
 
     private var _binding: FragmentMoviedetailsBinding? = null

@@ -33,7 +33,7 @@
         android:name="com.example.feature_moviedetail.presentation.MovieDetailsFragment"
         android:label="MovieDetailsFragment">
         <argument
-            android:name="movieEntity"
+            android:name="@string/movie_arg"
             app:argType="com.example.core.domain.MovieEntity"/>
     </fragment>
 </navigation>

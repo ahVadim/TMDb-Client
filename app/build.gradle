@@ -1,6 +1,5 @@
 apply plugin: 'com.android.application'
 apply plugin: 'kotlin-android'
-apply plugin: 'kotlin-android-extensions'
 apply plugin: 'kotlin-kapt'
 
 apply from: rootProject.file('default-config.gradle')
@@ -18,7 +17,6 @@ dependencies {
             project(':feature-pincode'),
 
             deps.dagger.dagger,
-
             deps.stetho
     )
 

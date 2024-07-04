@@ -7,7 +7,6 @@ import com.example.core.di.AppScope
 import com.example.core.di.DispatcherIO
 import com.example.core.network.api.SessionApi
 import com.example.core.prefs.UserPrefs
-import io.reactivex.Completable
 import kotlinx.coroutines.CoroutineDispatcher
 import kotlinx.coroutines.withContext
 import javax.inject.Inject
@@ -38,9 +37,11 @@ class SessionRepository @Inject constructor(
         }
     }
 
-    fun deleteSession(): Completable {
-        val sessionId = userPrefs.sessionId ?: return Completable.complete()
-        return sessionApi.deleteSession(DeleteSessionRequestDto(sessionId))
-            .doOnComplete { userPrefs.deleteAllPrefs() }
+    suspend fun deleteSession() {
+        withContext(dispatcherIO) {
+            val sessionId = userPrefs.sessionId ?: return@withContext
+            sessionApi.deleteSession(DeleteSessionRequestDto(sessionId))
+            userPrefs.deleteAllPrefs()
+        }
     }
 }

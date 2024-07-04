@@ -1,20 +1,19 @@
 package com.example.feature_profile.presentation
 
 import androidx.lifecycle.MutableLiveData
+import androidx.lifecycle.viewModelScope
 import com.example.core.data.session.SessionRepository
 import com.example.core.presentation.BaseViewModel
-import com.example.core.rxjava.SchedulersProvider
-import com.example.core.util.ioToMain
+import com.example.core.util.runCatchingCancellable
 import com.example.feature_mainscreen.MainScreenFragmentDirections
-import timber.log.Timber
+import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 class ProfileViewModel @Inject constructor(
-    private val sessionRepository: SessionRepository,
-    private val schedulersProvider: SchedulersProvider
+    private val sessionRepository: SessionRepository
 ) : BaseViewModel() {
 
-    val liveState = MutableLiveData<ProfileViewState>(createInitialState())
+    val liveState = MutableLiveData(createInitialState())
 
     private fun createInitialState(): ProfileViewState {
         return ProfileViewState(
@@ -24,15 +23,13 @@ class ProfileViewModel @Inject constructor(
     }
 
     fun onLogoutButtonClick() {
-        sessionRepository.deleteSession()
-            .ioToMain(schedulersProvider)
-            .subscribe({
-                           parentNavigateTo(
-                               MainScreenFragmentDirections.actionMainScreenToAuth()
-                           )
-                       }, { error ->
-                Timber.e(error)
-            })
-            .let(this::addDisposable)
+        viewModelScope.launch {
+            runCatchingCancellable(
+                action = { sessionRepository.deleteSession() },
+                onSuccess = {
+                    parentNavigateTo(MainScreenFragmentDirections.actionMainScreenToAuth())
+                }
+            )
+        }
     }
 }

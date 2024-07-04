@@ -31,12 +31,8 @@ dependencies {
             deps.navigation.fragment,
             deps.navigation.ui,
 
-            deps.rxjava,
-            deps.rxandroid,
-
             deps.retrofit.retrofit,
             deps.retrofit.moshi_converter,
-            deps.retrofit.rxjava_adapter,
 
             deps.timber,
             deps.glide,
@@ -46,7 +42,6 @@ dependencies {
 
             deps.lottie,
             deps.mvicorediff,
-            deps.rxkotlin,
             deps.tink
     )
 

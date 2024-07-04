@@ -5,8 +5,6 @@ import com.example.core.data.session.dto.CreateSessionResponseDto
 import com.example.core.data.session.dto.DeleteSessionRequestDto
 import com.example.core.data.session.dto.RequestTokenResponseDto
 import com.example.core.data.session.dto.ValidateTokenRequestDto
-import io.reactivex.Completable
-import io.reactivex.Single
 import retrofit2.http.Body
 import retrofit2.http.GET
 import retrofit2.http.HTTP
@@ -24,5 +22,5 @@ interface SessionApi {
     suspend fun createSession(@Body request: CreateSessionRequestDto): CreateSessionResponseDto
 
     @HTTP(method = "DELETE", path = "authentication/session", hasBody = true)
-    fun deleteSession(@Body request: DeleteSessionRequestDto): Completable
+    suspend fun deleteSession(@Body request: DeleteSessionRequestDto)
 }

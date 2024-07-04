@@ -15,13 +15,13 @@ import retrofit2.http.POST
 interface SessionApi {
 
     @GET("authentication/token/new")
-    fun getRequestToken(): Single<RequestTokenResponseDto>
+    suspend fun getRequestToken(): RequestTokenResponseDto
 
     @POST("authentication/token/validate_with_login")
-    fun validateRequestTokenWithLogin(@Body request: ValidateTokenRequestDto): Single<RequestTokenResponseDto>
+    suspend fun validateRequestTokenWithLogin(@Body request: ValidateTokenRequestDto): RequestTokenResponseDto
 
     @POST("authentication/session/new")
-    fun createSession(@Body request: CreateSessionRequestDto): Single<CreateSessionResponseDto>
+    suspend fun createSession(@Body request: CreateSessionRequestDto): CreateSessionResponseDto
 
     @HTTP(method = "DELETE", path = "authentication/session", hasBody = true)
     fun deleteSession(@Body request: DeleteSessionRequestDto): Completable

@@ -2,20 +2,20 @@ package com.example.feature_moviedetail.presentation
 
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.SavedStateHandle
+import androidx.lifecycle.viewModelScope
 import com.example.core.data.account.AccountRepository
 import com.example.core.data.movies.MoviesRepository
 import com.example.core.domain.MovieEntity
 import com.example.core.presentation.AssistedViewModelFactory
 import com.example.core.presentation.BaseViewModel
 import com.example.core.presentation.events.PopBackStack
-import com.example.core.rxjava.SchedulersProvider
 import com.example.core.util.delegate
 import com.example.core.util.delegateArgument
-import com.example.core.util.ioToMain
 import dagger.assisted.Assisted
 import dagger.assisted.AssistedFactory
 import dagger.assisted.AssistedInject
-import io.reactivex.rxkotlin.subscribeBy
+import kotlinx.coroutines.CoroutineExceptionHandler
+import kotlinx.coroutines.launch
 import timber.log.Timber
 
 @AssistedFactory
@@ -25,7 +25,6 @@ class MovieDetailsViewModel @AssistedInject constructor(
     @Assisted handle: SavedStateHandle,
     moviesRepository: MoviesRepository,
     private val accountRepository: AccountRepository,
-    private val schedulersProvider: SchedulersProvider
 ) : BaseViewModel() {
 
     private val movie: MovieEntity by handle.delegateArgument("movie_arg")
@@ -33,31 +32,30 @@ class MovieDetailsViewModel @AssistedInject constructor(
     val liveState = MutableLiveData(MovieDetailsViewState(movie = movie, isFavorite = false))
     private var state by liveState.delegate()
 
+    private val defaultExceptionHandler =
+        CoroutineExceptionHandler { _, throwable -> Timber.e(throwable) }
+
     init {
-        moviesRepository.isMovieFavorite(movie.id)
-            .ioToMain(schedulersProvider)
-            .subscribeBy(
-                onSuccess = { state = state.copy(isFavorite = it) },
-                onError = Timber::e
-            )
-            .let(this::addDisposable)
+        viewModelScope.launch(defaultExceptionHandler) {
+            val isFavorite = moviesRepository.isMovieFavorite(movie.id)
+            state = state.copy(isFavorite = isFavorite)
+        }
     }
 
     fun onAddFavoriteButtonClick() {
         val newIsFavorite = !state.isFavorite
         state = state.copy(isFavorite = newIsFavorite)
-        accountRepository.setMovieIsFavorite(
-            movieId = state.movie.id,
-            isFavorite = newIsFavorite
-        )
-            .ioToMain(schedulersProvider)
-            .subscribeBy(
-                onError = { error ->
-                    Timber.e(error)
-                    state = state.copy(isFavorite = !newIsFavorite)
-                }
-            )
-            .let(this::addDisposable)
+        viewModelScope.launch {
+            runCatching {
+                accountRepository.setMovieIsFavorite(
+                    movieId = state.movie.id,
+                    isFavorite = newIsFavorite
+                )
+            }.onFailure { error ->
+                Timber.e(error)
+                state = state.copy(isFavorite = !newIsFavorite)
+            }
+        }
     }
 
     fun onBackClick() {

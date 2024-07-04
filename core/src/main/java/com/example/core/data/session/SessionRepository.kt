@@ -4,40 +4,38 @@ import com.example.core.data.session.dto.CreateSessionRequestDto
 import com.example.core.data.session.dto.DeleteSessionRequestDto
 import com.example.core.data.session.dto.ValidateTokenRequestDto
 import com.example.core.di.AppScope
+import com.example.core.di.DispatcherIO
 import com.example.core.network.api.SessionApi
 import com.example.core.prefs.UserPrefs
 import io.reactivex.Completable
-import io.reactivex.Single
+import kotlinx.coroutines.CoroutineDispatcher
+import kotlinx.coroutines.withContext
 import javax.inject.Inject
 
 @AppScope
 class SessionRepository @Inject constructor(
     private val sessionApi: SessionApi,
-    private val userPrefs: UserPrefs
+    private val userPrefs: UserPrefs,
+    @DispatcherIO private val dispatcherIO: CoroutineDispatcher
 ) {
 
-    fun refreshSessionId(login: String, password: String): Single<String> {
-        return sessionApi.getRequestToken()
-            .map { it.requestToken }
-            .flatMap { requestToken ->
-                sessionApi.validateRequestTokenWithLogin(
-                    ValidateTokenRequestDto(
-                        username = login,
-                        password = password,
-                        requestToken = requestToken
-                    )
-                )
-            }
-            .map { it.requestToken }
-            .flatMap { validatedRequestToken ->
-                sessionApi.createSession(
-                    CreateSessionRequestDto(validatedRequestToken)
-                )
-            }
-            .map { it.sessionId }
-            .doOnSuccess { sessionId ->
-                userPrefs.sessionId = sessionId
-            }
+    suspend fun refreshSessionId(login: String, password: String): String {
+        return withContext(dispatcherIO) {
+            val requestToken = sessionApi.getRequestToken().requestToken
+
+            val validateTokenRequest = ValidateTokenRequestDto(
+                username = login,
+                password = password,
+                requestToken = requestToken
+            )
+            val validatedRequestToken =
+                sessionApi.validateRequestTokenWithLogin(validateTokenRequest).requestToken
+
+            val createSessionRequest = CreateSessionRequestDto(validatedRequestToken)
+            val sessionId = sessionApi.createSession(createSessionRequest).sessionId
+            userPrefs.sessionId = sessionId
+            return@withContext sessionId
+        }
     }
 
     fun deleteSession(): Completable {

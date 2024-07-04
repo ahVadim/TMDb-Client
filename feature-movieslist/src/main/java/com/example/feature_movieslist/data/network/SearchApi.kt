@@ -8,5 +8,5 @@ import retrofit2.http.Query
 interface SearchApi {
 
     @GET("search/movie")
-    fun searchMovie(@Query("query") query: String): Single<MoviesResponseDto>
+    suspend fun searchMovie(@Query("query") query: String): MoviesResponseDto
 }

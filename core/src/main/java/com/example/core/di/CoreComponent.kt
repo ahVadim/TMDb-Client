@@ -7,10 +7,11 @@ import com.example.core.data.session.SessionRepository
 import com.example.core.prefs.UserPrefs
 import dagger.BindsInstance
 import dagger.Component
+import kotlinx.coroutines.CoroutineDispatcher
 import retrofit2.Retrofit
 
 @AppScope
-@Component(modules = [NetworkModule::class, SystemModule::class, SecurePrefsModule::class])
+@Component(modules = [NetworkModule::class, SystemModule::class, SecurePrefsModule::class, DispatcherModule::class])
 interface CoreComponent {
 
     @Component.Factory
@@ -20,6 +21,8 @@ interface CoreComponent {
     }
 
     fun provideContext(): Context
+    @DispatcherIO
+    fun providesDispatcherIO(): CoroutineDispatcher
 
     fun provideRetrofit(): Retrofit
 

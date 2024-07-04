@@ -3,6 +3,7 @@ package com.example.core.network
 import com.example.core.data.session.SessionRepository
 import com.example.core.prefs.UserPrefs
 import dagger.Lazy
+import kotlinx.coroutines.runBlocking
 import okhttp3.Authenticator
 import okhttp3.Request
 import okhttp3.Response
@@ -54,11 +55,13 @@ class RefreshSessionAuthenticator @Inject constructor(
 
     private fun getNewSessionId(): String? {
         return try {
-            sessionRepository.get()
-                .refreshSessionId(
-                    userPrefs.userLogin!!,
-                    userPrefs.userPassword!!
-                ).blockingGet()
+            runBlocking {
+                sessionRepository.get()
+                    .refreshSessionId(
+                        login = requireNotNull(userPrefs.userLogin),
+                        password = requireNotNull(userPrefs.userPassword)
+                    )
+            }
         } catch (e: Exception) {
             null
         }

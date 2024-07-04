@@ -1,22 +1,21 @@
 package com.example.feaure_authorization.presentation
 
 import androidx.lifecycle.MutableLiveData
+import androidx.lifecycle.viewModelScope
 import com.example.core.exceptions.AuthException
 import com.example.core.presentation.BaseViewModel
 import com.example.core.presentation.events.HideKeyboard
-import com.example.core.rxjava.SchedulersProvider
 import com.example.core.util.delegate
-import com.example.core.util.ioToMain
+import com.example.core.util.runCatchingCancellable
 import com.example.feaure_authorization.domain.AuthInteractor
-import timber.log.Timber
+import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 class AuthViewModel @Inject constructor(
     private val authInteractor: AuthInteractor,
-    private val schedulers: SchedulersProvider
 ) : BaseViewModel() {
 
-    val liveState = MutableLiveData<AuthViewState>(createInitialState())
+    val liveState = MutableLiveData(createInitialState())
     private var state by liveState.delegate()
 
     private fun createInitialState(): AuthViewState {
@@ -45,26 +44,33 @@ class AuthViewModel @Inject constructor(
     }
 
     fun onLoginButtonClick(login: String, password: String) {
-        authInteractor.authorize(login, password)
-            .ioToMain(schedulers)
-            .subscribe({
-                           state = state.copy(errorState = AuthErrorState.None)
-                           eventsQueue.offer(HideKeyboard)
-                           navigateTo(AuthFragmentDirections.actionAuthToPincode())
-                       }, { error ->
-                           Timber.e(error)
-                           state = when (error) {
-                               is AuthException -> {
-                                   state.copy(
-                                       errorState = AuthErrorState.IncorrectData,
-                                       isLoginButtonEnabled = false
-                                   )
-                               }
-                               else -> {
-                                   state.copy(errorState = AuthErrorState.TryLater)
-                               }
-                           }
-                       })
-            .let(this::addDisposable)
+        viewModelScope.launch {
+            runCatchingCancellable(
+                action = { authInteractor.authorize(login, password) },
+                onSuccess = {
+                    state = state.copy(errorState = AuthErrorState.None)
+                    eventsQueue.offer(HideKeyboard)
+                    navigateTo(AuthFragmentDirections.actionAuthToPincode())
+                },
+                onError = { error ->
+                    state = getErrorState(error)
+                }
+            )
+        }
+    }
+
+    private fun getErrorState(error: Throwable): AuthViewState {
+        return when (error) {
+            is AuthException -> {
+                state.copy(
+                    errorState = AuthErrorState.IncorrectData,
+                    isLoginButtonEnabled = false
+                )
+            }
+
+            else -> {
+                state.copy(errorState = AuthErrorState.TryLater)
+            }
+        }
     }
 }

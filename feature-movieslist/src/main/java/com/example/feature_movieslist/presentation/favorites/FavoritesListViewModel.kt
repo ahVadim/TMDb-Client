@@ -1,20 +1,19 @@
 package com.example.feature_movieslist.presentation.favorites
 
 import androidx.lifecycle.MutableLiveData
+import androidx.lifecycle.viewModelScope
 import com.example.core.domain.MovieEntity
 import com.example.core.presentation.BaseViewModel
 import com.example.core.presentation.statedelegate.ListViewState
-import com.example.core.rxjava.SchedulersProvider
 import com.example.core.util.delegate
-import com.example.core.util.ioToMain
 import com.example.feature_movieslist.domain.FavoritesInteractor
-import io.reactivex.rxkotlin.subscribeBy
+import kotlinx.coroutines.flow.catch
+import kotlinx.coroutines.launch
 import timber.log.Timber
 import javax.inject.Inject
 
 class FavoritesListViewModel @Inject constructor(
     favoritesInteractor: FavoritesInteractor,
-    schedulersProvider: SchedulersProvider
 ) : BaseViewModel() {
 
     val liveState = MutableLiveData(createInitialData())
@@ -26,16 +25,16 @@ class FavoritesListViewModel @Inject constructor(
     )
 
     init {
-        favoritesInteractor.getFavorites()
-            .ioToMain(schedulersProvider)
-            .subscribeBy(
-                onNext = { state = state.copy(listState = ListViewState.Data(it)) },
-                onError = { error ->
+        viewModelScope.launch {
+            favoritesInteractor.getFavorites()
+                .catch { error ->
                     Timber.e(error)
                     state = state.copy(listState = ListViewState.Data(emptyList()))
                 }
-            )
-            .let(this::addDisposable)
+                .collect {
+                    state = state.copy(listState = ListViewState.Data(it))
+                }
+        }
     }
 
     fun onSearchInputTextChange(text: String?) {

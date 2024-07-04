@@ -8,5 +8,5 @@ import retrofit2.http.Path
 interface FavoritesApi {
 
     @GET("account/{account_id}/favorite/movies")
-    fun getFavorites(@Path("account_id") accountId: Int): Single<MoviesResponseDto>
+    suspend fun getFavorites(@Path("account_id") accountId: Int): MoviesResponseDto
 }

@@ -4,15 +4,23 @@ import androidx.room.Dao
 import androidx.room.Insert
 import androidx.room.OnConflictStrategy
 import androidx.room.Query
-import io.reactivex.Completable
-import io.reactivex.Observable
+import androidx.room.Transaction
+import kotlinx.coroutines.flow.Flow
 
 @Dao
 interface FavoriteMoviesDao {
 
+    @Transaction
+    suspend fun clearAndInsertAll(movies: List<MovieDb>) {
+        clear()
+        insertAll(movies)
+    }
+
+    @Query("DELETE FROM movie")
+    suspend fun clear()
     @Insert(onConflict = OnConflictStrategy.REPLACE)
-    fun insertAll(movies: List<MovieDb>): Completable
+    suspend fun insertAll(movies: List<MovieDb>)
 
     @Query("SELECT * FROM movie")
-    fun getAll(): Observable<List<MovieDb>>
+    fun getAll(): Flow<List<MovieDb>>
 }

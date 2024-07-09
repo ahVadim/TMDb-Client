@@ -1,11 +1,9 @@
 package com.example.feaure_authorization.presentation
 
-import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.viewModelScope
 import com.example.core.exceptions.AuthException
 import com.example.core.presentation.BaseViewModel
 import com.example.core.presentation.events.HideKeyboard
-import com.example.core.util.delegate
 import com.example.core.util.runCatchingCancellable
 import com.example.feaure_authorization.domain.AuthInteractor
 import kotlinx.coroutines.launch
@@ -13,19 +11,14 @@ import javax.inject.Inject
 
 class AuthViewModel @Inject constructor(
     private val authInteractor: AuthInteractor,
-) : BaseViewModel() {
-
-    val liveState = MutableLiveData(createInitialState())
-    private var state by liveState.delegate()
-
-    private fun createInitialState(): AuthViewState {
-        return AuthViewState(
-            login = null,
-            password = null,
-            errorState = AuthErrorState.None,
-            isLoginButtonEnabled = false
-        )
-    }
+) : BaseViewModel<AuthViewState>(
+    initialState = AuthViewState(
+        login = null,
+        password = null,
+        errorState = AuthErrorState.None,
+        isLoginButtonEnabled = false
+    )
+) {
 
     fun onLoginChange(login: String?) {
         state = state.copy(
@@ -49,7 +42,7 @@ class AuthViewModel @Inject constructor(
                 action = { authInteractor.authorize(login, password) },
                 onSuccess = {
                     state = state.copy(errorState = AuthErrorState.None)
-                    eventsQueue.offer(HideKeyboard)
+                    sendEvent(HideKeyboard)
                     navigateTo(AuthFragmentDirections.actionAuthToPincode())
                 },
                 onError = { error ->

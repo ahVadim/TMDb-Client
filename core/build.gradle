@@ -23,8 +23,7 @@ dependencies {
             deps.kotlin.coroutines,
             deps.appcompat,
             deps.material,
-            deps.fragment.fragment,
-            deps.fragment.ktx,
+            deps.fragment,
             deps.constraintlayout,
             deps.ktx,
 
@@ -52,4 +51,8 @@ dependencies {
 
     testImplementation(testDependencies)
     androidTestImplementation(androidTestDependencies)
+}
+
+android {
+    namespace 'com.example.core'
 }

@@ -6,7 +6,7 @@ import javax.inject.Inject
 
 class SplashViewModel @Inject constructor(
     userPrefs: UserPrefs
-) : BaseViewModel() {
+) : BaseViewModel<Unit>(Unit) {
 
     init {
         if (userPrefs.sessionId.isNullOrBlank()) {
@@ -15,4 +15,5 @@ class SplashViewModel @Inject constructor(
             navigateTo(SplashFragmentDirections.actionSplashToPincode())
         }
     }
+
 }

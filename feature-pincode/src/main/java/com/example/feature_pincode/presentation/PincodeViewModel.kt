@@ -2,12 +2,10 @@ package com.example.feature_pincode.presentation
 
 import android.content.Context
 import androidx.biometric.BiometricManager
-import androidx.lifecycle.MutableLiveData
 import com.example.core.prefs.UserPrefs
 import com.example.core.presentation.BaseViewModel
 import com.example.core.presentation.events.Exit
 import com.example.core.presentation.events.ShowSnackbarResId
-import com.example.core.util.delegate
 import com.example.feature_pincode.R
 import com.example.feature_pincode.presentation.events.OpenBiometrics
 import com.example.feature_pincode.presentation.items.DeleteItem
@@ -17,45 +15,49 @@ import com.example.feature_pincode.presentation.items.NumberItem
 import com.xwray.groupie.Item
 import javax.inject.Inject
 
+private fun createInitialState(
+    userPrefs: UserPrefs,
+    context: Context
+): PincodeViewState {
+    val pincodeSize = context.resources.getInteger(R.integer.pincode_size)
+    val screenState = if (userPrefs.userPincode?.length != pincodeSize) {
+        ScreenState.NewPinCode
+    } else {
+        ScreenState.AuthPinCode(userPrefs.userName ?: userPrefs.userLogin)
+    }
+
+    val isBiometricAvailable = BiometricManager.from(context)
+        .canAuthenticate() == BiometricManager.BIOMETRIC_SUCCESS
+
+    val items = mutableListOf<Item<*>>()
+    items.addAll((1..9).map { NumberItem(it) })
+    items.add(
+        if (screenState is ScreenState.AuthPinCode) {
+            FingerprintItem(isBiometricAvailable)
+        } else {
+            ExitItem()
+        }
+    )
+    items.add(NumberItem(0))
+    items.add(DeleteItem())
+
+    return PincodeViewState(
+        screenState = screenState,
+        currentPincode = "",
+        isPincodeErrorVisible = false,
+        pincodeItems = items
+    )
+}
+
+// todo: refactor context and createInitialState
 class PincodeViewModel @Inject constructor(
     private val userPrefs: UserPrefs,
-    private val context: Context
-) : BaseViewModel() {
+    context: Context,
+) : BaseViewModel<PincodeViewState>(
+    initialState = createInitialState(userPrefs, context)
+) {
 
     private val pincodeSize = context.resources.getInteger(R.integer.pincode_size)
-
-    val liveState = MutableLiveData<PincodeViewState>(createInitialState())
-    var state by liveState.delegate()
-
-    private fun createInitialState(): PincodeViewState {
-        val screenState = if (userPrefs.userPincode?.length != pincodeSize) {
-            ScreenState.NewPinCode
-        } else {
-            ScreenState.AuthPinCode(userPrefs.userName ?: userPrefs.userLogin)
-        }
-
-        val isBiometricAvailable = BiometricManager.from(context)
-            .canAuthenticate() == BiometricManager.BIOMETRIC_SUCCESS
-
-        val items = mutableListOf<Item<*>>()
-        items.addAll((1..9).map { NumberItem(it) })
-        items.add(
-            if (screenState is ScreenState.AuthPinCode) {
-                FingerprintItem(isBiometricAvailable)
-            } else {
-                ExitItem()
-            }
-        )
-        items.add(NumberItem(0))
-        items.add(DeleteItem())
-
-        return PincodeViewState(
-            screenState = screenState,
-            currentPincode = "",
-            isPincodeErrorVisible = false,
-            pincodeItems = items
-        )
-    }
 
     fun onItemClick(item: Item<*>) {
         when (item) {
@@ -64,8 +66,9 @@ class PincodeViewModel @Inject constructor(
                 currentPincode = state.currentPincode.dropLast(1),
                 isPincodeErrorVisible = false
             )
-            is FingerprintItem -> eventsQueue.offer(OpenBiometrics)
-            is ExitItem -> eventsQueue.offer(Exit)
+
+            is FingerprintItem -> sendEvent(OpenBiometrics)
+            is ExitItem -> sendEvent(Exit)
         }
     }
 
@@ -121,18 +124,19 @@ class PincodeViewModel @Inject constructor(
 
     fun onBackClick() {
         when (state.screenState) {
-            ScreenState.NewPinCode -> eventsQueue.offer(Exit)
+            ScreenState.NewPinCode -> sendEvent(Exit)
             is ScreenState.RepeatPinCode -> state = state.copy(
                 screenState = ScreenState.NewPinCode,
                 currentPincode = "",
                 isPincodeErrorVisible = false
             )
-            is ScreenState.AuthPinCode -> eventsQueue.offer(Exit)
+
+            is ScreenState.AuthPinCode -> sendEvent(Exit)
         }
     }
 
     fun onBiometricsAuthenticationFailed() {
-        eventsQueue.offer(ShowSnackbarResId(R.string.biometrics_failed_error_text))
+        sendEvent(ShowSnackbarResId(R.string.biometrics_failed_error_text))
     }
 
     fun onBiometricsAuthenticationSucceed() {

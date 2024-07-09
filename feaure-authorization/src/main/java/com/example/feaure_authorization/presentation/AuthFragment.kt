@@ -2,18 +2,14 @@ package com.example.feaure_authorization.presentation
 
 import android.content.Context
 import android.os.Bundle
-import android.view.LayoutInflater
 import android.view.View
-import android.view.ViewGroup
 import android.view.WindowManager
 import androidx.core.view.isVisible
 import androidx.core.widget.doAfterTextChanged
-import androidx.fragment.app.viewModels
-import androidx.lifecycle.ViewModelProvider
 import com.example.core.di.CoreComponentHolder
 import com.example.core.presentation.BaseFragment
 import com.example.core.util.changedText
-import com.example.core.util.observe
+import com.example.core.util.observeUiUpdates
 import com.example.core.util.viewBindings
 import com.example.core.util.viewModelFromProvider
 import com.example.feaure_authorization.R
@@ -41,8 +37,11 @@ class AuthFragment : BaseFragment(R.layout.fragment_authorization) {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        observe(authViewModel.liveState, ::renderState)
-        observe(authViewModel.eventsQueue, ::onEvent)
+        observeUiUpdates(
+            stateOwner = authViewModel,
+            stateCollector = ::renderState,
+            eventCollector = ::onEvent
+        )
 
         binding.authLoginEditText.doAfterTextChanged {
             authViewModel.onLoginChange(it.toString())

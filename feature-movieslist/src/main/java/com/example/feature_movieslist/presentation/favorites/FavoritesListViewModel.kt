@@ -1,11 +1,9 @@
 package com.example.feature_movieslist.presentation.favorites
 
-import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.viewModelScope
 import com.example.core.domain.MovieEntity
 import com.example.core.presentation.BaseViewModel
 import com.example.core.presentation.statedelegate.ListViewState
-import com.example.core.util.delegate
 import com.example.feature_movieslist.domain.FavoritesInteractor
 import kotlinx.coroutines.flow.catch
 import kotlinx.coroutines.launch
@@ -14,16 +12,12 @@ import javax.inject.Inject
 
 class FavoritesListViewModel @Inject constructor(
     favoritesInteractor: FavoritesInteractor,
-) : BaseViewModel() {
-
-    val liveState = MutableLiveData(createInitialData())
-    private var state by liveState.delegate()
-
-    private fun createInitialData() = FavoritesListViewState(
+) : BaseViewModel<FavoritesListViewState>(
+    initialState = FavoritesListViewState(
         listState = ListViewState.Loading(),
         isGridLayout = false
     )
-
+) {
     init {
         viewModelScope.launch {
             favoritesInteractor.getFavorites()

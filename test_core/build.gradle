@@ -7,3 +7,7 @@ dependencies {
     implementation fileTree(dir: 'libs', include: ['*.jar'])
     implementation project(':core')
 }
+
+android {
+    namespace 'com.example.test_core'
+}

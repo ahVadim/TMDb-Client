@@ -23,3 +23,7 @@ dependencies {
     testImplementation(testDependencies)
     androidTestImplementation(androidTestDependencies)
 }
+
+android {
+    namespace 'com.example.feature_movieslist'
+}

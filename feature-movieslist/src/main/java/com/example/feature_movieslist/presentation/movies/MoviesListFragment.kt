@@ -2,9 +2,7 @@ package com.example.feature_movieslist.presentation.movies
 
 import android.content.Context
 import android.os.Bundle
-import android.view.LayoutInflater
 import android.view.View
-import android.view.ViewGroup
 import androidx.core.widget.doAfterTextChanged
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -13,7 +11,7 @@ import com.example.core.di.CoreComponentHolder
 import com.example.core.domain.MovieEntity
 import com.example.core.presentation.BaseFragment
 import com.example.core.presentation.statedelegate.ListStateDelegate
-import com.example.core.util.observe
+import com.example.core.util.observeUiUpdates
 import com.example.core.util.viewBindings
 import com.example.core.util.viewModelFromProvider
 import com.example.feature_movieslist.R
@@ -59,8 +57,11 @@ class MoviesListFragment : BaseFragment(R.layout.fragment_movieslist) {
             moviesListViewModel.onSwitchGridClick()
         }
 
-        observe(moviesListViewModel.liveState, stateWatcher::invoke)
-        observe(moviesListViewModel.eventsQueue, ::onEvent)
+        observeUiUpdates(
+            stateOwner = moviesListViewModel,
+            stateCollector = stateWatcher::invoke,
+            eventCollector = ::onEvent
+        )
     }
 
     private val stateWatcher = modelWatcher<MoviesListViewState> {

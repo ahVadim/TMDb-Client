@@ -1,6 +1,5 @@
 package com.example.feature_profile.presentation
 
-import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.viewModelScope
 import com.example.core.data.session.SessionRepository
 import com.example.core.presentation.BaseViewModel
@@ -11,16 +10,12 @@ import javax.inject.Inject
 
 class ProfileViewModel @Inject constructor(
     private val sessionRepository: SessionRepository
-) : BaseViewModel() {
-
-    val liveState = MutableLiveData(createInitialState())
-
-    private fun createInitialState(): ProfileViewState {
-        return ProfileViewState(
-            userName = "Mick Wick",
-            userMail = "examle@mail.com"
-        )
-    }
+) : BaseViewModel<ProfileViewState>(
+    initialState = ProfileViewState(
+        userName = "Mick Wick",
+        userMail = "examle@mail.com"
+    )
+) {
 
     fun onLogoutButtonClick() {
         viewModelScope.launch {

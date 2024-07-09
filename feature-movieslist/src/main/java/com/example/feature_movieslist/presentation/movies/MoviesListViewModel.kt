@@ -1,11 +1,9 @@
 package com.example.feature_movieslist.presentation.movies
 
-import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.viewModelScope
 import com.example.core.domain.MovieEntity
 import com.example.core.presentation.BaseViewModel
 import com.example.core.presentation.statedelegate.ListViewState
-import com.example.core.util.delegate
 import com.example.core.util.runCatchingCancellable
 import com.example.feature_movieslist.data.MoviesSearchRepository
 import kotlinx.coroutines.Job
@@ -15,19 +13,16 @@ import javax.inject.Inject
 
 class MoviesListViewModel @Inject constructor(
     private val moviesSearchRepository: MoviesSearchRepository,
-) : BaseViewModel() {
+) : BaseViewModel<MoviesListViewState>(
+    initialState = MoviesListViewState(
+        listState = ListViewState.Data(emptyList()),
+        isGridLayout = false
+    )
+) {
 
     companion object {
         private const val SEARCH_DEBOUNCE_DELAY_MS = 300L
     }
-
-    val liveState = MutableLiveData(createInitialData())
-    private var state by liveState.delegate()
-
-    private fun createInitialData() = MoviesListViewState(
-        listState = ListViewState.Data(emptyList()),
-        isGridLayout = false
-    )
 
     private var searchJob: Job? = null
 
